@@ -110,7 +110,7 @@
   /* ---------- Balance sheet ---------- */
   (function () {
     var bs = $('bs'), info = $('bsinfo'), cur = null;
-    var txt = { plan: 'การวางแผนทางการเงิน ครอบคลุมทั้งสองด้านของงบดุล: วิเคราะห์ พยากรณ์ และจัดทำงบการเงิน',
+    var txt = { plan: 'การวางแผนทางการเงิน ครอบคลุมทั้งสองด้านของงบฐานะการเงิน: วิเคราะห์ พยากรณ์ และจัดทำงบการเงิน',
       inv: 'การลงทุน: ตัดสินใจว่าจะถือสินทรัพย์ชนิดใดและเท่าใด (ด้านสินทรัพย์)',
       fin: 'การหาเงินทุน: ตัดสินใจว่าจะหาเงินจากหนี้สินหรือส่วนของผู้ถือหุ้น (ด้านหนี้สินและส่วนของผู้ถือหุ้น)' };
     Array.prototype.forEach.call(document.querySelectorAll('[data-role]'), function (b) {
@@ -163,7 +163,7 @@
       function x(i) { return L + (W - L - R) * i / n; } function y(v) { return H - B - (H - B - T) * v / 5; }
       var s = '';
       for (var g = 0; g <= 5; g++) { s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(g) + '" y2="' + y(g) + '" stroke="#DCE6E2"/><text x="' + (L - 6) + '" y="' + (y(g) + 4) + '" text-anchor="end" font-size="11" fill="#58706A">' + g + '</text>'; }
-      s += '<text x="' + (W / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="#58706A">จำนวนปีที่ทอย</text>';
+      s += '<text x="' + (W / 2) + '" y="' + (H - 6) + '" text-anchor="middle" font-size="11" fill="#58706A">จำนวนปีที่จำลอง</text>';
       s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(2.5) + '" y2="' + y(2.5) + '" stroke="#7B4AA0" stroke-dasharray="5 4"/><text x="' + (W - R) + '" y="' + (y(2.5) - 4) + '" text-anchor="end" font-size="11" fill="#7B4AA0">ABC คาดหวัง 2.50</text>';
       s += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + y(4) + '" y2="' + y(4) + '" stroke="#2BA6A0" stroke-dasharray="5 4"/><text x="' + (W - R) + '" y="' + (y(4) - 4) + '" text-anchor="end" font-size="11" fill="#2BA6A0">XYZ คาดหวัง 4.00</text>';
       var pa = [], px = [], sa = 0, sx = 0;
@@ -174,7 +174,7 @@
       }
       svg.innerHTML = s;
       var fb = $('rkfb'), ta = rounds.reduce(function (a, b) { return a + b; }, 0), tx = rounds.length * 4;
-      $('rk-sc').textContent = rounds.length ? 'ทอยแล้ว ' + rounds.length + ' ปี' : '';
+      $('rk-sc').textContent = rounds.length ? 'จำลองแล้ว ' + rounds.length + ' ปี' : '';
       if (!rounds.length) { fb.className = 'feedback'; fb.textContent = 'เส้นม่วง = EPS เฉลี่ยของ ABC · เส้นทีล = EPS เฉลี่ยของ XYZ'; return; }
       var mine = pick === 'A' ? ta : pick === 'X' ? tx : null;
       fb.className = 'feedback' + (mine !== null ? (mine >= (pick === 'A' ? tx : ta) ? ' ok' : ' bad') : '');

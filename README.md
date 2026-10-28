@@ -20,3 +20,11 @@ ch1-overview/         บทที่ 1 (index.html + ch1.js)
 แล้วเปลี่ยนการ์ดบทนั้นในหน้าแรกจาก `div.off` เป็นลิงก์ `a.on`
 
 ระบบนี้ไม่เก็บข้อมูลนักศึกษาหรือคะแนนใด ๆ
+
+## โหมดอาจารย์ / ให้นักศึกษาตามหน้า (Supabase Realtime)
+1. สร้างโปรเจกต์ฟรีที่ supabase.com แล้วคัดลอก Project URL และ anon/publishable key (Project Settings > API)
+2. เปิด https://wisuttorn.github.io/Finance211/host-setup.html กรอก URL, key และตั้งรหัสผ่านอาจารย์ แล้วกดสร้าง จะได้ไฟล์ sync-config.js
+3. อัปโหลดไฟล์นั้นไปไว้ในโฟลเดอร์ shared (ทับไฟล์เดิม)
+4. เวลาสอน เปิดลิงก์บทนั้นต่อท้ายด้วย ?host เช่น .../ch1-overview/?host แล้วกด "เริ่มถ่ายทอด" ใส่รหัสผ่าน
+5. นักศึกษาเปิดลิงก์ปกติ จะเห็นปุ่ม "ตามอาจารย์" เมื่ออาจารย์กำลังสอน
+บทใหม่ใส่ <script src="../shared/sync-config.js"></script> และ <script src="../shared/sync.js"></script> ท้ายหน้าเหมือนบทที่ 1

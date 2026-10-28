@@ -75,5 +75,5 @@
   });
   var start = parseInt(location.hash.slice(1), 10);
   show(start ? start - 1 : 0, true);
-  window.Deck = { show: show, next: next, prev: prev, count: slides.length };
+  window.Deck = { index: function () { return cur; }, show: show, next: next, prev: prev, count: slides.length };
 })();

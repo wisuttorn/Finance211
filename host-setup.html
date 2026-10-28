@@ -1,0 +1,29 @@
+<!doctype html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ตั้งค่าโหมดอาจารย์</title>
+<style>body{font-family:'Noto Sans Thai',Tahoma,system-ui,sans-serif;max-width:40rem;margin:2rem auto;padding:0 1rem;color:#12332B}h1{color:#0F5C4D}label{display:block;margin:.9rem 0 .2rem;font-weight:600}input{width:100%;padding:.55rem;border:1.5px solid #DCE6E2;border-radius:.6rem;font:inherit;box-sizing:border-box}button{margin-top:1.2rem;padding:.6rem 1.2rem;border:0;border-radius:.7rem;background:#1B7F6B;color:#fff;font:inherit;font-weight:600;cursor:pointer}small{color:#58706A}#out{margin-top:1rem;color:#0F5C4D;font-weight:600}</style></head><body>
+<h1>ตั้งค่าโหมดอาจารย์ (ทำครั้งเดียว)</h1>
+<p>หน้านี้สร้างไฟล์ <b>sync-config.js</b> ในเครื่องของอาจารย์เอง รหัสผ่านไม่ถูกส่งไปที่ใด และไม่ปรากฏในไฟล์ที่ได้</p>
+<label>Project URL ของ Supabase</label><input id="u" value="https://jerskpvewdlynshzzyhp.supabase.co">
+<label>Publishable (anon) key</label><input id="k" placeholder="eyJ… หรือ sb_publishable_…"><small>คีย์นี้เป็นคีย์สาธารณะ ไม่ใช่ service_role / secret</small>
+<label>รหัสผ่านอาจารย์ (ตั้งใหม่ ยาว 12 ตัวอักษรขึ้นไป)</label><input id="p1" type="password" autocomplete="new-password">
+<label>ยืนยันรหัสผ่าน</label><input id="p2" type="password" autocomplete="new-password">
+<button id="go">สร้างไฟล์ sync-config.js</button><div id="out"></div>
+<script>
+function b64(b){var a=new Uint8Array(b),s='';for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s)}
+document.getElementById('go').onclick=async function(){
+ var o=document.getElementById('out'),u=document.getElementById('u').value.trim(),k=document.getElementById('k').value.trim(),p=document.getElementById('p1').value;
+ if(!/^https:\/\/.+/.test(u)||k.length<20){o.textContent='กรอก URL และ key ให้ครบ';return}
+ if(/service_role|sb_secret/.test(k)){o.textContent='นี่คือคีย์ลับ ห้ามใช้ ให้ใช้ anon / publishable key';return}
+ if(p.length<12||p!==document.getElementById('p2').value){o.textContent='รหัสผ่านต้องยาวอย่างน้อย 12 ตัวและตรงกันทั้งสองช่อง';return}
+ var kp=await crypto.subtle.generateKey({name:'ECDSA',namedCurve:'P-256'},true,['sign','verify']);
+ var pub=await crypto.subtle.exportKey('jwk',kp.publicKey),raw=await crypto.subtle.exportKey('pkcs8',kp.privateKey);
+ var salt=crypto.getRandomValues(new Uint8Array(16)),iv=crypto.getRandomValues(new Uint8Array(12)),iter=300000,te=new TextEncoder();
+ var km=await crypto.subtle.importKey('raw',te.encode(p),'PBKDF2',false,['deriveKey']);
+ var ak=await crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:iter,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt']);
+ var ct=await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},ak,raw);
+ var cfg={url:u.replace(/\/+$/,''),key:k,pub:{kty:pub.kty,crv:pub.crv,x:pub.x,y:pub.y},enc:{salt:b64(salt),iv:b64(iv),data:b64(ct),iter:iter}};
+ var txt='window.SYNC_CONFIG='+JSON.stringify(cfg)+';\n';
+ var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([txt],{type:'text/javascript'}));a.download='sync-config.js';a.click();
+ o.textContent='สร้างแล้ว: นำไฟล์ sync-config.js ที่ดาวน์โหลดไปวางในโฟลเดอร์ shared ของ repo';
+};
+</script></body></html>

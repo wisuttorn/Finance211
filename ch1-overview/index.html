@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>บทที่ 1 ภาพรวมการบริหารการเงิน | An Overview of Financial Management</title>
+<title>บทที่ 1 ภาพรวมการบริหารการเงิน (An Overview of Financial Management)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600&family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../shared/style.css">
@@ -12,7 +12,7 @@
 <div id="app">
 <header class="top">
   <img src="../shared/img/aacsb.png" alt="AACSB Accredited">
-  <a class="mid home" href="../index.html">บทที่ 1 · An Overview of Financial Management</a>
+  <a class="mid home" href="../index.html">บทที่ 1 ภาพรวมการบริหารการเงิน (An Overview of Financial Management)</a>
   <img src="../shared/img/cmubs.png" alt="Chiang Mai University Business School">
 </header>
 <div id="progress"><i></i></div>
@@ -138,7 +138,7 @@
 <section class="slide" data-title="เกม: มูลค่าปัจจุบัน (PV)">
   <div class="inner">
     <h2>เงินวันนี้ ต่างจากเงินวันหน้า</h2>
-    <div class="game"><div class="gh"><span class="badge">Simulation</span><span class="gt">มูลค่าปัจจุบัน (Present Value: PV) ของสองโครงการ</span></div>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">มูลค่าปัจจุบัน (Present Value: PV) ของสองโครงการ</span></div>
       <div class="sl"><label for="r10">อัตราคิดลด (Discount Rate)</label><input type="range" id="r10" min="0" max="30" step="1" value="10"><output id="r10o">10%</output></div>
       <div class="cols c2">
         <div class="scrollx"><table class="tb"><tr><th>ปี</th><th class="n">Project 1</th><th class="n">Project 2</th><th class="n">ตัวคูณ 1/(1+r)<sup>t</sup></th></tr>
@@ -172,7 +172,7 @@
 <section class="slide" data-title="เกม: นโยบายเงินปันผล">
   <div class="inner">
     <h2>กำไรสุทธิ 1,000,000 บาท ผู้ถือหุ้นได้เงินเท่าไร</h2>
-    <div class="game"><div class="gh"><span class="badge">Simulation</span><span class="gt">อัตราการจ่ายเงินปันผล (Dividend Payout Ratio)</span></div>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">อัตราการจ่ายเงินปันผล (Dividend Payout Ratio)</span></div>
       <div class="sl"><label for="po">จ่ายเงินปันผล</label><input type="range" id="po" min="0" max="100" step="5" value="30"><output id="poo">30%</output></div>
       <div class="cols c3 keep2">
         <div class="card t"><small>เงินปันผลจ่าย</small><div class="big" style="color:var(--teal)" id="dv"></div><small>บาท</small></div>
@@ -203,7 +203,7 @@
 <section class="slide" data-title="เกม: กำไรแต่เงินสดหมด">
   <div class="inner">
     <h2>กิจการมีกำไร แต่อยู่รอดหรือไม่</h2>
-    <div class="game"><div class="gh"><span class="badge">Simulation</span><span class="gt">กำไรทางบัญชี เทียบกับ สภาพคล่อง (Liquidity)</span></div>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">กำไรทางบัญชี เทียบกับ สภาพคล่อง (Liquidity)</span></div>
       <div class="sl"><label for="cs">เงินสดต้นงวด</label><input type="range" id="cs" min="0" max="1000000" step="50000" value="300000"><output id="cso"></output></div>
       <div class="sl"><label for="cl">เก็บเงินจากลูกค้าได้</label><input type="range" id="cl" min="0" max="100" step="10" value="0"><output id="clo"></output></div>
       <div class="cols c4 keep2">
@@ -231,12 +231,13 @@
 </section>
 
 <!-- 16 -->
-<section class="slide" data-title="เกม: ทอยความเสี่ยง">
+<section class="slide" data-title="เกม: จำลองผลตอบแทนที่มีความเสี่ยง">
   <div class="inner">
     <h2>เลือกบริษัท แล้วดูผลจริง</h2>
-    <div class="game"><div class="gh"><span class="badge">Simulation</span><span class="gt">ABC (EPS 5, โอกาส 50%) หรือ XYZ (EPS 4, โอกาส 100%)</span><span class="score" id="rk-sc"></span></div>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">ABC (EPS 5, โอกาส 50%) หรือ XYZ (EPS 4, โอกาส 100%)</span><span class="score" id="rk-sc"></span></div>
+      <p class="small">แต่ละปีระบบสุ่มผลของทั้งสองบริษัท: ABC มีโอกาส 50% ได้ EPS 5 บาท และอีก 50% ไม่ได้เลย (0 บาท) ส่วน XYZ ได้ EPS 4 บาททุกปี ปุ่ม "จำลอง 1 ปี" สุ่มผลหนึ่งปี ปุ่ม "จำลอง 20 ปี" สุ่มผลต่อเนื่อง 20 ปี</p>
       <div class="flow-ctl"><button class="btn" id="pickA">เลือก ABC</button><button class="btn" id="pickX">เลือก XYZ</button>
-        <button class="btn pri" id="roll1">ทอย 1 ปี</button><button class="btn pri" id="roll20">ทอย 20 ปี</button><button class="btn ghost" id="rkreset">เริ่มใหม่</button></div>
+        <button class="btn pri" id="roll1">จำลอง 1 ปี</button><button class="btn pri" id="roll20">จำลอง 20 ปี</button><button class="btn ghost" id="rkreset">เริ่มใหม่</button></div>
       <svg class="chart" id="rkchart" viewBox="0 0 640 260" role="img" aria-label="กราฟ EPS เฉลี่ยสะสม"></svg>
       <div class="feedback" id="rkfb"></div>
     </div>
@@ -349,7 +350,7 @@
 <section class="slide" data-title="เกม: ความรับผิดชอบหนี้สิน">
   <div class="inner">
     <h2>ธุรกิจล้ม เจ้าหนี้ทวงเงินจากใคร</h2>
-    <div class="game"><div class="gh"><span class="badge">Simulation</span><span class="gt">ความรับผิดชอบหนี้สินส่วนที่เกินทรัพย์สินของกิจการ</span></div>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">ความรับผิดชอบหนี้สินส่วนที่เกินทรัพย์สินของกิจการ</span></div>
       <div class="sl"><label for="db">หนี้สินที่ค้างชำระ</label><input type="range" id="db" min="1" max="20" step="1" value="5"><output id="dbo"></output></div>
       <div class="sl"><label for="np">จำนวนหุ้นส่วน</label><input type="range" id="np" min="2" max="5" step="1" value="2"><output id="npo"></output></div>
       <div class="sl"><label for="un">มูลค่าหุ้นที่ยังส่งใช้ไม่ครบ</label><input type="range" id="un" min="0" max="2" step="0.1" value="0"><output id="uno"></output></div>
@@ -409,10 +410,10 @@
 </section>
 
 <!-- 29 -->
-<section class="slide" data-title="The Finance Function: งบดุล">
+<section class="slide" data-title="The Finance Function: งบฐานะการเงิน">
   <div class="inner">
     <span class="tag">The Finance Function</span>
-    <h2>งบดุล (Balance Sheet) กับ 3 หน้าที่ของการเงิน</h2>
+    <h2>งบฐานะการเงิน (Statement of Financial Position) กับ 3 หน้าที่ของการเงิน</h2>
     <div class="flow-ctl noswipe">
       <button class="btn" data-role="plan">1 การวางแผนทางการเงิน</button>
       <button class="btn" data-role="inv">2 การลงทุน</button>
@@ -422,7 +423,7 @@
       <div><div class="head">สินทรัพย์ (Assets)</div><button data-r="inv plan">สินทรัพย์หมุนเวียน<br><small>Current Assets</small></button><button data-r="inv plan">สินทรัพย์ถาวร<br><small>Fixed Assets</small></button></div>
       <div><div class="head">หนี้สินและส่วนของผู้ถือหุ้น</div><button data-r="fin plan">หนี้สินหมุนเวียน<br><small>Current Liabilities</small></button><button data-r="fin plan">หนี้สินระยะยาว<br><small>Long-term Liabilities</small></button><button data-r="fin plan">ส่วนของผู้ถือหุ้น<br><small>Shareholders' Equity</small></button></div>
     </div>
-    <div class="callout info" id="bsinfo" style="margin-top:.8rem">เลือกหน้าที่เพื่อดูว่าเกี่ยวข้องกับส่วนใดของงบดุล</div>
+    <div class="callout info" id="bsinfo" style="margin-top:.8rem">เลือกหน้าที่เพื่อดูว่าเกี่ยวข้องกับส่วนใดของงบฐานะการเงิน</div>
   </div>
 </section>
 
@@ -446,7 +447,7 @@
     <h2>1. หน้าที่วางแผนการเงิน</h2>
     <div class="cols c21">
       <div class="card g"><ul class="clean"><li>การวิเคราะห์ทางการเงิน (Financial Analysis)</li><li>การพยากรณ์ทางการเงิน (Financial Forecasting)</li><li>การจัดทำงบการเงินและงบกระแสเงินสด</li><li>การวางแผนกำไร (Profit Planning)</li></ul></div>
-      <div class="card l"><b>เรียนต่อในบทที่</b><p>Chap. 3 Financial Statement Analysis<br>Chap. 4 Cost-Volume-Profit Analysis</p></div>
+      <div class="card l"><b>เรียนต่อในบทที่</b><p>บทที่ 3 การวิเคราะห์งบการเงินและงบกระแสเงินสด (Financial Statements Analysis &amp; Cash Flow Statement)<br>บทที่ 4 การวางแผนการเงิน (Financial Planning)</p></div>
     </div>
   </div>
 </section>
@@ -458,7 +459,7 @@
     <h2>2. หน้าที่จัดสรรเงินทุน / ตัดสินใจลงทุน</h2>
     <div class="cols c21">
       <div class="card p"><ul class="clean"><li>การพิจารณาการลงทุน (Capital Budgeting)</li><li>การบริหารทุนหมุนเวียน (Working Capital Management)</li><li>การบริหารเงินสดและหลักทรัพย์</li><li>การบริหารลูกหนี้</li><li>การบริหารสินค้าคงเหลือ</li></ul></div>
-      <div class="card l"><b>เรียนต่อในบทที่</b><p>Chap. 5 &amp; 6 Working Capital Management<br>Chap. 9 &amp; 10 Capital Budgeting</p></div>
+      <div class="card l"><b>เรียนต่อในบทที่</b><p>บทที่ 5–6 การบริหารเงินทุนหมุนเวียน (Working Capital Management)<br>บทที่ 9 การจัดทำงบลงทุน (Capital Budgeting)</p></div>
     </div>
   </div>
 </section>
@@ -470,7 +471,7 @@
     <h2>3. หน้าที่จัดหาเงินทุน</h2>
     <div class="cols c21">
       <div class="card t"><ul class="clean"><li>แหล่งเงินทุนระยะสั้น (Short-term Financing)</li><li>แหล่งเงินทุนระยะยาว (Long-term Financing)</li><li>โครงสร้างและต้นทุนเงินทุน (Capital Structure and Cost of Capital)</li><li>นโยบายเงินปันผล (Dividend Policy)</li></ul></div>
-      <div class="card l"><b>เรียนต่อในบทที่</b><p>Chap. 11 &amp; 12 Financing and Dividend Policy<br>Business Finance II</p></div>
+      <div class="card l"><b>เรียนต่อในบทที่</b><p>บทที่ 8 ต้นทุนของเงินทุน (Cost of Capital) · บทที่ 11 การจัดหาเงินทุน (Financing)<br>บทที่ 12 นโยบายเงินปันผล (Dividend Policy) · การเงินธุรกิจ 2 (Business Finance II)</p></div>
     </div>
   </div>
 </section>
@@ -595,8 +596,8 @@
     <h2>สรุปบท: เติมแผนภาพให้สมบูรณ์</h2>
     <div class="game"><div class="gh"><span class="badge">เติมคำ</span><span class="gt">เลือกคำในช่องว่าง</span></div>
       <div class="cols c2">
-        <div class="card g"><h3>CFO</h3><p>เป้าหมายขององค์การ: สร้าง <select class="cz" data-c="wealth"></select> สูงสุดให้ผู้ถือหุ้น</p><p>การวางแผนทางการเงิน กำกับทั้งสองด้านของงบดุล</p></div>
-        <div class="card p"><h3>งบดุล</h3><p>ด้านสินทรัพย์ ← การตัดสินใจ <select class="cz" data-c="invest"></select></p><p>ด้านหนี้สินและส่วนของผู้ถือหุ้น ← การ <select class="cz" data-c="finance"></select></p></div>
+        <div class="card g"><h3>CFO</h3><p>เป้าหมายขององค์การ: สร้าง <select class="cz" data-c="wealth"></select> สูงสุดให้ผู้ถือหุ้น</p><p>การวางแผนทางการเงิน กำกับทั้งสองด้านของงบฐานะการเงิน</p></div>
+        <div class="card p"><h3>งบฐานะการเงิน</h3><p>ด้านสินทรัพย์ ← การตัดสินใจ <select class="cz" data-c="invest"></select></p><p>ด้านหนี้สินและส่วนของผู้ถือหุ้น ← การ <select class="cz" data-c="finance"></select></p></div>
         <div class="card t"><h3>เปรียบเทียบ</h3><p>ผลตอบแทนจากสินทรัพย์ ต้องสูงกว่า <select class="cz" data-c="cost"></select></p></div>
         <div class="card l"><h3>ผลลัพธ์</h3><p>สะท้อนเป็น <select class="cz" data-c="value"></select></p></div>
       </div>
@@ -666,5 +667,7 @@
 <script src="../shared/games.js"></script>
 <script src="../shared/deck.js"></script>
 <script src="ch1.js"></script>
+<script src="../shared/sync-config.js"></script>
+<script src="../shared/sync.js"></script>
 </body>
 </html>
