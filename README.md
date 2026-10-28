@@ -1,0 +1,22 @@
+# การเงินธุรกิจ (Business Finance) — Interactive Lecture
+
+เว็บสื่อการสอนแบบโต้ตอบ แยกตามบท  โครงสร้าง:
+
+```
+index.html            หน้าแรก (รายการ 12 บท)
+shared/               สไตล์ ตัวเลื่อนสไลด์ ชุดเกมกลาง โลโก้ (ใช้ร่วมทุกบท)
+ch1-overview/         บทที่ 1 (index.html + ch1.js)
+```
+
+## เปิดบนอินเทอร์เน็ตด้วย GitHub Pages (ฟรี)
+1. สร้าง repository ใหม่ (Public) ใน GitHub เช่น `business-finance`
+2. อัปโหลดไฟล์ทั้งหมดในโฟลเดอร์นี้ (Add file → Upload files)
+3. Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)` → Save
+4. รอประมาณ 1–2 นาที ที่อยู่เว็บจะเป็น `https://<ชื่อผู้ใช้>.github.io/business-finance/`
+
+## เพิ่มบทใหม่
+คัดลอกโฟลเดอร์ `ch1-overview` เป็น `ch2-...` แก้สไลด์ใน `index.html` และเกมใน `ch2.js`
+(ใช้ชุดเกมกลางใน `shared/games.js` ได้: sort, quiz, match, tally, fills, range)
+แล้วเปลี่ยนการ์ดบทนั้นในหน้าแรกจาก `div.off` เป็นลิงก์ `a.on`
+
+ระบบนี้ไม่เก็บข้อมูลนักศึกษาหรือคะแนนใด ๆ
