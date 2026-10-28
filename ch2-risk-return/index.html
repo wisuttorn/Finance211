@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>บทที่ 2 ความเสี่ยงและผลตอบแทน (Risk &amp; Return)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600&family=Prompt:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/style.css">
+</head>
+<body>
+<div id="app">
+<header class="top">
+  <img src="../shared/img/aacsb.png" alt="AACSB Accredited">
+  <a class="mid home" href="../index.html">บทที่ 2 ความเสี่ยงและผลตอบแทน (Risk &amp; Return)</a>
+  <img src="../shared/img/cmubs.png" alt="Chiang Mai University Business School">
+</header>
+<div id="progress"><i></i></div>
+<main id="deck">
+<section class="slide cover" data-title="Risk &amp; Return">
+  <div class="dots" aria-hidden="true">
+    <i style="left:8%;top:62%;width:18%;height:18%;background:#7B4AA0"></i><i style="left:30%;top:46%;width:22%;height:22%;background:#9A6BBF"></i>
+    <i style="left:54%;top:28%;width:26%;height:26%;background:#2BA6A0"></i><i style="left:20%;top:80%;width:11%;height:11%;background:#8DC63F"></i>
+    <i style="left:72%;top:62%;width:14%;height:14%;background:#1B7F6B"></i><i style="left:62%;top:6%;width:12%;height:12%;background:#8DC63F"></i>
+  </div>
+  <div class="inner">
+    <span class="tag">บทที่ 2 · Chapter 2</span>
+    <h1>Risk &amp; Return</h1>
+    <div class="sub">ความเสี่ยงและผลตอบแทน</div>
+    <div class="who"><b>อ. ดร. วิสุทธร จิตอารี</b><br>คณะบริหารธุรกิจ มหาวิทยาลัยเชียงใหม่</div>
+  </div>
+</section>
+<section class="slide" data-title="Chapter Objective">
+  <div class="inner">
+    <span class="tag">Chapter Objective</span>
+    <h2>เมื่อจบบทนี้ ผู้เรียนจะ…</h2>
+    <div class="cols c2" style="margin-top:1rem">
+      <div class="card g"><h3>1 คำนวณผลตอบแทน (Return)</h3><p>คำนวณผลตอบแทนและอัตราผลตอบแทนจากหุ้น หุ้นกู้ และโครงการ</p></div>
+      <div class="card t"><h3>2 วัดความเสี่ยง (Risk)</h3><p>ใช้พิสัย ส่วนเบี่ยงเบนมาตรฐาน และสัมประสิทธิ์ความแปรปรวน</p></div>
+      <div class="card p"><h3>3 ตัดสินใจลงทุน</h3><p>เปรียบเทียบทางเลือกด้วยผลตอบแทนที่คาดหวังและความเสี่ยง</p></div>
+      <div class="card l"><h3>4 ประเภทของความเสี่ยง</h3><p>แยกความเสี่ยงที่เป็นระบบกับไม่เป็นระบบ และเข้าใจการกระจายการลงทุน</p></div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="โหวต: ประสบการณ์การลงทุน">
+  <div class="inner">
+    <h2>ที่ผ่านมา เคยลงทุนในอะไรบ้าง</h2>
+    <div class="game"><div class="gh"><span class="badge">โหวต</span><span class="gt">ยกมือแล้วผู้สอนกดนับ</span></div><div id="g-poll"></div></div>
+    <div class="callout" style="margin-top:1rem">การลงทุนแต่ละแบบให้ผลตอบแทนและมีความเสี่ยงต่างกัน บทนี้จะเรียนรู้วิธีวัดทั้งสองอย่างเป็นตัวเลข</div>
+  </div>
+</section>
+<section class="slide" data-title="การลงทุน (Investment)">
+  <div class="inner">
+    <span class="tag">Investment</span>
+    <h2>การลงทุน (Investment)</h2>
+    <div class="cols c2" style="margin-top:.8rem">
+      <div class="card g"><h3>ความหมาย</h3><p>การที่ธุรกิจจ่ายเงินทุนออกไปเพื่อกิจกรรมหนึ่งในวันนี้ โดยหวังว่าจะได้รับ “ผลตอบแทน” จากกิจกรรมนั้นในวันข้างหน้า</p></div>
+      <div class="card p"><h3>วัตถุประสงค์</h3><p>ชะลอการบริโภคหรือการใช้จ่ายในปัจจุบัน เพื่อเพิ่มพูนความมั่งคั่ง และหวังว่าจะใช้จ่ายได้มากขึ้นในอนาคต</p></div>
+    </div>
+    <div class="cols flow5" style="margin-top:1.2rem">
+      <div class="card t" style="text-align:center"><h3>เงินวันนี้</h3></div><div class="arrow big">→</div>
+      <div class="card g" style="text-align:center"><h3>ลงทุน</h3><small>ชะลอการใช้จ่าย</small></div><div class="arrow big">→</div>
+      <div class="card l" style="text-align:center"><h3>เงินในอนาคตที่มากขึ้น</h3></div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: กระแสเงินสดหรือกำไรบัญชี">
+  <div class="inner">
+    <h2>ผลตอบแทน (Return): “Cash, Not Profits, is King”</h2>
+    <p>นักการเงินมองผลตอบแทนจาก<b>กระแสเงินสด</b>ที่เกิดจากการลงทุน ไม่ใช่กำไรทางบัญชี</p>
+    <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">จัดรายการเข้ากลุ่มที่ใช่</span></div><div id="g-cash"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: ผลตอบแทนและอัตราผลตอบแทน">
+  <div class="inner">
+    <span class="tag">Return</span>
+    <h2>ผลตอบแทนและอัตราผลตอบแทน</h2>
+    <div class="cols c2">
+      <div class="card p"><b>ผลตอบแทน (บาท)</b> = เงินสดรับปลายงวด − เงินลงทุนต้นงวด</div>
+      <div class="card p"><b>อัตราผลตอบแทน (%)</b> = [(เงินสดรับปลายงวด − เงินลงทุนต้นงวด) + เงินสดรับระหว่างงวด] ÷ เงินลงทุนต้นงวด × 100</div>
+    </div>
+    <div class="game" id="fb-ret" style="margin-top:.8rem"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">นาย A ลงทุน 100,000 บาทต้นปี สิ้นปีได้เงินสดคืน 110,000 บาท</span></div>
+      <div class="chkbox">
+      <p>ผลตอบแทน = <input class="fill sm" inputmode="decimal" data-answer="10000" data-tol="1" aria-label="ผลตอบแทน"> บาท</p>
+      <p>อัตราผลตอบแทน = <input class="fill sm" inputmode="decimal" data-answer="10" data-tol="0.05" aria-label="อัตราผลตอบแทน"> %</p>
+      <p>ถ้าระหว่างปียังได้รับเงินสดคืนอีก 3,000 บาท อัตราผลตอบแทนใหม่ = <input class="fill sm" inputmode="decimal" data-answer="13" data-tol="0.05" aria-label="อัตราใหม่"> %</p></div>
+      <button class="btn pri" data-check="#fb-ret">ตรวจคำตอบ</button>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: โจทย์ผลตอบแทนสุ่ม">
+  <div class="inner">
+    <h2>ผลตอบแทนจากหุ้นและหุ้นกู้</h2>
+    <div class="callout">อัตราผลตอบแทน = [เงินปันผล (หรือดอกเบี้ย) + (ราคาขาย − ราคาซื้อ)] ÷ ราคาซื้อ × 100  ตอบทศนิยม 1 ตำแหน่ง</div>
+    <div class="game"><div class="gh"><span class="badge">โจทย์สุ่ม</span><span class="gt">โจทย์ใหม่ทุกครั้ง</span></div><div id="g-drill1"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="จำลอง: ผลตอบแทนของหุ้น">
+  <div class="inner">
+    <h2>ปรับตัวเลข แล้วดูว่าผลตอบแทนมาจากไหน</h2>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">เงินปันผล + ส่วนต่างราคา (Capital Gain)</span></div>
+      <div class="sl"><label for="rd">เงินปันผล</label><input type="range" id="rd" min="0" max="15" step="0.5" value="5"><output id="rdo"></output></div>
+      <div class="sl"><label for="rs">ราคาขาย</label><input type="range" id="rs" min="60" max="160" step="1" value="120"><output id="rso"></output></div>
+      <p class="small">ซื้อที่ราคา 100 บาทต้นปี</p>
+      <div class="bars">
+        <div class="bar"><span>ปันผล</span><div class="tr"><i id="rb1" style="background:var(--purple)"></i></div><span class="v" id="rv1"></span></div>
+        <div class="bar"><span>ส่วนต่างราคา</span><div class="tr"><i id="rb2" style="background:var(--teal)"></i></div><span class="v" id="rv2"></span></div>
+        <div class="bar"><span><b>รวม</b></span><div class="tr"><i id="rb3" style="background:var(--green)"></i></div><span class="v" id="rv3"></span></div>
+      </div>
+      <div class="verdict ok" id="rvd"></div>
+      <p class="small" style="margin-top:.6rem">ท้าทาย: ปรับให้ผลตอบแทนรวมได้ 15% พอดี มีกี่วิธี</p>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: จับคู่ความเสี่ยง">
+  <div class="inner">
+    <span class="tag">Uncertainty &amp; Risk</span>
+    <h2>ผลตอบแทนที่คาดหวัง ความไม่แน่นอน และความเสี่ยง</h2>
+    <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">แตะข้อซ้าย แล้วแตะคำอธิบายทางขวา</span></div><div id="g-match1"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: ความเสี่ยงทางธุรกิจและการเงิน">
+  <div class="inner">
+    <h2>ความเสี่ยงทางธุรกิจ หรือ ทางการเงิน</h2>
+    <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">จัดเหตุการณ์เข้ากลุ่ม</span></div><div id="g-brfr"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="จำลอง: คุณกลัวความเสี่ยงแค่ไหน">
+  <div class="inner">
+    <span class="tag">Risk Attitude</span>
+    <h2>ทัศนคติต่อความเสี่ยง (Risk Attitude)</h2>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">เงินแน่นอนที่ยอมแลกกับการเสี่ยง (Certainty Equivalent)</span></div>
+      <div class="flow-ctl"><button class="btn sm" id="gm1">เกมที่ 1: ได้ 100,000 หรือ 0</button><button class="btn sm ghost" id="gm2">เกมที่ 2: ได้ 200,000 หรือ −100,000</button></div>
+      <p id="gdesc"></p>
+      <div class="sl"><label for="ce">เงินแน่นอนต่ำสุดที่คุณยอมรับแทน</label><input type="range" id="ce" min="-50000" max="150000" step="1000" value="30000"><output id="ceo"></output></div>
+      <div class="cols c3 keep2"><div class="card g"><span class="small">ค่าคาดหวัง (EV)</span><div class="big" id="gev"></div></div><div class="card p"><span class="small">เงินแน่นอนของคุณ</span><div class="big" id="gce"></div></div><div class="card t"><span class="small">ส่วนชดเชยความเสี่ยง (EV − เงินแน่นอน)</span><div class="big" id="gpr"></div></div></div>
+      <div class="verdict ok" id="gverd"></div>
+    </div>
+    <div class="game" style="margin-top:.8rem"><div class="gh"><span class="badge">โหวต</span><span class="gt">ในห้องเรียนมีนักลงทุนแบบไหนมากที่สุด</span></div><div id="g-att"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: ผลตอบแทนและความเสี่ยงในอดีต">
+  <div class="inner">
+    <h2>ผลตอบแทนและความเสี่ยงจากข้อมูลในอดีต</h2>
+    <p class="small">ข้อมูลตัวอย่างตลาดสหรัฐอเมริกา (Ibbotson Associates, 2002) ใช้ประกอบการเรียน</p>
+    <div class="game" id="fb-hist"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หา CV = SD ÷ ผลตอบแทนเฉลี่ย (ทศนิยม 2 ตำแหน่ง)</span></div>
+      <div class="scrollx"><table class="tb"><tr><th>ประเภทการลงทุน</th><th class="n">ผลตอบแทนเฉลี่ย (%)</th><th class="n">SD (%)</th><th class="n">CV</th></tr><tr><td>หุ้นสามัญบริษัทขนาดเล็ก</td><td class="n">17.3</td><td class="n">33.2</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.92" data-tol="0.02" aria-label="CV หุ้นสามัญบริษัทขนาดเล็ก" data-show="1.92"></td></tr><tr><td>หุ้นสามัญบริษัทขนาดใหญ่</td><td class="n">12.7</td><td class="n">20.2</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.59" data-tol="0.02" aria-label="CV หุ้นสามัญบริษัทขนาดใหญ่" data-show="1.59"></td></tr><tr><td>หุ้นกู้ระยะยาวของบริษัท</td><td class="n">6.1</td><td class="n">8.6</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.41" data-tol="0.02" aria-label="CV หุ้นกู้ระยะยาวของบริษัท" data-show="1.41"></td></tr><tr><td>หุ้นกู้ระยะยาวของรัฐบาล</td><td class="n">5.7</td><td class="n">9.4</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.65" data-tol="0.02" aria-label="CV หุ้นกู้ระยะยาวของรัฐบาล" data-show="1.65"></td></tr><tr><td>ตั๋วเงินคลัง</td><td class="n">3.9</td><td class="n">3.2</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.82" data-tol="0.02" aria-label="CV ตั๋วเงินคลัง" data-show="0.82"></td></tr></table></div>
+      <button class="btn pri" data-check="#fb-hist" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+    <div class="callout" style="margin-top:.8rem">ผลตอบแทนเฉลี่ยยิ่งสูง ความเสี่ยงก็ยิ่งสูง ตั๋วเงินคลังเสี่ยงต่ำที่สุด หุ้นขนาดเล็กเสี่ยงสูงที่สุด</div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: พิสัย (Range)">
+  <div class="inner">
+    <span class="tag">Sensitivity Analysis</span>
+    <h2>การวิเคราะห์ความอ่อนไหวและพิสัย (Range)</h2>
+    <p>ลงทุนเริ่มแรก 10,000 บาทเท่ากัน ประเมินผลตอบแทนต่อปี 3 สถานการณ์ พิสัย = ค่าสูงสุด − ค่าต่ำสุด</p>
+    <div class="game" id="fb-rng"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หาพิสัยของ A และ B</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>สถานการณ์</th><th class="n">สินทรัพย์ A</th><th class="n">สินทรัพย์ B</th></tr>
+    <tr><td>แย่ที่สุด (Pessimistic)</td><td class="n">13%</td><td class="n">7%</td></tr><tr><td>เป็นไปได้มากที่สุด (Most likely)</td><td class="n">15%</td><td class="n">15%</td></tr><tr><td>ดีที่สุด (Optimistic)</td><td class="n">17%</td><td class="n">23%</td></tr>
+    <tr><td><b>พิสัย (%)</b></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="4" data-tol="0.05" aria-label="พิสัย A"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="16" data-tol="0.05" aria-label="พิสัย B"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-rng" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+    <div class="callout" style="margin-top:.8rem">พิสัยของ B กว้างกว่า จึงเสี่ยงกว่า แต่พิสัยยังไม่บอกว่าแต่ละสถานการณ์มีโอกาสเกิดมากน้อยเพียงใด</div>
+  </div>
+</section>
+<section class="slide" data-title="จำลอง: ข้อจำกัดของพิสัย">
+  <div class="inner">
+    <h2>พิสัยเท่าเดิม แต่ความเสี่ยงเปลี่ยนได้</h2>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">ปรับความน่าจะเป็นของสินทรัพย์ B (ผลตอบแทน 7%, 15%, 23%)</span></div>
+      <div class="sl"><label for="pp">โอกาสแย่ที่สุด (7%)</label><input type="range" id="pp" min="0" max="100" step="5" value="25"><output id="ppo"></output></div>
+      <div class="sl"><label for="po">โอกาสดีที่สุด (23%)</label><input type="range" id="po" min="0" max="100" step="5" value="25"><output id="poo"></output></div>
+      <p class="small" id="pmid"></p>
+      <div class="cols c3 keep2"><div class="card g"><span class="small">ผลตอบแทนที่คาดหวัง</span><div class="big" id="pe"></div></div><div class="card t"><span class="small">พิสัย</span><div class="big" id="pr">16%</div></div><div class="card p"><span class="small">ส่วนเบี่ยงเบนมาตรฐาน</span><div class="big" id="ps"></div></div></div>
+      <div class="verdict ok" id="pv"></div>
+    </div>
+    <p class="small">ลองทำให้โอกาสแย่ที่สุดและดีที่สุดเป็น 0% แล้วดูว่าพิสัยกับ SD ต่างกันอย่างไร</p>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: ผลตอบแทนที่คาดหวัง">
+  <div class="inner">
+    <span class="tag">Expected Return</span>
+    <h2>ขั้นแรก: ผลตอบแทนที่คาดหวัง R̄ = Σ (R × P)</h2>
+    <div class="game" id="fb-er"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">เติมค่า R × P (%) และผลรวม</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>ผลที่เป็นไปได้</th><th class="n">ความน่าจะเป็น (P)</th><th class="n">ผลตอบแทน (R)</th><th class="n">R × P (%)</th></tr><tr><td colspan="4"><b>สินทรัพย์ A</b></td></tr><tr><td>แย่ที่สุด</td><td class="n">0.25</td><td class="n">13%</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="3.25" data-tol="0.01" aria-label="R×P"></td></tr><tr><td>เป็นไปได้มากที่สุด</td><td class="n">0.50</td><td class="n">15%</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="7.5" data-tol="0.01" aria-label="R×P"></td></tr><tr><td>ดีที่สุด</td><td class="n">0.25</td><td class="n">17%</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="4.25" data-tol="0.01" aria-label="R×P"></td></tr><tr><td><b>ผลตอบแทนที่คาดหวัง (R̄)</b></td><td class="n">1.00</td><td></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="15" data-tol="0.01" aria-label="R̄ สินทรัพย์ A"></td></tr><tr><td colspan="4"><b>สินทรัพย์ B</b></td></tr><tr><td>แย่ที่สุด</td><td class="n">0.25</td><td class="n">7%</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.75" data-tol="0.01" aria-label="R×P"></td></tr><tr><td>เป็นไปได้มากที่สุด</td><td class="n">0.50</td><td class="n">15%</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="7.5" data-tol="0.01" aria-label="R×P"></td></tr><tr><td>ดีที่สุด</td><td class="n">0.25</td><td class="n">23%</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="5.75" data-tol="0.01" aria-label="R×P"></td></tr><tr><td><b>ผลตอบแทนที่คาดหวัง (R̄)</b></td><td class="n">1.00</td><td></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="15" data-tol="0.01" aria-label="R̄ สินทรัพย์ B"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-er" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ SD สินทรัพย์ A">
+  <div class="inner">
+    <span class="tag">Standard Deviation</span>
+    <h2>คำนวณส่วนเบี่ยงเบนมาตรฐาน: สินทรัพย์ A</h2>
+    <div class="game" id="fb-sdA"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">เติมทีละคอลัมน์ ผลตอบแทนที่คาดหวัง R̄ = 15%</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>เหตุการณ์</th><th class="n">R (%)</th><th class="n">R̄ (%)</th><th class="n">R − R̄</th><th class="n">(R − R̄)²</th><th class="n">P</th><th class="n">(R − R̄)² × P</th></tr><tr><td>1</td><td class="n">13</td><td class="n">15</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="-2.0" data-tol="0.01" aria-label="ส่วนเบี่ยงเบน"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="4.0" data-tol="0.01" aria-label="ยกกำลังสอง"></td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.0" data-tol="0.01" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td>2</td><td class="n">15</td><td class="n">15</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.01" aria-label="ส่วนเบี่ยงเบน"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.01" aria-label="ยกกำลังสอง"></td><td class="n">0.50</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.01" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td>3</td><td class="n">17</td><td class="n">15</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="2.0" data-tol="0.01" aria-label="ส่วนเบี่ยงเบน"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="4.0" data-tol="0.01" aria-label="ยกกำลังสอง"></td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.0" data-tol="0.01" aria-label="ถ่วงน้ำหนัก"></td></tr>
+    <tr><td colspan="6"><b>ความแปรปรวน σ² = ผลรวมคอลัมน์สุดท้าย</b></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="2.0" data-tol="0.01" aria-label="σ²"></td></tr>
+    <tr><td colspan="6"><b>ส่วนเบี่ยงเบนมาตรฐาน σ = √σ² (%)</b></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.41" data-tol="0.02" aria-label="σ"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-sdA" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ SD สินทรัพย์ B">
+  <div class="inner">
+    <span class="tag">Standard Deviation</span>
+    <h2>คำนวณส่วนเบี่ยงเบนมาตรฐาน: สินทรัพย์ B</h2>
+    <div class="game" id="fb-sdB"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">เติมทีละคอลัมน์ ผลตอบแทนที่คาดหวัง R̄ = 15%</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>เหตุการณ์</th><th class="n">R (%)</th><th class="n">R̄ (%)</th><th class="n">R − R̄</th><th class="n">(R − R̄)²</th><th class="n">P</th><th class="n">(R − R̄)² × P</th></tr><tr><td>1</td><td class="n">7</td><td class="n">15</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="-8.0" data-tol="0.01" aria-label="ส่วนเบี่ยงเบน"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="64.0" data-tol="0.01" aria-label="ยกกำลังสอง"></td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="16.0" data-tol="0.01" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td>2</td><td class="n">15</td><td class="n">15</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.01" aria-label="ส่วนเบี่ยงเบน"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.01" aria-label="ยกกำลังสอง"></td><td class="n">0.50</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.01" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td>3</td><td class="n">23</td><td class="n">15</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="8.0" data-tol="0.01" aria-label="ส่วนเบี่ยงเบน"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="64.0" data-tol="0.01" aria-label="ยกกำลังสอง"></td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="16.0" data-tol="0.01" aria-label="ถ่วงน้ำหนัก"></td></tr>
+    <tr><td colspan="6"><b>ความแปรปรวน σ² = ผลรวมคอลัมน์สุดท้าย</b></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="32.0" data-tol="0.01" aria-label="σ²"></td></tr>
+    <tr><td colspan="6"><b>ส่วนเบี่ยงเบนมาตรฐาน σ = √σ² (%)</b></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="5.66" data-tol="0.02" aria-label="σ"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-sdB" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: เรียงขั้นตอนหา SD">
+  <div class="inner">
+    <h2>6 ขั้นตอนการคำนวณส่วนเบี่ยงเบนมาตรฐาน</h2>
+    <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">แตะตามลำดับขั้นที่ถูกต้อง</span></div><div id="g-order"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="ควิซ: เปรียบเทียบ A และ B">
+  <div class="inner">
+    <h2>เปรียบเทียบสินทรัพย์ A และ B</h2>
+    <p>ทั้งสองมีผลตอบแทนที่คาดหวัง 15% แต่ SD ของ A = 1.41% และ SD ของ B = 5.66%</p>
+    <div class="game"><div class="gh"><span class="badge">ควิซ</span><span class="gt">3 ข้อ</span></div><div id="g-q1"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: หุ้นเทียบกับตั๋วเงินคลัง">
+  <div class="inner">
+    <h2>หุ้นบริษัทหนึ่ง เทียบกับตั๋วเงินคลัง 6%</h2>
+    <p>ตั๋วเงินคลัง 90 วันให้ผลตอบแทน 6% แน่นอน ส่วนหุ้นมีผลตอบแทนตามตาราง</p>
+    <div class="game" id="fb-stk"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หา R̄ และ σ ของหุ้น (ใช้ R̄ = 15% คำนวณส่วนเบี่ยงเบน)</span></div>
+    <div class="scrollx"><table class="tb"><tr><th class="n">R (%)</th><th class="n">P</th><th class="n">R × P</th><th class="n">(R − 15)² × P</th></tr><tr><td class="n">-10</td><td class="n">0.10</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="-1.0" data-tol="0.01" aria-label="R×P"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="62.5" data-tol="0.05" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td class="n">5</td><td class="n">0.20</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.0" data-tol="0.01" aria-label="R×P"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="20.0" data-tol="0.05" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td class="n">15</td><td class="n">0.40</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="6.0" data-tol="0.01" aria-label="R×P"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.0" data-tol="0.05" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td class="n">25</td><td class="n">0.20</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="5.0" data-tol="0.01" aria-label="R×P"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="20.0" data-tol="0.05" aria-label="ถ่วงน้ำหนัก"></td></tr><tr><td class="n">40</td><td class="n">0.10</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="4.0" data-tol="0.01" aria-label="R×P"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="62.5" data-tol="0.05" aria-label="ถ่วงน้ำหนัก"></td></tr></table></div>
+    <p style="margin-top:.5rem">R̄ = <input class="fill sm" inputmode="decimal" data-answer="15" data-tol="0.05" aria-label="R̄"> % &nbsp; σ² = <input class="fill sm" inputmode="decimal" data-answer="165" data-tol="0.5" aria-label="σ²"> &nbsp; σ = <input class="fill sm" inputmode="decimal" data-answer="12.85" data-tol="0.03" aria-label="σ"> % &nbsp; σ ของตั๋วเงินคลัง = <input class="fill sm" inputmode="decimal" data-answer="0" data-tol="0.001" aria-label="σ T-bill"></p>
+    <button class="btn pri" data-check="#fb-stk">ตรวจคำตอบ</button></div>
+  </div>
+</section>
+<section class="slide" data-title="ห้องทดลอง SD (SD Lab)">
+  <div class="inner">
+    <span class="tag">SD Lab</span>
+    <h2>ห้องทดลอง: ใส่ตัวเลขเอง ดู R̄ และ σ ทันที</h2>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">เลือกชุดตัวอย่าง หรือแก้ตัวเลข / เพิ่มเหตุการณ์เอง</span></div><div id="g-lab"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="แบบประเมินความเสี่ยง (1)">
+  <div class="inner">
+    <span class="tag">Risk Tolerance</span>
+    <h2>แบบประเมินระดับความเสี่ยงที่ยอมรับได้ (ข้อ 1–4)</h2>
+    <div id="rt1"></div>
+  </div>
+</section>
+<section class="slide" data-title="แบบประเมินความเสี่ยง (2)">
+  <div class="inner">
+    <span class="tag">Risk Tolerance</span>
+    <h2>แบบประเมินระดับความเสี่ยงที่ยอมรับได้ (ข้อ 5–8)</h2>
+    <div id="rt2"></div>
+  </div>
+</section>
+<section class="slide" id="s-result" data-title="ผลการประเมินความเสี่ยง">
+  <div class="inner">
+    <span class="tag">Risk Tolerance</span>
+    <h2>ผลการประเมินของคุณ</h2>
+    <div class="game"><div class="gh"><span class="badge">ผลลัพธ์</span><span class="gt">คะแนนรวม (เต็ม 92)</span></div>
+      <div class="big" id="rt-score">–</div>
+      <div class="meter"><i id="rt-pin" style="left:0"></i></div>
+      <div class="cols c3 keep2"><div class="card g"><b>เสี่ยงต่ำ (Low Risk)</b><br>0 – 39 คะแนน</div><div class="card w"><b>เสี่ยงปานกลาง (Moderate)</b><br>40 – 74 คะแนน</div><div class="card" style="background:var(--bad-l);border-color:#F0C8C0"><b>เสี่ยงสูง (High Risk)</b><br>75 คะแนนขึ้นไป</div></div>
+      <div class="verdict ok" id="rt-verdict" style="margin-top:.8rem"></div>
+      <p class="small">เป็นเครื่องมือประกอบการเรียนเท่านั้น ไม่ใช่คำแนะนำการลงทุน ข้อมูลไม่ถูกเก็บหรือส่งไปที่ใด</p>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: เลือก X หรือ Y">
+  <div class="inner">
+    <h2>ตัวอย่างข้อ 5: เลือก X หรือ Y ดี</h2>
+    <p>มีเงิน 5,000 บาท ลงทุน 5 ปี<br><b>X</b> ได้กำไรแน่นอน 500 บาท &nbsp;|&nbsp; <b>Y</b> มีโอกาส 70% ได้กำไร 1,000 บาท และ 30% ขาดทุน 500 บาท</p>
+    <div class="game" id="fb-q5"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">เปรียบเทียบด้วยค่าคาดหวังและ SD</span></div><div class="chkbox">
+      <p>กำไรที่คาดหวังของ X = <input class="fill sm" inputmode="decimal" data-answer="500" data-tol="0.5" aria-label="EV X"> บาท</p>
+      <p>กำไรที่คาดหวังของ Y = 0.70 × 1,000 + 0.30 × (−500) = <input class="fill sm" inputmode="decimal" data-answer="550" data-tol="0.5" aria-label="EV Y"> บาท</p>
+      <p>σ ของ Y = √[0.70 × (1,000 − 550)² + 0.30 × (−500 − 550)²] = <input class="fill sm" inputmode="decimal" data-answer="687.39" data-tol="0.6" aria-label="SD Y"> บาท</p></div>
+    <button class="btn pri" data-check="#fb-q5">ตรวจคำตอบ</button></div>
+    <div class="callout p" style="margin-top:.8rem">Y มีกำไรคาดหวังสูงกว่า 50 บาท แต่เสี่ยงมาก (σ ประมาณ 687 บาท) ขณะที่ X ไม่มีความเสี่ยงเลย คุณเลือกอะไร ขึ้นอยู่กับทัศนคติต่อความเสี่ยง</div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: Risk Averse plc (1)">
+  <div class="inner">
+    <span class="tag">Project Selection</span>
+    <h2>Risk Averse plc: ควรลงทุนในโครงการใด</h2>
+    <p>ขั้นแรก หาผลตอบแทนที่คาดหวัง (R̄) ของแต่ละโครงการ</p>
+    <div class="game" id="fb-pj1"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">กรอก R̄ (%) ที่แถวสุดท้ายของแต่ละโครงการ</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>โครงการ</th><th class="n">ผลตอบแทน (%)</th><th class="n">ความน่าจะเป็น</th><th class="n">R̄ (%)</th></tr><tr><td>Project 1</td><td class="n">16</td><td class="n">1.00</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="16" data-tol="0.01" aria-label="R̄ Project 1"></td></tr><tr><td>Project 2</td><td class="n">20</td><td class="n">1.00</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="20" data-tol="0.01" aria-label="R̄ Project 2"></td></tr><tr><td>Project 3</td><td class="n">-16</td><td class="n">0.25</td><td class="n"></td></tr><tr><td></td><td class="n">36</td><td class="n">0.50</td><td class="n"></td></tr><tr><td></td><td class="n">48</td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="26.0" data-tol="0.01" aria-label="R̄ Project 3"></td></tr><tr><td>Project 4</td><td class="n">-8</td><td class="n">0.25</td><td class="n"></td></tr><tr><td></td><td class="n">16</td><td class="n">0.50</td><td class="n"></td></tr><tr><td></td><td class="n">24</td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="12.0" data-tol="0.01" aria-label="R̄ Project 4"></td></tr><tr><td>Project 5</td><td class="n">-40</td><td class="n">0.10</td><td class="n"></td></tr><tr><td></td><td class="n">0</td><td class="n">0.60</td><td class="n"></td></tr><tr><td></td><td class="n">100</td><td class="n">0.30</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="26.0" data-tol="0.01" aria-label="R̄ Project 5"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-pj1" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: Risk Averse plc (2)">
+  <div class="inner">
+    <h2>ส่วนเบี่ยงเบนมาตรฐานของโครงการ 3, 4 และ 5</h2>
+    <p>โครงการ 1 และ 2 ผลตอบแทนแน่นอน จึง σ = 0 ส่วนโครงการ 3–5 ใช้ σ² = Σ (R − R̄)² × P  (ทศนิยม 1 ตำแหน่งสำหรับ σ) ใช้เครื่องมือใน SD Lab ช่วยตรวจได้</p>
+    <div class="game" id="fb-pj2"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หา σ² และ σ</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>โครงการ</th><th class="n">R̄ (%)</th><th class="n">σ² (%²)</th><th class="n">σ (%)</th></tr><tr><td>Project 3</td><td class="n">26</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="612" data-tol="2" aria-label="σ² Project 3"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="24.7" data-tol="0.1" aria-label="σ Project 3"></td></tr><tr><td>Project 4</td><td class="n">12</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="144" data-tol="2" aria-label="σ² Project 4"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="12.0" data-tol="0.1" aria-label="σ Project 4"></td></tr><tr><td>Project 5</td><td class="n">26</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="2484" data-tol="2" aria-label="σ² Project 5"></td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="49.8" data-tol="0.1" aria-label="σ Project 5"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-pj2" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+    <div class="callout" style="margin-top:.8rem">ไม่ต้องจำสูตรยาว ให้ทำตาม 6 ขั้นตอนทีละคอลัมน์เหมือนที่ฝึกกับสินทรัพย์ A และ B</div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: คัดโครงการที่ด้อยกว่า">
+  <div class="inner">
+    <span class="tag">Dominance</span>
+    <h2>ตัดสินใจเลือกโครงการ: ตัดโครงการที่ด้อยกว่าออก</h2>
+    <p>โครงการด้อยกว่า ถ้ามีโครงการอื่นที่ให้ผลตอบแทนเท่ากันหรือมากกว่า และเสี่ยงเท่ากันหรือน้อยกว่า แตะจุดเพื่อเลือกโครงการที่จะตัดทิ้ง</p>
+    <div class="cols c21">
+      <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">ผลตอบแทนที่คาดหวัง (R̄) กับความเสี่ยง (σ)</span></div><div id="g-scat"></div></div>
+      <div class="game"><div class="gh"><span class="badge">ควิซ</span><span class="gt">เหลือสองโครงการ</span></div><div id="g-q3"></div></div>
+    </div>
+  </div>
+</section>
+<section class="slide" data-title="ควิซ: เส้นความพอใจ">
+  <div class="inner">
+    <h2>เส้นความพอใจ (Indifference Curve)</h2>
+    <p>นักลงทุนแต่ละแบบมีเส้นความพอใจต่างกัน: เฉย ๆ กับความเสี่ยง (เส้นแนวราบ I₁ และ I₂) กลัวความเสี่ยง (เส้นลาดขึ้น I₃ และ I₄)</p>
+    <div class="game"><div class="gh"><span class="badge">ควิซ</span><span class="gt">เลือกเส้นที่ชอบกว่า</span></div><div id="g-q2"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: สัมประสิทธิ์ความแปรปรวน (CV)">
+  <div class="inner">
+    <span class="tag">Coefficient of Variation</span>
+    <h2>สัมประสิทธิ์ความแปรปรวน CV = σ ÷ R̄</h2>
+    <div class="callout">เป็นความเสี่ยงต่อผลตอบแทนหนึ่งหน่วย ค่ายิ่งต่ำยิ่งดี ใช้เปรียบเทียบเมื่อผลตอบแทนที่คาดหวังต่างกัน</div>
+    <div class="game" id="fb-cv"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">โครงการ A: R̄ = 20%, σ = 30%   โครงการ B: R̄ = 25%, σ = 35%</span></div>
+      <p>CV ของ A = <input class="fill sm" inputmode="decimal" data-answer="1.5" data-tol="0.005" aria-label="CV A"> &nbsp;&nbsp; CV ของ B = <input class="fill sm" inputmode="decimal" data-answer="1.4" data-tol="0.005" aria-label="CV B"> &nbsp;&nbsp; <span class="small">B เสี่ยงน้อยกว่าต่อหนึ่งหน่วยผลตอบแทน แม้ σ สูงกว่า</span></p>
+      <button class="btn pri" data-check="#fb-cv">ตรวจคำตอบ</button></div>
+    <div class="game" style="margin-top:.8rem"><div class="gh"><span class="badge">โจทย์สุ่ม</span><span class="gt">เปรียบเทียบสองโครงการด้วย CV</span></div><div id="g-drill2"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="คำนวณ: CV ของโครงการ Risk Averse plc">
+  <div class="inner">
+    <h2>CV ช่วยตัดสินใจเมื่อผลตอบแทนเท่ากันหรือต่างกัน</h2>
+    <div class="game" id="fb-cv2"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หา CV (ทศนิยม 2 ตำแหน่ง)</span></div>
+    <div class="scrollx"><table class="tb"><tr><th>โครงการ</th><th class="n">R̄ (%)</th><th class="n">σ (%)</th><th class="n">CV</th></tr><tr><td>Project 3</td><td class="n">26</td><td class="n">24.7</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.95" data-tol="0.02" aria-label="CV Project 3"></td></tr><tr><td>Project 4</td><td class="n">12</td><td class="n">12.0</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.0" data-tol="0.02" aria-label="CV Project 4"></td></tr><tr><td>Project 5</td><td class="n">26</td><td class="n">49.8</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.92" data-tol="0.02" aria-label="CV Project 5"></td></tr></table></div>
+    <button class="btn pri" data-check="#fb-cv2" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+    <div class="callout" style="margin-top:.8rem">Project 3 กับ Project 5 ให้ R̄ = 26% เท่ากัน แต่ CV ของ Project 5 สูงกว่าเกือบสองเท่า จึงเสี่ยงกว่าอย่างชัดเจน (Project 1 และ 2 มี CV = 0)</div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: ความเสี่ยงที่เป็นระบบหรือไม่">
+  <div class="inner">
+    <h2>ความเสี่ยงที่เป็นระบบ หรือ ที่ไม่เป็นระบบ</h2>
+    <p>ที่เป็นระบบ (Systematic) เกิดจากระบบโดยรวม กระจายไม่ได้  ที่ไม่เป็นระบบ (Unsystematic) เป็นความเสี่ยงเฉพาะตัว กระจายการลงทุนได้</p>
+    <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">จัดเหตุการณ์เข้ากลุ่ม</span></div><div id="g-sys"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="จำลอง: การกระจายการลงทุน">
+  <div class="inner">
+    <span class="tag">Diversification</span>
+    <h2>กระจายการลงทุนลดความเสี่ยงได้แค่ไหน</h2>
+    <div class="game"><div class="gh"><span class="badge">สถานการณ์จำลอง</span><span class="gt">หุ้นแต่ละตัว: ความเสี่ยงตลาด 20% + ความเสี่ยงเฉพาะตัว 30%</span></div>
+      <div class="sl"><label for="nn">จำนวนหุ้นในพอร์ต (N)</label><input type="range" id="nn" min="1" max="30" step="1" value="1"><output id="nno"></output></div>
+      <svg id="dvsvg" class="chart" viewBox="0 0 600 260" role="img" aria-label="ความเสี่ยงของพอร์ต"></svg>
+      <div class="cols c3 keep2"><div class="card t"><span class="small">SD ตามทฤษฎี √(20² + 30²/N)</span><div class="big" id="dv-th"></div></div><div class="card p"><span class="small">ผลจำลอง 3,000 รอบ</span><div class="big" id="dv-mc">–</div></div><div class="card l"><span class="small">ส่วนที่กระจายไม่ได้</span><div class="big">20%</div></div></div>
+      <div class="flow-ctl"><button class="btn pri" id="dv-run">จำลองพอร์ตนี้</button></div>
+    </div>
+    <div class="game" id="fb-dv" style="margin-top:.8rem"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">SD ของพอร์ต = √(20² + 30² ÷ N)  (ทศนิยม 2 ตำแหน่ง)</span></div>
+      <p>N = 1: <input class="fill sm" inputmode="decimal" data-answer="36.06" data-tol="0.05" aria-label="N=1"> % &nbsp; N = 4: <input class="fill sm" inputmode="decimal" data-answer="25" data-tol="0.05" aria-label="N=4"> % &nbsp; N = 9: <input class="fill sm" inputmode="decimal" data-answer="22.36" data-tol="0.05" aria-label="N=9"> % &nbsp; N → ∞: <input class="fill sm" inputmode="decimal" data-answer="20" data-tol="0.05" aria-label="N ไม่จำกัด"> %</p>
+      <button class="btn pri" data-check="#fb-dv">ตรวจคำตอบ</button></div>
+  </div>
+</section>
+<section class="slide" data-title="เกม: Hedge หรือ Diversify">
+  <div class="inner">
+    <h2>จะจัดการความเสี่ยงแต่ละแบบอย่างไร</h2>
+    <div class="game"><div class="gh"><span class="badge">เกม</span><span class="gt">จับคู่ความเสี่ยงกับวิธีจัดการ</span></div><div id="g-match2"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="ควิซสรุปบทที่ 2">
+  <div class="inner">
+    <h2>ควิซสรุปบทที่ 2</h2>
+    <div class="game"><div class="gh"><span class="badge">ควิซ</span><span class="gt">10 ข้อ</span></div><div id="g-final"></div></div>
+  </div>
+</section>
+<section class="slide" data-title="สรุปสูตรสำคัญ">
+  <div class="inner">
+    <span class="tag">Summary</span>
+    <h2>สรุปสูตรสำคัญของบท</h2>
+    <div class="cols c2">
+      <div class="card g"><h3>ผลตอบแทน</h3><p>อัตราผลตอบแทน = [เงินปันผล + (ราคาขาย − ราคาซื้อ)] ÷ ราคาซื้อ</p></div>
+      <div class="card p"><h3>ผลตอบแทนที่คาดหวัง</h3><p>R̄ = Σ (Rᵢ × Pᵢ)</p></div>
+      <div class="card t"><h3>ส่วนเบี่ยงเบนมาตรฐาน</h3><p>σ = √ Σ [(Rᵢ − R̄)² × Pᵢ]</p></div>
+      <div class="card l"><h3>สัมประสิทธิ์ความแปรปรวน</h3><p>CV = σ ÷ R̄ (ต่ำ = เสี่ยงต่อหน่วยผลตอบแทนน้อย)</p></div>
+      <div class="card w"><h3>เลือกโครงการ</h3><p>ตัดโครงการที่ผลตอบแทนต่ำกว่าแต่เสี่ยงมากกว่าออก แล้วเลือกตามทัศนคติต่อความเสี่ยง</p></div>
+      <div class="card"><h3>ความเสี่ยง 2 ชนิด</h3><p>ที่เป็นระบบ: กระจายไม่ได้ ใช้ Hedge · ที่ไม่เป็นระบบ: กระจายการลงทุนได้</p></div>
+    </div>
+  </div>
+</section>
+<section class="slide cover" data-title="Q &amp; A">
+  <div class="dots" aria-hidden="true">
+    <i style="left:8%;top:62%;width:18%;height:18%;background:#7B4AA0"></i><i style="left:30%;top:46%;width:22%;height:22%;background:#9A6BBF"></i>
+    <i style="left:54%;top:28%;width:26%;height:26%;background:#2BA6A0"></i><i style="left:72%;top:62%;width:14%;height:14%;background:#1B7F6B"></i>
+  </div>
+  <div class="inner">
+    <span class="tag">Risk &amp; Return</span>
+    <h1>Q &amp; A</h1>
+    <div class="sub">ถาม-ตอบ และสรุปบทที่ 2</div>
+    <div class="who"><b>อ. ดร. วิสุทธร จิตอารี</b><br>คณะบริหารธุรกิจ มหาวิทยาลัยเชียงใหม่</div>
+  </div>
+</section>
+</main>
+<footer class="nav">
+  <button class="btn" id="menuBtn" aria-label="เมนูสไลด์">☰ <span class="txt">สารบัญ</span></button>
+  <div class="mid"><button class="btn" id="prev" aria-label="ก่อนหน้า">‹ <span class="txt">ก่อนหน้า</span></button><span id="counter">1 / 1</span><button class="btn pri" id="next" aria-label="ถัดไป"><span class="txt">ถัดไป</span> ›</button></div>
+  <button class="btn" id="fsBtn" aria-label="เต็มจอ">⛶</button>
+</footer>
+</div>
+<div id="menu"><div class="panel"><h3>สารบัญ · บทที่ 2</h3><div id="menuList"></div></div></div>
+<script src="../shared/games.js"></script>
+<script src="../shared/deck.js"></script>
+<script src="ch2.js"></script>
+<script src="../shared/sync-config.js"></script>
+<script src="../shared/sync.js"></script>
+</body>
+</html>

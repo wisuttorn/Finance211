@@ -152,5 +152,120 @@
     run(); return run;
   };
 
+
+  /* ---------- Check-all button for a group of fill-in inputs ----------
+     <button class="btn pri" data-check="#box">ตรวจคำตอบ</button> ... inputs inside #box. Second click shows the answers. */
+  function parseNum(v) { return parseFloat(String(v).replace(/,/g, '')); }
+  function okFill(inp) { var v = parseNum(inp.value); return !isNaN(v) && Math.abs(v - parseFloat(inp.dataset.answer)) <= parseFloat(inp.dataset.tol || '0.01'); }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-check]'); if (!b) return;
+    var box = document.querySelector(b.dataset.check); if (!box) return;
+    var ins = Array.prototype.slice.call(box.querySelectorAll('input.fill[data-answer]'));
+    var out = box.querySelector('.chk-out') || (function () { var d = h('div', 'feedback chk-out'); b.parentNode.insertBefore(d, b.nextSibling); return d; })();
+    var tries = parseInt(box.dataset.tries || '0', 10);
+    var good = 0, empty = 0;
+    ins.forEach(function (i) { if (i.value === '') empty++; var ok = okFill(i); if (ok) good++; i.className = 'fill ' + (ok ? 'ok' : 'bad'); });
+    box.dataset.tries = tries + 1;
+    if (good === ins.length) { out.className = 'feedback ok chk-out'; out.textContent = 'ถูกทุกช่อง! ' + good + ' / ' + ins.length + (box.dataset.msg ? ' — ' + box.dataset.msg : ''); b.textContent = 'ตรวจอีกครั้ง'; return; }
+    if (tries >= 1) {   // second failed attempt: reveal
+      ins.forEach(function (i) { if (!okFill(i)) { i.value = i.dataset.show || i.dataset.answer; i.className = 'fill rev'; } });
+      out.className = 'feedback bad chk-out'; out.textContent = 'ได้ ' + good + ' / ' + ins.length + ' — ช่องสีเหลืองคือเฉลย ลองทำความเข้าใจวิธีคิดอีกครั้ง'; b.textContent = 'ตรวจอีกครั้ง'; box.dataset.tries = 0; return;
+    }
+    out.className = 'feedback bad chk-out'; out.textContent = 'ถูก ' + good + ' / ' + ins.length + (empty ? ' (ยังว่าง ' + empty + ' ช่อง)' : '') + ' — แก้แล้วกดตรวจอีกครั้ง (ถ้าผิดอีกจะแสดงเฉลย)'; b.textContent = 'ตรวจอีกครั้ง';
+  });
+  document.addEventListener('input', function (e) { var i = e.target; if (i.classList && i.classList.contains('fill') && i.classList.contains('rev')) i.className = 'fill'; });
+
+  /* ---------- Tap-in-order game ---------- */
+  G.order = function (el, cfg) {
+    var items = cfg.items, nxt = 0, miss = 0, order = shuffle(items.map(function (_, i) { return i; }));
+    function render() {
+      el.innerHTML = '';
+      var list = h('div', 'qopts'), fb = h('div', 'feedback'), rs = h('button', 'btn ghost sm', 'เริ่มใหม่');
+      order.forEach(function (i) {
+        var b = h('button', 'qopt'); b.innerHTML = i < nxt ? '<b>' + (i + 1) + '.</b> ' + items[i] : items[i];
+        if (i < nxt) { b.classList.add('ok'); b.disabled = true; }
+        b.onclick = function () {
+          if (i === nxt) { nxt++; if (nxt === items.length) { render(); fb = el.querySelector('.feedback'); fb.className = 'feedback ok'; fb.textContent = 'เรียงถูกครบ! พลาด ' + miss + ' ครั้ง'; return; } render(); }
+          else { miss++; b.classList.add('bad'); setTimeout(function () { b.classList.remove('bad'); }, 500); fb.className = 'feedback bad'; fb.textContent = 'ยังไม่ใช่ขั้นถัดไป ลองใหม่'; }
+        };
+        list.appendChild(b);
+      });
+      rs.onclick = function () { nxt = 0; miss = 0; order = shuffle(order); render(); };
+      el.appendChild(h('p', 'small', cfg.hint || 'แตะข้อความตามลำดับที่ถูกต้อง ตั้งแต่ขั้นแรกถึงขั้นสุดท้าย'));
+      el.appendChild(list); el.appendChild(fb); el.appendChild(rs);
+    }
+    render();
+  };
+
+  /* ---------- Random drill: generates a new numeric problem each time ----------
+     cfg.gen() -> { q: html, fields:[{label, ans, tol, unit}], why: html } */
+  G.drill = function (el, cfg) {
+    var score = 0, total = 0, cur = null;
+    function nextQ() {
+      cur = cfg.gen(); el.innerHTML = '';
+      var top = h('div', 'gh small', 'โจทย์สุ่มใหม่ทุกครั้ง<span class="score">ถูก ' + score + ' / ' + total + ' โจทย์</span>');
+      var q = h('div', 'callout', cur.q), box = h('div', 'chkbox'), fb = h('div', 'feedback'), btn = h('button', 'btn pri', 'ตรวจคำตอบ'), nx = h('button', 'btn ghost', 'โจทย์ใหม่');
+      var ins = [];
+      cur.fields.forEach(function (f) {
+        var p = h('p', null, f.label + ' = '), i = h('input', 'fill'); i.setAttribute('inputmode', 'decimal'); i.setAttribute('aria-label', f.label); ins.push(i);
+        p.appendChild(i); p.appendChild(document.createTextNode(' ' + (f.unit || ''))); box.appendChild(p);
+        i.addEventListener('keydown', function (e) { if (e.key === 'Enter') btn.click(); e.stopPropagation(); });
+      });
+      var done = false;
+      btn.onclick = function () {
+        if (done) return; var good = 0;
+        ins.forEach(function (i, k) { var v = parseNum(i.value), ok = !isNaN(v) && Math.abs(v - cur.fields[k].ans) <= (cur.fields[k].tol || 0.01); i.className = 'fill ' + (ok ? 'ok' : 'bad'); if (ok) good++; });
+        done = good === ins.length;
+        if (done) { total++; score++; fb.className = 'feedback ok'; fb.innerHTML = 'ถูกต้อง! ' + (cur.why || ''); top.querySelector('.score').textContent = 'ถูก ' + score + ' / ' + total + ' โจทย์'; }
+        else { fb.className = 'feedback bad'; fb.textContent = 'ถูก ' + good + ' / ' + ins.length + ' ช่อง ลองคำนวณใหม่ หรือกด "ดูเฉลย"'; show.classList.remove('hide'); }
+      };
+      var show = h('button', 'btn ghost hide', 'ดูเฉลย');
+      show.onclick = function () { if (!done) { total++; done = true; } ins.forEach(function (i, k) { i.value = cur.fields[k].show || cur.fields[k].ans; i.className = 'fill rev'; }); fb.className = 'feedback bad'; fb.innerHTML = 'เฉลย: ' + (cur.why || ''); top.querySelector('.score').textContent = 'ถูก ' + score + ' / ' + total + ' โจทย์'; };
+      nx.onclick = function () { if (!done && !cfg.free) total++; nextQ(); };
+      [top, q, box, h('div', 'flow-ctl'), fb].forEach(function (x) { el.appendChild(x); });
+      var ctl = el.querySelector('.flow-ctl'); ctl.appendChild(btn); ctl.appendChild(show); ctl.appendChild(nx);
+    }
+    nextQ();
+  };
+
+  /* ---------- SD laboratory: editable scenarios -> E(R), variance, SD, CV, range, step table ---------- */
+  G.sdlab = function (el, cfg) {
+    var rows = cfg.presets[0].rows.map(function (r) { return r.slice(); });
+    function calc() {
+      var ps = rows.reduce(function (a, r) { return a + r[1]; }, 0);
+      var m = rows.reduce(function (a, r) { return a + r[0] * r[1]; }, 0), v = rows.reduce(function (a, r) { return a + Math.pow(r[0] - m, 2) * r[1]; }, 0);
+      var mn = Math.min.apply(null, rows.map(function (r) { return r[0]; })), mx = Math.max.apply(null, rows.map(function (r) { return r[0]; }));
+      return { ps: ps, m: m, v: v, sd: Math.sqrt(v), mn: mn, mx: mx };
+    }
+    function render(keepFocus) {
+      var c = calc(); el.innerHTML = '';
+      var pre = h('div', 'flow-ctl');
+      cfg.presets.forEach(function (p) { var b = h('button', 'btn sm ghost', p.name); b.onclick = function () { rows = p.rows.map(function (r) { return r.slice(); }); render(); }; pre.appendChild(b); });
+      var add = h('button', 'btn sm', '+ เพิ่มเหตุการณ์'); add.onclick = function () { if (rows.length < 8) { rows.push([10, 0]); render(); } }; pre.appendChild(add);
+      var t = h('div', 'scrollx'), html = '<table class="tb"><tr><th>#</th><th class="n">ผลตอบแทน R (%)</th><th class="n">ความน่าจะเป็น P</th><th class="n">R × P</th><th class="n">R − R̄</th><th class="n">(R − R̄)²</th><th class="n">(R − R̄)² × P</th><th></th></tr>';
+      rows.forEach(function (r, i) {
+        var d = r[0] - c.m;
+        html += '<tr><td>' + (i + 1) + '</td><td class="n"><input class="fill sm" data-i="' + i + '" data-k="0" type="number" step="any" value="' + r[0] + '"></td><td class="n"><input class="fill sm" data-i="' + i + '" data-k="1" type="number" step="0.05" min="0" max="1" value="' + r[1] + '"></td><td class="n">' + (r[0] * r[1]).toFixed(2) + '</td><td class="n">' + d.toFixed(2) + '</td><td class="n">' + (d * d).toFixed(2) + '</td><td class="n">' + (d * d * r[1]).toFixed(2) + '</td><td>' + (rows.length > 1 ? '<button class="btn sm ghost" data-del="' + i + '" aria-label="ลบ">×</button>' : '') + '</td></tr>';
+      });
+      html += '<tr><td colspan="3"><b>รวม</b></td><td class="n hl">' + c.m.toFixed(2) + '</td><td></td><td></td><td class="n hl">' + c.v.toFixed(2) + '</td><td></td></tr></table>';
+      t.innerHTML = html;
+      var warn = Math.abs(c.ps - 1) > 0.001 ? '<div class="verdict bad">ผลรวมความน่าจะเป็น = ' + c.ps.toFixed(2) + ' (ต้องเท่ากับ 1.00)</div>' : '';
+      var res = h('div', 'cols c4 keep2', '<div class="card g"><span class="small">ผลตอบแทนที่คาดหวัง R̄</span><div class="big">' + c.m.toFixed(2) + '%</div></div><div class="card p"><span class="small">ความแปรปรวน σ²</span><div class="big">' + c.v.toFixed(2) + '</div></div><div class="card t"><span class="small">ส่วนเบี่ยงเบนมาตรฐาน σ</span><div class="big">' + c.sd.toFixed(2) + '%</div></div><div class="card l"><span class="small">CV = σ ÷ R̄ · พิสัย</span><div class="big">' + (c.m ? (c.sd / c.m).toFixed(2) : '–') + ' · ' + (c.mx - c.mn).toFixed(0) + '%</div></div>');
+      // distribution bars
+      var W = 600, H = 150, xs = rows.map(function (r) { return r[0]; }), lo = Math.min(-10, Math.min.apply(null, xs) - 5), hi = Math.max(30, Math.max.apply(null, xs) + 5), X = function (v) { return 30 + (v - lo) / (hi - lo) * (W - 60); };
+      var svg = '<svg class="chart" viewBox="0 0 ' + W + ' ' + (H + 30) + '" role="img" aria-label="การกระจายผลตอบแทน"><line x1="20" y1="' + H + '" x2="' + (W - 10) + '" y2="' + H + '" stroke="#58706A"/>';
+      rows.forEach(function (r) { var bh = Math.min(1, r[1]) * (H - 20); svg += '<rect x="' + (X(r[0]) - 8) + '" y="' + (H - bh) + '" width="16" height="' + bh + '" fill="#7B4AA0" opacity=".8"/><text x="' + X(r[0]) + '" y="' + (H + 16) + '" font-size="11" text-anchor="middle" fill="#58706A">' + r[0] + '</text>'; });
+      svg += '<line x1="' + X(c.m) + '" y1="5" x2="' + X(c.m) + '" y2="' + H + '" stroke="#1B7F6B" stroke-width="2" stroke-dasharray="5 4"/><text x="' + (X(c.m) + 4) + '" y="16" font-size="12" fill="#1B7F6B">R̄ = ' + c.m.toFixed(1) + '</text>';
+      svg += '<line x1="' + X(c.m - c.sd) + '" y1="' + (H - 6) + '" x2="' + X(c.m + c.sd) + '" y2="' + (H - 6) + '" stroke="#B4412E" stroke-width="3"/><text x="' + X(c.m) + '" y="' + (H - 12) + '" font-size="11" text-anchor="middle" fill="#B4412E">± 1 SD</text></svg>';
+      [pre, t, h('div', null, warn), res, h('div', null, svg)].forEach(function (x) { el.appendChild(x); });
+      Array.prototype.forEach.call(el.querySelectorAll('input.fill.sm'), function (inp) {
+        inp.addEventListener('change', function () { var v = parseFloat(inp.value); rows[+inp.dataset.i][+inp.dataset.k] = isNaN(v) ? 0 : v; render(); });
+        inp.addEventListener('keydown', function (e) { e.stopPropagation(); });
+      });
+      Array.prototype.forEach.call(el.querySelectorAll('[data-del]'), function (b) { b.onclick = function () { rows.splice(+b.dataset.del, 1); render(); }; });
+    }
+    render();
+  };
+
   window.Games = G;
 })();
