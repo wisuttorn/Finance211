@@ -1,4 +1,4 @@
-/* Chapter 3 (part 1 & 3): Financial statement analysis and Cash Budget games */
+/* Chapter 3 part 1: Financial statement analysis games */
 (function () {
   var G = Games, $ = function (id) { return document.getElementById(id); };
   var rnd = function (a, b) { return a + Math.floor(Math.random() * (b - a + 1)); };
@@ -79,81 +79,4 @@
     ['นโยบายบัญชีต่างกัน', 'เปรียบเทียบข้ามบริษัทผิดพลาด']
   ] });
 
-  /* ---------- Part 3: Cash budget ---------- */
-  function cashBudget(beg, rec, dis, minc, unit, rate) {
-    var out = 0, acc = 0, cash = beg, rows = [];
-    rec.forEach(function (r, t) {
-      var pre = cash + r - dis[t], loan = 0, repay = 0, intr = 0;
-      if (pre < minc) { loan = Math.ceil((minc - pre) / unit - 1e-9) * unit; out += loan; }
-      acc += out * rate / 12;
-      if (loan === 0 && out > 0) { var rp = Math.floor((pre - minc - acc) / unit + 1e-9) * unit; if (rp > 0) { repay = Math.min(out, rp); intr = acc; acc = 0; out -= repay; } }
-      var end = pre + loan - repay - intr;
-      rows.push({ beg: cash, rec: r, dis: dis[t], pre: pre, loan: loan, repay: repay, intr: intr, end: end, out: out });
-      cash = end;
-    });
-    return rows;
-  }
-  window.cashBudget = cashBudget;
-  G.sort($('g-cbsort'), {
-    buckets: [{ id: 'r', label: 'เงินสดรับ' }, { id: 'd', label: 'เงินสดจ่าย (ก่อนจัดการเงิน)' }, { id: 'f', label: 'การจัดการทางการเงิน' }],
-    items: [
-      { t: 'ขายเงินสด', b: 'r' }, { t: 'เก็บเงินจากลูกหนี้การค้า', b: 'r' }, { t: 'ซื้อเงินสด', b: 'd' }, { t: 'จ่ายเงินให้เจ้าหนี้การค้า', b: 'd' }, { t: 'ค่าเช่า เงินเดือน ค่าแรง', b: 'd' }, { t: 'ค่าภาษี', b: 'd' },
-      { t: 'ลงทุนในสินทรัพย์ไม่หมุนเวียน', b: 'd' }, { t: 'จ่ายเงินปันผล', b: 'd' }, { t: 'กู้ยืมเพิ่ม', b: 'f', why: 'ทำเมื่อเงินสดต่ำกว่าขั้นต่ำ' }, { t: 'จ่ายคืนเงินต้น', b: 'f', why: 'ทำเมื่อเงินสดเหลือเกินขั้นต่ำ' }, { t: 'จ่ายดอกเบี้ยของเงินกู้ที่คืน', b: 'f', why: 'จ่ายเมื่อคืนเงินต้น' }
-    ]
-  });
-  /* collection lab */
-  G.range(['cl-a', 'cl-b'], function (a, b) {
-    var c = 100 - a - b, S = [100, 200, 400, 300, 200];
-    $('cl-ao').textContent = a + '%'; $('cl-bo').textContent = b + '%';
-    $('cl-c').textContent = 'เก็บอีกเดือนถัดไป (c) = ' + c + '%' + (c < 0 ? '  (รวมเกิน 100% ปรับใหม่)' : '');
-    var f = function (t) { return (a * S[t] + b * S[t - 1] + Math.max(c, 0) * S[t - 2]) / 100; }, tg = { o: 210, n: 320, d: 340 }, v = { o: f(2), n: f(3), d: f(4) };
-    ['o', 'n', 'd'].forEach(function (k) { $('cl-' + k).textContent = G.fmt(v[k], 1); var df = v[k] - tg[k]; $('cl-' + k + 'd').textContent = (df > 0 ? '+' : '') + df.toFixed(1); });
-    var ok = Math.abs(v.o - 210) < 0.05 && Math.abs(v.n - 320) < 0.05, vd = $('cl-v');
-    vd.className = 'verdict ' + (c < 0 ? 'bad' : ok ? 'ok' : 'w');
-    vd.textContent = c < 0 ? 'a + b เกิน 100% ไม่ได้' : ok ? 'ตรงยอดเงินสดรับ ต.ค. และ พ.ย. ของไฟล์ต้นฉบับ! ธ.ค. ต่างอยู่ ' + (340 - v.d).toFixed(0) + ' ถือเป็นเงินสดรับอื่น' : 'ยังไม่ตรง ลองปรับ a และ b ให้ ต.ค. = 210 และ พ.ย. = 320';
-  });
-  /* cash budget lab */
-  (function () {
-    var F = [['beg', 'เงินสดต้นงวด ต.ค.', 0, 150, 1], ['r1', 'เงินสดรับ ต.ค.', 0, 600, 1], ['r2', 'เงินสดรับ พ.ย.', 0, 600, 1], ['r3', 'เงินสดรับ ธ.ค.', 0, 600, 1], ['d1', 'เงินสดจ่าย ต.ค.', 0, 600, 1], ['d2', 'เงินสดจ่าย พ.ย.', 0, 600, 1], ['d3', 'เงินสดจ่าย ธ.ค.', 0, 600, 1], ['min', 'เงินสดขั้นต่ำ', 0, 100, 5], ['unit', 'หน่วยเงินกู้/คืน', 1, 20, 1], ['rate', 'ดอกเบี้ยต่อปี (%)', 0, 24, 1]];
-    var PRE = { abc: { beg: 50, r1: 210, r2: 320, r3: 340, d1: 213, d2: 418, d3: 305, min: 25, unit: 5, rate: 12 }, slow: { beg: 50, r1: 189, r2: 288, r3: 306, d1: 213, d2: 418, d3: 305, min: 25, unit: 5, rate: 12 }, strong: { beg: 50, r1: 252, r2: 384, r3: 408, d1: 213, d2: 418, d3: 305, min: 25, unit: 5, rate: 12 } };
-    var el = $('g-cblab'), inp = {}, pb = h('div', 'flow-ctl'), box = h('div', 'lab-in'), res = h('div', 'lab-out');
-    F.forEach(function (f) { var r = h('div', 'sl'); r.innerHTML = '<label for="cb-' + f[0] + '">' + f[1] + '</label><input type="range" id="cb-' + f[0] + '" min="' + f[2] + '" max="' + f[3] + '" step="' + f[4] + '"><output id="cbo-' + f[0] + '"></output>'; box.appendChild(r); });
-    [['abc', 'ABC (ไฟล์ต้นฉบับ)'], ['slow', 'เก็บเงินช้าลง (รับ −10%)'], ['strong', 'ขายดี (รับ +20%)']].forEach(function (p) { var b = h('button', 'btn sm ghost', p[1]); b.onclick = function () { load(p[0]); }; pb.appendChild(b); });
-    var lw = h('div', 'lab-wrap'), left = h('div'); left.appendChild(pb); left.appendChild(box); lw.appendChild(left); lw.appendChild(res); el.appendChild(lw);
-    var vd = h('div', 'verdict ok'); vd.id = 'cb-vd'; el.appendChild(vd);
-    F.forEach(function (f) { inp[f[0]] = $('cb-' + f[0]); inp[f[0]].addEventListener('input', up); });
-    function load(k) { F.forEach(function (f) { inp[f[0]].value = PRE[k][f[0]]; }); up(); }
-    function up() {
-      var v = {}; F.forEach(function (f) { v[f[0]] = parseFloat(inp[f[0]].value); $('cbo-' + f[0]).textContent = G.fmt(v[f[0]]); });
-      var rows = cashBudget(v.beg, [v.r1, v.r2, v.r3], [v.d1, v.d2, v.d3], v.min, v.unit, v.rate / 100), M = ['ต.ค.', 'พ.ย.', 'ธ.ค.'];
-      var line = function (name, k, neg, bold) { return '<tr><td>' + (bold ? '<b>' : '') + name + (bold ? '</b>' : '') + '</td>' + rows.map(function (r) { var x = r[k]; if (neg) x = -x; return '<td class="n"' + (x < 0 && k !== 'dis' ? ' style="color:var(--bad)"' : '') + '>' + (x === 0 && (k === 'loan' || k === 'repay' || k === 'intr') ? '-' : fmt(x)) + '</td>'; }).join('') + '</tr>'; };
-      res.innerHTML = '<table class="tb"><tr><th>หน่วย: พัน</th>' + M.map(function (m) { return '<th class="n">' + m + '</th>'; }).join('') + '</tr>' + line('เงินสดต้นงวด', 'beg') + line('เงินสดรับ', 'rec') + line('เงินสดจ่าย', 'dis') + line('เงินสดสุทธิ (ก่อนจัดการเงิน)', 'pre', 0, 1) + line('เงินกู้', 'loan') + line('จ่ายคืนเงินต้น', 'repay', 1) + line('จ่ายดอกเบี้ย', 'intr', 1) + line('เงินสดปลายงวด', 'end', 0, 1) + line('เงินกู้คงค้าง', 'out') + '</table>';
-      var tl = rows.reduce(function (a, r) { return a + r.loan; }, 0), tr = rows.reduce(function (a, r) { return a + r.repay; }, 0), last = rows[2];
-      vd.className = 'verdict ' + (tl === 0 ? 'ok' : last.out > 0 ? 'w' : 'ok');
-      vd.textContent = (tl === 0 ? 'ไม่ต้องกู้เลยใน 3 เดือน' : 'กู้รวม ' + fmt(tl) + ' คืนรวม ' + fmt(tr) + ' สิ้น ธ.ค. เหลือหนี้ ' + fmt(last.out)) + ' · เงินสดปลายงวด ธ.ค. = ' + fmt(last.end);
-    }
-    load('abc');
-  })();
-  G.drill($('g-drill-loan'), { gen: function () {
-    var unit = Math.random() < 0.5 ? 5 : 10, minc = rnd(2, 6) * 5, beg = rnd(1, 10) * 5, rec = rnd(6, 20) * 10, pre = rnd(-60, minc - 3), dis = beg + rec - pre;
-    var loan = Math.ceil((minc - pre) / unit) * unit;
-    return { q: 'เงินสดต้นงวด <b>' + beg + '</b>  เงินสดรับ <b>' + rec + '</b>  เงินสดจ่าย <b>' + dis + '</b>  เงินสดขั้นต่ำ <b>' + minc + '</b>  กู้เป็นหน่วย <b>' + unit + '</b> (พิมพ์ค่าลบด้วย −)',
-      fields: [{ label: 'เงินสดก่อนจัดการเงิน', ans: pre, tol: 0.5, show: pre }, { label: 'เงินกู้', ans: loan, tol: 0.5, show: loan }, { label: 'เงินสดปลายงวด', ans: pre + loan, tol: 0.5, show: pre + loan }],
-      why: 'ก่อนจัดการ = ' + beg + ' + ' + rec + ' − ' + dis + ' = ' + pre + '  ขาด ' + (minc - pre) + ' ปัดขึ้นเป็นหน่วย ' + unit + ' ได้กู้ ' + loan + '  ปลายงวด = ' + (pre + loan) };
-  } });
-  G.drill($('g-drill-repay'), { gen: function () {
-    var out = rnd(4, 20) * 5, m = rnd(1, 4), intr = out * 0.12 / 12 * m, minc = rnd(2, 6) * 5, pre = Math.round(minc + intr + rnd(6, 90)), beg = rnd(1, 10) * 5, rec = rnd(10, 25) * 10, dis = beg + rec - pre;
-    var rp = Math.min(out, Math.floor((pre - minc - intr) / 5) * 5), it = Math.round(intr * 100) / 100;
-    return { q: 'เงินสดต้นงวด <b>' + beg + '</b>  รับ <b>' + rec + '</b>  จ่าย <b>' + dis + '</b>  ขั้นต่ำ <b>' + minc + '</b>  มีเงินกู้ค้าง <b>' + out + '</b> ดอกเบี้ย 12% ต่อปี ค้างมา <b>' + m + '</b> เดือน  คืนเป็นหน่วย 5',
-      fields: [{ label: 'เงินสดก่อนจัดการเงิน', ans: pre, tol: 0.5, show: pre }, { label: 'ดอกเบี้ยที่ต้องจ่าย', ans: it, tol: 0.05, show: it }, { label: 'คืนเงินต้นได้สูงสุด', ans: rp, tol: 0.5, show: rp }, { label: 'เงินสดปลายงวด', ans: pre - rp - it, tol: 0.06, show: Math.round((pre - rp - it) * 100) / 100 }],
-      why: 'ดอกเบี้ย = ' + out + ' × 12% × ' + m + ' ÷ 12 = ' + it + '  คืนได้ ≤ ' + pre + ' − ' + minc + ' − ' + it + ' = ' + Math.round((pre - minc - it) * 100) / 100 + ' ปัดลงหน่วย 5 (ไม่เกินเงินกู้ค้าง) = ' + rp };
-  } });
-  G.quiz($('g-cbq'), { questions: [
-    { q: 'เงินสดก่อนจัดการเงิน = −51 ขั้นต่ำ 25 หน่วยกู้ 5 กู้เท่าใด', o: ['75', '76', '80', '85'], a: 2, why: 'ขาด 76 ปัดขึ้นเป็นหน่วย 5 = 80' },
-    { q: 'ข้อใดไม่ใช่ประโยชน์ของงบประมาณเงินสด', o: ['รู้ล่วงหน้าว่าเมื่อใดต้องกู้', 'วางแผนเวลาคืนเงินกู้', 'รายงานเงินสดที่เกิดขึ้นจริงในอดีต', 'ประเมินความต้องการเงินทุนระยะสั้น'], a: 2, why: 'การรายงานอดีตเป็นหน้าที่งบกระแสเงินสด' },
-    { q: 'ขายเชื่อมากขึ้น (เก็บเงินช้าลง) โดยยอดขายเท่าเดิม เงินสดรับในเดือนนั้นจะ', o: ['เพิ่ม', 'ลด', 'เท่าเดิม'], a: 1, why: 'เงินสดรับเลื่อนไปเดือนถัดไป' },
-    { q: 'เงินกู้ 80 ดอกเบี้ย 12% ต่อปี ค้าง 2 เดือน ดอกเบี้ยเท่าใด', o: ['0.8', '1.6', '9.6', '16'], a: 1, why: '80 × 12% × 2 ÷ 12 = 1.6' },
-    { q: 'เงินสดก่อนจัดการเงิน 64 ขั้นต่ำ 25 ดอกเบี้ย 1.6 คืนเงินต้นได้สูงสุด (หน่วย 5)', o: ['40', '35', '39', '30'], a: 1, why: '64 − 25 − 1.6 = 37.4 ปัดลง = 35' },
-    { q: 'เหตุใดจึงตรึงเงินสดขั้นต่ำไว้', o: ['เผื่อความคลาดเคลื่อนของการพยากรณ์', 'เพื่อลดภาษี', 'เพื่อเพิ่มกำไร'], a: 0, why: 'ป้องกันเงินขาดมือเมื่อเกิดเหตุไม่คาดคิด' }
-  ] });
 })();

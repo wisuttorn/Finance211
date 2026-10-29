@@ -11,6 +11,19 @@
   var isHost = /[?&]host\b/.test(location.search);
   var follow = false, syncing = false, lastSeen = 0, lastSlide = -1, channel = null, priv = null, hostOn = false, hb = null;
 
+  /* ---------- Live poll API (used by Games.tally): anonymous votes over Broadcast, nothing stored ---------- */
+  var vid = ''; try { vid = sessionStorage.getItem('f211vid') || ''; if (!vid) { vid = Math.random().toString(36).slice(2, 10); sessionStorage.setItem('f211vid', vid); } } catch (e) { vid = vid || Math.random().toString(36).slice(2, 10); }
+  var voteCbs = [], stateCbs = [];
+  window.LiveSync = {
+    isHost: isHost,
+    open: function () { return isHost ? hostOn : !!(lastSeen && Date.now() - lastSeen < 15000); },
+    vote: function (poll, i) { if (channel) channel.send({ type: 'broadcast', event: 'vote', payload: { c: CH, p: poll, v: vid, i: i } }); },
+    onVote: function (f) { voteCbs.push(f); },
+    onState: function (f) { stateCbs.push(f); }
+  };
+  document.dispatchEvent(new Event('livesync-ready'));
+  function fireState() { stateCbs.forEach(function (f) { try { f(); } catch (e) {} }); }
+
   function b64(buf) { var a = new Uint8Array(buf), s = ''; for (var i = 0; i < a.length; i++) s += String.fromCharCode(a[i]); return btoa(s); }
   function unb64(s) { var b = atob(s), a = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) a[i] = b.charCodeAt(i); return a; }
   function msg(p) { return enc.encode([p.c, p.s, p.t, p.e].join('|')); }
@@ -43,7 +56,9 @@
     btn.className = follow ? '' : 'off';
     btn.textContent = follow ? 'กำลังตามอาจารย์ ✓' : 'ตามอาจารย์ (สไลด์ ' + (lastSlide + 1) + ')';
   }
-  setInterval(render, 2000);
+  var wasOpen = null;
+  function tick() { render(); var o = window.LiveSync.open(); if (o !== wasOpen) { wasOpen = o; fireState(); } }
+  setInterval(tick, 2000);
 
   /* ---------- Realtime ---------- */
   function connect(cb) {
@@ -51,6 +66,7 @@
       var cl = window.supabase.createClient(C.url, C.key, { realtime: { params: { eventsPerSecond: 5 } } });
       channel = cl.channel(CH, { config: { broadcast: { self: false } } });
       if (!isHost) channel.on('broadcast', { event: 'slide' }, function (m) { onMsg(m.payload); });
+      else channel.on('broadcast', { event: 'vote' }, function (m) { var q = m.payload; if (q && q.c === CH && typeof q.i === 'number') voteCbs.forEach(function (f) { try { f(q.p, q.v, q.i); } catch (e) {} }); });
       channel.subscribe(function (st) { if (st === 'SUBSCRIBED' && cb) cb(); });
     }
     if (window.supabase) return go();
@@ -67,7 +83,7 @@
     getPub().then(function (k) { return crypto.subtle.verify({ name: 'ECDSA', hash: 'SHA-256' }, k, unb64(p.g), msg(p)); }).then(function (ok) {
       if (!ok) return;
       if (p.e) { lastSeen = 0; follow = false; render(); return; }
-      lastSeen = Date.now(); lastSlide = p.s;
+      lastSeen = Date.now(); lastSlide = p.s; if (wasOpen !== true) tick();
       if (follow && window.Deck && window.Deck.index() !== p.s) { syncing = true; window.Deck.show(p.s); syncing = false; }
       render();
     }).catch(function () {});
@@ -107,12 +123,12 @@
     mp.textContent = 'กำลังตรวจสอบ…';
     unlock(mi.value).then(function (k) {
       priv = k; modal.classList.remove('open'); mi.value = '';
-      connect(function () { hostOn = true; send(0); hb = setInterval(function () { send(0); }, 4000); render(); });
+      connect(function () { hostOn = true; fireState(); send(0); hb = setInterval(function () { send(0); }, 4000); render(); });
     }).catch(function () { mp.textContent = 'รหัสผ่านไม่ถูกต้อง'; });
   }
   mb[0].onclick = go; mb[1].onclick = function () { modal.classList.remove('open'); };
   mi.addEventListener('keydown', function (e) { if (e.key === 'Enter') go(); e.stopPropagation(); });
-  function stopHost() { send(1); clearInterval(hb); hostOn = false; render(); }
+  function stopHost() { send(1); clearInterval(hb); hostOn = false; render(); fireState(); }
   window.addEventListener('beforeunload', function () { if (hostOn) send(1); });
 
   if (isHost) render(); else connect();

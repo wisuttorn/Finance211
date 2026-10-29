@@ -108,18 +108,33 @@
 
   /* ---------- Hand-count tally (instructor counts raised hands) ---------- */
   G.tally = function (el, cfg) {
-    var n = cfg.options.map(function () { return 0; });
+    var n = cfg.options.map(function () { return 0; }), man = n.slice(), votes = {}, mine = -1, pid = el.id || 'poll';
     el.innerHTML = '';
-    var box = h('div', 'tally'), rs = h('button', 'btn ghost sm', 'ล้างคะแนน'), rows = [];
+    var LS = window.LiveSync, hooked = false, box = h('div', 'tally'), rs = h('button', 'btn ghost sm', 'ล้างคะแนน'), rows = [], note = h('div', 'small', '');
     cfg.options.forEach(function (o, i) {
-      var r = h('div', 'trow'); r.innerHTML = '<div>' + o + '</div><div class="tbar"><i></i></div><div class="tctl"><button class="btn sm" aria-label="ลด">−</button><b>0</b><button class="btn sm pri" aria-label="เพิ่ม">+</button></div>';
-      var bs = r.querySelectorAll('button');
-      bs[0].onclick = function () { n[i] = Math.max(0, n[i] - 1); up(); }; bs[1].onclick = function () { n[i]++; up(); };
+      var r = h('div', 'trow'); r.innerHTML = '<div>' + o + '</div><div class="tbar"><i></i></div><div class="tctl"><button class="btn sm" aria-label="ลด">−</button><b>0</b><button class="btn sm pri" aria-label="เพิ่ม">+</button></div><div class="tvote"><button class="btn pri">ฉันเลือกข้อนี้</button></div>';
+      var bs = r.querySelectorAll('.tctl button');
+      bs[0].onclick = function () { man[i] = Math.max(0, man[i] - 1); up(); }; bs[1].onclick = function () { man[i]++; up(); };
+      r.querySelector('.tvote button').onclick = function () { mine = i; if (LS) LS.vote(pid, i); mode(); };
       rows.push(r); box.appendChild(r);
     });
-    function up() { var t = n.reduce(function (a, b) { return a + b; }, 0) || 1; rows.forEach(function (r, i) { r.querySelector('b').textContent = n[i]; r.querySelector('.tbar i').style.width = (n[i] / t * 100) + '%'; }); }
-    rs.onclick = function () { n = n.map(function () { return 0; }); up(); };
-    el.appendChild(box); el.appendChild(rs);
+    function up() {
+      var c = cfg.options.map(function (_, i) { return man[i]; });
+      Object.keys(votes).forEach(function (k) { c[votes[k]]++; });
+      n = c; var t = c.reduce(function (a, b) { return a + b; }, 0) || 1;
+      rows.forEach(function (r, i) { r.querySelector('b').textContent = c[i]; r.querySelector('.tbar i').style.width = (c[i] / t * 100) + '%'; });
+    }
+    function mode() {                       // student on a live class -> vote buttons; otherwise instructor counter
+      var stu = LS && !LS.isHost && LS.open();
+      box.classList.toggle('stu', !!stu); rs.style.display = stu ? 'none' : '';
+      rows.forEach(function (r, i) { r.classList.toggle('mine', stu && mine === i); r.querySelector('.tvote button').textContent = (stu && mine === i) ? 'เลือกแล้ว ✓' : 'ฉันเลือกข้อนี้'; });
+      note.textContent = stu ? (mine < 0 ? 'แตะเพื่อโหวต (ไม่ระบุชื่อ เปลี่ยนคำตอบได้) ผลจะแสดงบนจอของอาจารย์' : 'ส่งคำตอบแล้ว แตะข้ออื่นเพื่อเปลี่ยนได้') : (LS && LS.isHost && LS.open() ? 'นักศึกษาโหวตผ่านมือถือได้ คะแนนจะเพิ่มอัตโนมัติ  ยังกดเพิ่มเองสำหรับการยกมือได้' : '');
+      el.classList.toggle('livestu', !!stu);
+    }
+    rs.onclick = function () { man = man.map(function () { return 0; }); votes = {}; up(); };
+    function hook() { LS = window.LiveSync; if (!LS || hooked) return; hooked = true; if (LS.isHost) LS.onVote(function (p, v, i) { if (p === pid && i >= 0 && i < cfg.options.length) { votes[v] = i; up(); } }); LS.onState(mode); mode(); }
+    hook(); document.addEventListener('livesync-ready', hook);
+    el.appendChild(box); el.appendChild(rs); el.appendChild(note); mode();
   };
 
   /* ---------- Fill-in-the-number checks ---------- */

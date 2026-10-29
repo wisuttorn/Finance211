@@ -224,3 +224,8 @@ select.sel.ok{border-color:var(--green);background:var(--ok-l)} select.sel.bad{b
 .lab-in{display:grid;grid-template-columns:1fr;gap:0;margin:.4rem 0}.lab-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:1.4rem;align-items:start}.lab-wrap .sl{margin:.15rem 0}@media(max-width:800px){.lab-wrap{grid-template-columns:1fr}}
 @media(max-width:800px){.lab-in{grid-template-columns:1fr}}
 table.tb td.n input.fill.sm{width:6rem}
+
+/* live student voting in tally */
+.tally .tvote{display:none}.tally.stu .tctl,.tally.stu .tbar{display:none}.tally.stu .tvote{display:block}
+.tally.stu .trow{grid-template-columns:1fr auto}.tally .trow.mine{outline:2px solid var(--green,#1B7F6B);border-radius:.7rem}
+.tally .tvote button{white-space:nowrap}
