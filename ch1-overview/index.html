@@ -29,6 +29,7 @@
     <h1>An Overview of<br>Financial Management</h1>
     <div class="sub">ภาพรวมการบริหารการเงิน</div>
     <div class="who"><b>อ. ดร. วิสุทธร จิตอารี</b><br>คณะบริหารธุรกิจ มหาวิทยาลัยเชียงใหม่</div>
+    <a class="qrbox" href="https://wisuttorn.github.io/Finance211/ch1-overview/" aria-label="QR code ลิงก์บทเรียนนี้"><img src="../shared/img/qr-ch1.png" alt="QR code ลิงก์ไปบทเรียนนี้"><span>สแกนเพื่อเปิดบทเรียนบนมือถือ</span><small>wisuttorn.github.io/Finance211/ch1-overview/</small></a>
   </div>
 </section>
 
@@ -255,7 +256,7 @@
       <div class="card t"><span class="q">คำถามที่ 2</span><p>ความมั่งคั่งของผู้ถือหุ้นคืออะไร และวัดค่าได้หรือไม่</p></div>
     </div>
     <button class="btn" data-toggle="#a17" data-alt="ซ่อนคำตอบ">ดูแนวคำตอบ</button>
-    <div id="a17" class="callout hide reveal-box">ข้อ 1: คำนึงถึงขนาด ระยะเวลา และความเสี่ยงของผลตอบแทน · ข้อ 2: วัดได้จากเงินปันผลและส่วนต่างราคาหุ้น ซึ่งสะท้อนอยู่ใน<b>ราคาหุ้นปัจจุบัน</b></div>
+    <div id="a17" class="callout hide reveal-box">ข้อ 1: คำนึงถึงขนาด ระยะเวลา และความเสี่ยงของผลตอบแทน · ข้อ 2: วัดได้จากเงินปันผลและกำไรส่วนทุน ซึ่งสะท้อนอยู่ใน<b>ราคาหุ้นปัจจุบัน</b></div>
   </div>
 </section>
 
@@ -267,7 +268,7 @@
     <div class="infogroup org">
       <button class="node fin" data-info="ความมั่งคั่งของผู้ถือหุ้น: ระดับความสามารถในการบริโภคหรือลงทุนต่อที่เกิดจากผลตอบแทนที่ได้รับ">Shareholders' Wealth</button><span class="arrow">↓ แสดงออกเป็น</span>
       <button class="node" data-info="อำนาจซื้อ (Purchasing Power): สิ่งที่ผู้ถือหุ้นนำเงินผลตอบแทนไปซื้อหรือไปลงทุนต่อได้">Purchasing Power</button><span class="arrow">↓ มาจาก</span>
-      <button class="node" data-info="ผลตอบแทนสองทาง: เงินปันผลที่ได้รับเป็นงวด และกำไรจากส่วนต่างราคาหุ้นเมื่อขายได้สูงกว่าราคาซื้อ (Capital Gain)">Dividend + Capital Gain</button><span class="arrow">↓ ขึ้นอยู่กับ</span>
+      <button class="node" data-info="ผลตอบแทนสองทาง: เงินปันผลที่ได้รับเป็นงวด และกำไรส่วนทุนเมื่อขายได้สูงกว่าราคาซื้อ (Capital Gain)">Dividend + Capital Gain</button><span class="arrow">↓ ขึ้นอยู่กับ</span>
       <div class="row"><button class="node" data-info="ขนาด (Magnitude): ผลตอบแทนมีมูลค่ามากน้อยเพียงใด">Magnitude</button><button class="node" data-info="ระยะเวลา (Timing): ได้รับผลตอบแทนเร็วหรือช้า เงินที่ได้เร็วกว่ามีค่ากว่า">Timing</button><button class="node" data-info="ความเสี่ยง (Risk): ผลตอบแทนที่คาดหวังจะเกิดขึ้นจริงมากน้อยเพียงใด">Risk</button></div>
       <span class="arrow">↓ สะท้อนอยู่ใน</span>
       <button class="node fin" data-info="ราคาหุ้นปัจจุบัน (Current Share Price): ตลาดรวมขนาด ระยะเวลา และความเสี่ยงไว้ในราคาเดียว จึงวัดค่าได้">Current Share Price</button>
@@ -280,13 +281,13 @@
 <section class="slide" data-title="เกม: ผลตอบแทนของผู้ถือหุ้น">
   <div class="inner">
     <h2>คำนวณความมั่งคั่งที่เพิ่มขึ้น</h2>
-    <div class="game"><div class="gh"><span class="badge">เครื่องคำนวณ</span><span class="gt">ผลตอบแทนรวม = (เงินปันผล + ส่วนต่างราคา) ÷ ราคาซื้อ</span></div>
+    <div class="game"><div class="gh"><span class="badge">เครื่องคำนวณ</span><span class="gt">ผลตอบแทนรวม = (เงินปันผล + กำไรส่วนทุน) ÷ ราคาซื้อ</span></div>
       <div class="sl"><label for="p0">ราคาซื้อ</label><input type="range" id="p0" min="10" max="200" step="1" value="50"><output id="p0o"></output></div>
       <div class="sl"><label for="dd">เงินปันผล</label><input type="range" id="dd" min="0" max="10" step="0.5" value="2"><output id="ddo"></output></div>
       <div class="sl"><label for="p1">ราคาขาย</label><input type="range" id="p1" min="10" max="200" step="1" value="56"><output id="p1o"></output></div>
       <div class="cols c3 keep2">
         <div class="card t"><small>อัตราเงินปันผล (Dividend Yield)</small><div class="big" style="color:var(--teal)" id="dy"></div></div>
-        <div class="card p"><small>อัตรากำไรจากส่วนต่างราคา (Capital Gain Yield)</small><div class="big" style="color:var(--purple)" id="cg"></div></div>
+        <div class="card p"><small>อัตรากำไรส่วนทุน (Capital Gain Yield)</small><div class="big" style="color:var(--purple)" id="cg"></div></div>
         <div class="card g"><small>ผลตอบแทนรวม</small><div class="big" id="tr"></div></div>
       </div>
       <p style="margin-top:.8rem">ซื้อที่ 50 ปันผล 2 ขายที่ 56 → ผลตอบแทนรวม = <input class="fill" data-answer="16" data-tol="0.1" aria-label="return"> % &nbsp; ถือ 1,000 หุ้น ความมั่งคั่งเพิ่ม = <input class="fill" data-answer="8000" data-tol="1" aria-label="gain"> บาท</p>
@@ -551,7 +552,7 @@
     <h2>โครงสร้างของระบบการเงิน</h2>
     <div class="infogroup org">
       <button class="node fin" data-info="ตลาดการเงิน (Financial Market): ศูนย์กลางการซื้อขายสินทรัพย์ทางการเงิน จำแนกได้หลายมิติ">ตลาดการเงิน</button><span class="arrow">↓ จำแนกตามอายุตราสาร</span>
-      <div class="row"><button class="node" data-info="ตลาดเงิน (Money Market): ตราสารอายุไม่เกิน 1 ปี">ตลาดเงิน</button><button class="node" data-info="ตลาดทุน (Capital Market): ตราสารอายุเกิน 1 ปี">ตลาดทุน</button><button class="node" data-info="ตลาดปริวรรตเงินตรา (Foreign Exchange Market): ซื้อขายแลกเปลี่ยนเงินตราต่างประเทศ">ตลาดปริวรรตเงินตรา</button></div>
+      <div class="row"><button class="node" data-info="ตลาดเงิน (Money Market): ตราสารอายุไม่เกิน 1 ปี">ตลาดเงิน</button><button class="node" data-info="ตลาดทุน (Capital Market): ตราสารอายุเกิน 1 ปี">ตลาดทุน</button><button class="node" data-info="ตลาดเงินตราต่างประเทศ (Foreign Exchange Market): ซื้อขายแลกเปลี่ยนเงินตราต่างประเทศ">ตลาดเงินตราต่างประเทศ</button></div>
       <span class="arrow">↓ ตลาดทุนแบ่งตามประเภทตราสาร</span>
       <div class="row"><button class="node" data-info="ตลาดตราสารทุน (Equity Market): หุ้นสามัญ หุ้นบุริมสิทธิ ผู้ถือเป็นเจ้าของ">ตลาดตราสารทุน</button><button class="node" data-info="ตลาดตราสารหนี้ (Debt Market): หุ้นกู้ พันธบัตร ผู้ถือเป็นเจ้าหนี้">ตลาดตราสารหนี้</button></div>
       <span class="arrow">↓ จำแนกตามการซื้อขาย</span>
@@ -626,7 +627,7 @@
 <section class="slide" data-title="Corporate Governance">
   <div class="inner">
     <span class="tag">Corporate Governance</span>
-    <h2>ธรรมาภิบาลของบริษัท</h2>
+    <h2>การกำกับดูแลกิจการ</h2>
     <div class="cols c2" style="margin-bottom:.8rem">
       <div class="card g"><h3>ภายใน <span class="en">Internal</span></h3>คณะกรรมการบริษัท (Board of Directors) · ฝ่ายบริหาร (Management)</div>
       <div class="card p"><h3>ภายนอก <span class="en">External: The Marketplace</span></h3>ตลาดตราสารทุน · ตลาดตราสารหนี้ · ผู้สอบบัญชี · ผู้กำกับดูแล</div>

@@ -155,7 +155,7 @@
 
   /* ---------- Check-all button for a group of fill-in inputs ----------
      <button class="btn pri" data-check="#box">ตรวจคำตอบ</button> ... inputs inside #box. Second click shows the answers. */
-  function parseNum(v) { return parseFloat(String(v).replace(/,/g, '')); }
+  function parseNum(v) { return parseFloat(String(v).replace(/,/g, '').replace(/[\u2212\u2013]/g, '-').replace(/^\((.*)\)$/, '-$1')); }
   function okFill(inp) { var v = parseNum(inp.value); return !isNaN(v) && Math.abs(v - parseFloat(inp.dataset.answer)) <= parseFloat(inp.dataset.tol || '0.01'); }
   document.addEventListener('click', function (e) {
     var b = e.target.closest && e.target.closest('[data-check]'); if (!b) return;

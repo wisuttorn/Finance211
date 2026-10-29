@@ -83,6 +83,9 @@ table.tb td.n,table.tb th.n{text-align:right;font-variant-numeric:tabular-nums}
 table.tb td.hl{background:var(--lime-l)!important;font-weight:600}
 
 /* cover */
+.qrbox{position:absolute;right:3vw;top:4vh;display:flex;flex-direction:column;align-items:center;gap:.25rem;text-decoration:none;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:1rem;padding:.7rem .8rem;text-align:center;max-width:15rem;box-shadow:0 .3rem 1rem rgba(18,51,43,.08)}
+.qrbox img{width:min(11rem,24vh);height:auto;display:block}
+.qrbox span{font-weight:600;font-size:.85rem;color:var(--green-d)} .qrbox small{font-size:.68rem;word-break:break-all}
 .cover .inner{max-width:68rem}
 .cover h1{color:var(--green-d);font-size:3.4rem;margin:.2rem 0 .4rem}
 .cover .sub{font-size:1.5rem;color:var(--muted);margin-bottom:1.6rem}
@@ -208,8 +211,16 @@ input.fill.sm{width:5.2rem;padding:.2rem .4rem}
   .sl{grid-template-columns:1fr auto} .sl input{grid-column:1/-1;grid-row:2}
   header.top .mid{display:none}
   .cover .who{min-width:0}
+  .qrbox{position:static;margin-top:1.2rem;flex-direction:row;gap:.8rem;max-width:none;text-align:left} .qrbox img{width:6rem} .qrbox span,.qrbox small{display:block}
   table.tb{font-size:.82rem} table.tb td,table.tb th{padding:.4rem .45rem}
   .scrollx{overflow-x:auto}
 }
 @media (max-width:520px){ .btn{padding:.4rem .7rem} footer.nav .btn.txt{display:none} .dots{display:none} }
 @media print{ body{overflow:visible} #app{height:auto} .slide{position:static;display:block!important;page-break-after:always} footer.nav,#progress{display:none} }
+
+/* chapter 3 additions */
+select.sel{font:inherit;padding:.3rem .4rem;border:1.5px solid var(--line);border-radius:.6rem;background:#fff;min-width:6.2rem}
+select.sel.ok{border-color:var(--green);background:var(--ok-l)} select.sel.bad{border-color:var(--bad);background:var(--bad-l)} select.sel.rev{border-color:#E0A526;background:#FFF3C9}
+.lab-in{display:grid;grid-template-columns:1fr;gap:0;margin:.4rem 0}.lab-wrap{display:grid;grid-template-columns:1.5fr 1fr;gap:1.4rem;align-items:start}.lab-wrap .sl{margin:.15rem 0}@media(max-width:800px){.lab-wrap{grid-template-columns:1fr}}
+@media(max-width:800px){.lab-in{grid-template-columns:1fr}}
+table.tb td.n input.fill.sm{width:6rem}

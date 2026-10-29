@@ -28,3 +28,6 @@ ch1-overview/         บทที่ 1 (index.html + ch1.js)
 4. เวลาสอน เปิดลิงก์บทนั้นต่อท้ายด้วย ?host เช่น .../ch1-overview/?host แล้วกด "เริ่มถ่ายทอด" ใส่รหัสผ่าน
 5. นักศึกษาเปิดลิงก์ปกติ จะเห็นปุ่ม "ตามอาจารย์" เมื่ออาจารย์กำลังสอน
 บทใหม่ใส่ <script src="../shared/sync-config.js"></script> และ <script src="../shared/sync.js"></script> ท้ายหน้าเหมือนบทที่ 1
+
+## บทที่ 2 ความเสี่ยงและผลตอบแทน
+โฟลเดอร์ ch2-risk-return/ (index.html, ch2.js) และปรับ shared/games.js, shared/style.css และหน้าแรก index.html ให้มีลิงก์บทที่ 2

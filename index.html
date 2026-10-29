@@ -9,7 +9,7 @@ body{overflow:auto} #app{height:auto;min-height:100%}
 .hero h1{color:var(--green-d);font-size:2.6rem}
 .grid{max-width:74rem;margin:0 auto;padding:1rem 1.5rem 3rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));gap:1rem}
 .chc{display:flex;flex-direction:column;gap:.15rem;border:1.5px solid var(--line);border-radius:1.1rem;padding:1rem 1.2rem;text-decoration:none;color:var(--ink);background:#fff;min-height:9.5rem}
-.chc h3{font-size:1.05rem;margin:.2rem 0 0;color:var(--green-d)} .chc p{margin:0;color:var(--muted);font-size:.9rem}
+.chc h3 .en{font-weight:400;font-size:.82em;display:block;margin-top:.15rem} .chc h3{font-size:1.05rem;margin:.2rem 0 0;color:var(--green-d)} .chc p{margin:0;color:var(--muted);font-size:.9rem}
 .cn{font-family:'Prompt','Noto Sans Thai',system-ui,sans-serif;font-weight:600;color:var(--purple);font-size:.85rem}
 .chc .st{margin-top:auto;font-weight:600;font-size:.9rem;color:var(--muted)}
 .chc.on{border-color:var(--green);box-shadow:0 .3rem 1rem rgba(27,127,107,.12)} .chc.on:hover{background:var(--teal-l)} .chc.on .st{color:var(--green)}
@@ -22,18 +22,18 @@ footer.f{text-align:center;color:var(--muted);font-size:.85rem;padding:1rem 1rem
 <section class="hero"><span class="tag">Interactive Lecture</span><h1>การเงินธุรกิจ<br><span class="en" style="font-size:.6em">Business Finance</span></h1>
 <p style="font-size:1.1rem">อ. ดร. วิสุทธร จิตอารี · คณะบริหารธุรกิจ มหาวิทยาลัยเชียงใหม่</p></section>
 <div class="grid">
-<a class="chc on" href="ch1-overview/"><span class="cn">บทที่ 1</span><h3>ภาพรวมการบริหารการเงิน</h3><p>(An Overview of Financial Management)</p><span class="st">เข้าเรียน ›</span></a>
-<a class="chc on" href="ch2-risk-return/"><span class="cn">บทที่ 2</span><h3>ความเสี่ยงและผลตอบแทน</h3><p>(Risk &amp; Return)</p><span class="st">เข้าเรียน ›</span></a>
-<div class="chc off"><span class="cn">บทที่ 3</span><h3>การวิเคราะห์งบการเงินและงบกระแสเงินสด</h3><p>(Financial Statements Analysis &amp; Cash Flow Statement)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 4</span><h3>การวางแผนการเงิน: งบประมาณเงินสดและการวิเคราะห์ต้นทุน-ปริมาณ-กำไร</h3><p>(Financial Planning: Cash Budget &amp; Cost-Volume-Profit Analysis)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 5</span><h3>การบริหารเงินทุนหมุนเวียน (ส่วนที่ 1)</h3><p>(Working Capital Management I)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 6</span><h3>การบริหารเงินทุนหมุนเวียน (ส่วนที่ 2)</h3><p>(Working Capital Management II)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 7</span><h3>มูลค่าของเงินตามเวลา</h3><p>(Time Value of Money)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 8</span><h3>ต้นทุนของเงินทุน</h3><p>(Cost of Capital)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 9</span><h3>การจัดทำงบลงทุน: การประมาณกระแสเงินสดและเทคนิคการประเมินโครงการ</h3><p>(Capital Budgeting: Cash Flow Estimation &amp; Techniques)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 10</span><h3>แนวโน้มของอุตสาหกรรมการเงิน</h3><p>(Trends in Financial Industry)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 11</span><h3>การจัดหาเงินทุน</h3><p>(Financing)</p><span class="st">เร็ว ๆ นี้</span></div>
-<div class="chc off"><span class="cn">บทที่ 12</span><h3>นโยบายเงินปันผล</h3><p>(Dividend Policy)</p><span class="st">เร็ว ๆ นี้</span></div>
+<a class="chc on" href="ch1-overview/"><span class="cn">บทที่ 1</span><h3>ภาพรวมการบริหารการเงิน <span class="en">(An Overview of Financial Management)</span></h3><span class="st">เข้าเรียน ›</span></a>
+<a class="chc on" href="ch2-risk-return/"><span class="cn">บทที่ 2</span><h3>ความเสี่ยงและผลตอบแทน <span class="en">(Risk &amp; Return)</span></h3><span class="st">เข้าเรียน ›</span></a>
+<a class="chc on" href="ch3-cashflow/"><span class="cn">บทที่ 3</span><h3>การวิเคราะห์งบการเงินและงบกระแสเงินสด <span class="en">(Financial Statements Analysis &amp; Cash Flow Statement)</span></h3><span class="st">เข้าเรียน ›</span></a>
+<div class="chc off"><span class="cn">บทที่ 4</span><h3>การวางแผนการเงิน: งบประมาณเงินสดและการวิเคราะห์ต้นทุน-ปริมาณ-กำไร <span class="en">(Financial Planning: Cash Budget &amp; Cost-Volume-Profit Analysis)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 5</span><h3>การบริหารเงินทุนหมุนเวียน (ส่วนที่ 1) <span class="en">(Working Capital Management I)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 6</span><h3>การบริหารเงินทุนหมุนเวียน (ส่วนที่ 2) <span class="en">(Working Capital Management II)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 7</span><h3>มูลค่าของเงินตามเวลา <span class="en">(Time Value of Money)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 8</span><h3>ต้นทุนของเงินทุน <span class="en">(Cost of Capital)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 9</span><h3>การจัดทำงบลงทุน: การประมาณกระแสเงินสดและเทคนิคการประเมินโครงการ <span class="en">(Capital Budgeting: Cash Flow Estimation &amp; Techniques)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 10</span><h3>แนวโน้มของอุตสาหกรรมการเงิน <span class="en">(Trends in Financial Industry)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 11</span><h3>การจัดหาเงินทุน <span class="en">(Financing)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
+<div class="chc off"><span class="cn">บทที่ 12</span><h3>นโยบายเงินปันผล <span class="en">(Dividend Policy)</span></h3><span class="st">เร็ว ๆ นี้</span></div>
 </div>
 <footer class="f">สื่อการสอนประกอบรายวิชา · คณะบริหารธุรกิจ มหาวิทยาลัยเชียงใหม่</footer>
 </div></body></html>
