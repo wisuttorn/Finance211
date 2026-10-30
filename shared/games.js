@@ -284,5 +284,16 @@
     render();
   };
 
+  // reveal explanations (.after[data-after-game]) only after the student has interacted with / finished the game
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('button'); if (!b) return;
+    var g = b.closest('[id^="g-"]'); if (!g) return;
+    setTimeout(function () {
+      var m = g.querySelectorAll('.mitem');
+      if (m.length && g.querySelectorAll('.mitem:not(.done)').length) return;
+      Array.prototype.forEach.call(document.querySelectorAll('.after[data-after-game="' + g.id + '"]'), function (x) { x.classList.add('show'); });
+    }, 60);
+  });
+
   window.Games = G;
 })();

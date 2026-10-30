@@ -1,5 +1,20 @@
 /* Slide engine: one slide at a time, keyboard / swipe / menu, hash deep-links */
 (function () {
+  // font size controls (per chapter, remembered in this browser only)
+  (function () {
+    var hd = document.querySelector('header.top'); if (!hd) return;
+    var key = 'fs:' + location.pathname, sc = 1;
+    try { var v = parseFloat(localStorage.getItem(key)); if (v >= 0.7 && v <= 1.8) sc = v; } catch (e) {}
+    function apply() { document.documentElement.style.setProperty('--fs', sc); try { localStorage.setItem(key, String(sc)); } catch (e) {} }
+    var box = document.createElement('div'); box.className = 'fsz'; box.setAttribute('role', 'group'); box.setAttribute('aria-label', 'ขนาดตัวอักษร');
+    [['A−', -0.1, 'ลดขนาดตัวอักษร'], ['A', 0, 'ขนาดตัวอักษรปกติ'], ['A+', 0.1, 'เพิ่มขนาดตัวอักษร']].forEach(function (c) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = c[0]; b.title = c[2]; b.setAttribute('aria-label', c[2]);
+      b.addEventListener('click', function (e) { e.stopPropagation(); sc = c[1] === 0 ? 1 : Math.max(0.7, Math.min(1.8, Math.round((sc + c[1]) * 10) / 10)); apply(); b.blur(); });
+      b.addEventListener('keydown', function (e) { e.stopPropagation(); });
+      box.appendChild(b);
+    });
+    var imgs = hd.querySelectorAll('img'); hd.insertBefore(box, imgs[imgs.length - 1]); apply();
+  })();
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var cur = -1;
   var $ = function (id) { return document.getElementById(id); };
