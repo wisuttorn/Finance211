@@ -29,11 +29,11 @@
     function render() {
       pool.innerHTML = ''; Object.keys(bEls).forEach(function (k) { bEls[k].innerHTML = ''; });
       order.forEach(function (i) {
-        var c = h('div', 'chip'); c.textContent = items[i].t; c.draggable = !checked; c.dataset.i = i;
+        var c = h('div', 'chip'); c.innerHTML = items[i].t; c.draggable = !checked; c.dataset.i = i;
         if (sel === i) c.classList.add('sel');
         if (checked && place[i] !== null) {
           var okk = place[i] === items[i].b; c.classList.add(okk ? 'ok' : 'bad');
-          if (!okk) { var w = h('span', 'why'); var lab = cfg.buckets.filter(function (b) { return b.id === items[i].b; })[0].label.replace(/<[^>]+>/g, ''); w.textContent = '→ ' + lab + (items[i].why ? ': ' + items[i].why : ''); c.appendChild(w); }
+          if (!okk) { var w = h('span', 'why'); var lab = cfg.buckets.filter(function (b) { return b.id === items[i].b; })[0].label.replace(/<[^>]+>/g, ''); w.innerHTML = '→ ' + lab + (items[i].why ? ': ' + items[i].why : ''); c.appendChild(w); }
         }
         c.addEventListener('dragstart', function (e) { e.dataTransfer.setData('text/plain', String(i)); });
         c.addEventListener('click', function () {
@@ -75,8 +75,8 @@
         var b = h('button', 'qopt'); b.innerHTML = t;
         b.onclick = function () {
           Array.prototype.forEach.call(opts.children, function (x) { x.disabled = true; });
-          if (k === q.a) { b.classList.add('ok'); score++; fb.className = 'feedback ok'; fb.textContent = 'ถูกต้อง! ' + (q.why || ''); }
-          else { b.classList.add('bad'); opts.children[q.a].classList.add('ok'); fb.className = 'feedback bad'; fb.textContent = 'ยังไม่ถูก — ' + (q.why || ''); }
+          if (k === q.a) { b.classList.add('ok'); score++; fb.className = 'feedback ok'; fb.innerHTML = 'ถูกต้อง! ' + (q.why || ''); }
+          else { b.classList.add('bad'); opts.children[q.a].classList.add('ok'); fb.className = 'feedback bad'; fb.innerHTML = 'ยังไม่ถูก — ' + (q.why || ''); }
           nx.classList.remove('hide');
         };
         opts.appendChild(b);
@@ -181,8 +181,10 @@
     var good = 0, empty = 0;
     ins.forEach(function (i) { if (i.value === '') empty++; var ok = okFill(i); if (ok) good++; i.className = 'fill ' + (ok ? 'ok' : 'bad'); });
     box.dataset.tries = tries + 1;
-    if (good === ins.length) { out.className = 'feedback ok chk-out'; out.textContent = 'ถูกทุกช่อง! ' + good + ' / ' + ins.length + (box.dataset.msg ? ' — ' + box.dataset.msg : ''); b.textContent = 'ตรวจอีกครั้ง'; return; }
+    function unlock() { Array.prototype.forEach.call(document.querySelectorAll('.after[data-after="#' + box.id + '"]'), function (e) { e.classList.add('show'); }); }
+    if (good === ins.length) { unlock(); out.className = 'feedback ok chk-out'; out.textContent = 'ถูกทุกช่อง! ' + good + ' / ' + ins.length + (box.dataset.msg ? ' — ' + box.dataset.msg : ''); b.textContent = 'ตรวจอีกครั้ง'; return; }
     if (tries >= 1) {   // second failed attempt: reveal
+      unlock();
       ins.forEach(function (i) { if (!okFill(i)) { i.value = i.dataset.show || i.dataset.answer; i.className = 'fill rev'; } });
       out.className = 'feedback bad chk-out'; out.textContent = 'ได้ ' + good + ' / ' + ins.length + ' — ช่องสีเหลืองคือเฉลย ลองทำความเข้าใจวิธีคิดอีกครั้ง'; b.textContent = 'ตรวจอีกครั้ง'; box.dataset.tries = 0; return;
     }

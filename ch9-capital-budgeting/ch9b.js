@@ -116,3 +116,7 @@
     { q: 'เงินทุน 50 ล้านบาท Y+Z มี NPV 44.93 X มี 39.03 ควรเลือก', o: ['Y + Z', 'X', 'ไม่เลือกเลย'], a: 0, why: 'NPV รวมสูงกว่าในงบเท่ากัน' }
   ] });
 })();
+/*XTRA-START*/
+(function(){var G=Games,$=function(i){return document.getElementById(i)};var rnd=function(a,b){return a+Math.floor(Math.random()*(b-a+1))};var pick=function(a){return a[rnd(0,a.length-1)]};var d1=function(v){return (Math.round(v*10)/10).toFixed(1)};var d2=function(v){return (Math.round(v*100)/100).toFixed(2)};var nf=function(v){return G.fmt(Math.round(v),0)};
+})();
+/*XTRA-END*/

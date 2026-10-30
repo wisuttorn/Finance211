@@ -1,154 +1,100 @@
-/* Chapter 4: Cash Budget and CVP games */
+/* Chapter 4: Financial planning */
 (function () {
   var G = Games, $ = function (id) { return document.getElementById(id); };
   var rnd = function (a, b) { return a + Math.floor(Math.random() * (b - a + 1)); };
-  var r1 = function (v) { return (Math.round(v * 10) / 10).toFixed(1); }, r2 = function (v) { return (Math.round(v * 100) / 100).toFixed(2); };
-  var fmt = function (n) { var v = Math.round(n * 100) / 100; return (v < 0 ? '(' : '') + G.fmt(Math.abs(v), Math.abs(v) % 1 ? 2 : 0) + (v < 0 ? ')' : ''); };
-  function h(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
-
-  /* ---------- Part 3: Cash budget ---------- */
-  function cashBudget(beg, rec, dis, minc, unit, rate) {
-    var out = 0, acc = 0, cash = beg, rows = [];
-    rec.forEach(function (r, t) {
-      var pre = cash + r - dis[t], loan = 0, repay = 0, intr = 0;
-      if (pre < minc) { loan = Math.ceil((minc - pre) / unit - 1e-9) * unit; out += loan; }
-      acc += out * rate / 12;
-      if (loan === 0 && out > 0) { var rp = Math.floor((pre - minc - acc) / unit + 1e-9) * unit; if (rp > 0) { repay = Math.min(out, rp); intr = acc; acc = 0; out -= repay; } }
-      var end = pre + loan - repay - intr;
-      rows.push({ beg: cash, rec: r, dis: dis[t], pre: pre, loan: loan, repay: repay, intr: intr, end: end, out: out });
-      cash = end;
-    });
-    return rows;
-  }
-  window.cashBudget = cashBudget;
-  G.sort($('g-cbsort'), {
-    buckets: [{ id: 'r', label: 'เงินสดรับ' }, { id: 'd', label: 'เงินสดจ่าย (ก่อนจัดการเงิน)' }, { id: 'f', label: 'การจัดการทางการเงิน' }],
-    items: [
-      { t: 'ขายเงินสด', b: 'r' }, { t: 'เก็บเงินจากลูกหนี้การค้า', b: 'r' }, { t: 'ซื้อเงินสด', b: 'd' }, { t: 'จ่ายเงินให้เจ้าหนี้การค้า', b: 'd' }, { t: 'ค่าเช่า เงินเดือน ค่าแรง', b: 'd' }, { t: 'ค่าภาษี', b: 'd' },
-      { t: 'ลงทุนในสินทรัพย์ไม่หมุนเวียน', b: 'd' }, { t: 'จ่ายเงินปันผล', b: 'd' }, { t: 'กู้ยืมเพิ่ม', b: 'f', why: 'ทำเมื่อเงินสดต่ำกว่าขั้นต่ำ' }, { t: 'จ่ายคืนเงินต้น', b: 'f', why: 'ทำเมื่อเงินสดเหลือเกินขั้นต่ำ' }, { t: 'จ่ายดอกเบี้ยของเงินกู้ที่คืน', b: 'f', why: 'จ่ายเมื่อคืนเงินต้น' }
-    ]
-  });
-  /* collection lab */
-  G.range(['cl-a', 'cl-b'], function (a, b) {
-    var c = 100 - a - b, S = [100, 200, 400, 300, 200];
-    $('cl-ao').textContent = a + '%'; $('cl-bo').textContent = b + '%';
-    $('cl-c').textContent = 'เก็บอีกเดือนถัดไป (c) = ' + c + '%' + (c < 0 ? '  (รวมเกิน 100% ปรับใหม่)' : '');
-    var f = function (t) { return (a * S[t] + b * S[t - 1] + Math.max(c, 0) * S[t - 2]) / 100; }, tg = { o: 210, n: 320, d: 340 }, v = { o: f(2), n: f(3), d: f(4) };
-    ['o', 'n', 'd'].forEach(function (k) { $('cl-' + k).textContent = G.fmt(v[k], 1); var df = v[k] - tg[k]; $('cl-' + k + 'd').textContent = (df > 0 ? '+' : '') + df.toFixed(1); });
-    var ok = Math.abs(v.o - 210) < 0.05 && Math.abs(v.n - 320) < 0.05, vd = $('cl-v');
-    vd.className = 'verdict ' + (c < 0 ? 'bad' : ok ? 'ok' : 'w');
-    vd.textContent = c < 0 ? 'a + b เกิน 100% ไม่ได้' : ok ? 'ตรงยอดเงินสดรับ ต.ค. และ พ.ย. ของไฟล์ต้นฉบับ! ธ.ค. ต่างอยู่ ' + (340 - v.d).toFixed(0) + ' ถือเป็นเงินสดรับอื่น' : 'ยังไม่ตรง ลองปรับ a และ b ให้ ต.ค. = 210 และ พ.ย. = 320';
-  });
-  /* cash budget lab */
-  (function () {
-    var F = [['beg', 'เงินสดต้นงวด ต.ค.', 0, 150, 1], ['r1', 'เงินสดรับ ต.ค.', 0, 600, 1], ['r2', 'เงินสดรับ พ.ย.', 0, 600, 1], ['r3', 'เงินสดรับ ธ.ค.', 0, 600, 1], ['d1', 'เงินสดจ่าย ต.ค.', 0, 600, 1], ['d2', 'เงินสดจ่าย พ.ย.', 0, 600, 1], ['d3', 'เงินสดจ่าย ธ.ค.', 0, 600, 1], ['min', 'เงินสดขั้นต่ำ', 0, 100, 5], ['unit', 'หน่วยเงินกู้/คืน', 1, 20, 1], ['rate', 'ดอกเบี้ยต่อปี (%)', 0, 24, 1]];
-    var PRE = { abc: { beg: 50, r1: 210, r2: 320, r3: 340, d1: 213, d2: 418, d3: 305, min: 25, unit: 5, rate: 12 }, slow: { beg: 50, r1: 189, r2: 288, r3: 306, d1: 213, d2: 418, d3: 305, min: 25, unit: 5, rate: 12 }, strong: { beg: 50, r1: 252, r2: 384, r3: 408, d1: 213, d2: 418, d3: 305, min: 25, unit: 5, rate: 12 } };
-    var el = $('g-cblab'), inp = {}, pb = h('div', 'flow-ctl'), box = h('div', 'lab-in'), res = h('div', 'lab-out');
-    F.forEach(function (f) { var r = h('div', 'sl'); r.innerHTML = '<label for="cb-' + f[0] + '">' + f[1] + '</label><input type="range" id="cb-' + f[0] + '" min="' + f[2] + '" max="' + f[3] + '" step="' + f[4] + '"><output id="cbo-' + f[0] + '"></output>'; box.appendChild(r); });
-    [['abc', 'ABC (ไฟล์ต้นฉบับ)'], ['slow', 'เก็บเงินช้าลง (รับ −10%)'], ['strong', 'ขายดี (รับ +20%)']].forEach(function (p) { var b = h('button', 'btn sm ghost', p[1]); b.onclick = function () { load(p[0]); }; pb.appendChild(b); });
-    var lw = h('div', 'lab-wrap'), left = h('div'); left.appendChild(pb); left.appendChild(box); lw.appendChild(left); lw.appendChild(res); el.appendChild(lw);
-    var vd = h('div', 'verdict ok'); vd.id = 'cb-vd'; el.appendChild(vd);
-    F.forEach(function (f) { inp[f[0]] = $('cb-' + f[0]); inp[f[0]].addEventListener('input', up); });
-    function load(k) { F.forEach(function (f) { inp[f[0]].value = PRE[k][f[0]]; }); up(); }
-    function up() {
-      var v = {}; F.forEach(function (f) { v[f[0]] = parseFloat(inp[f[0]].value); $('cbo-' + f[0]).textContent = G.fmt(v[f[0]]); });
-      var rows = cashBudget(v.beg, [v.r1, v.r2, v.r3], [v.d1, v.d2, v.d3], v.min, v.unit, v.rate / 100), M = ['ต.ค.', 'พ.ย.', 'ธ.ค.'];
-      var line = function (name, k, neg, bold) { return '<tr><td>' + (bold ? '<b>' : '') + name + (bold ? '</b>' : '') + '</td>' + rows.map(function (r) { var x = r[k]; if (neg) x = -x; return '<td class="n"' + (x < 0 && k !== 'dis' ? ' style="color:var(--bad)"' : '') + '>' + (x === 0 && (k === 'loan' || k === 'repay' || k === 'intr') ? '-' : fmt(x)) + '</td>'; }).join('') + '</tr>'; };
-      res.innerHTML = '<table class="tb"><tr><th>หน่วย: พัน</th>' + M.map(function (m) { return '<th class="n">' + m + '</th>'; }).join('') + '</tr>' + line('เงินสดต้นงวด', 'beg') + line('เงินสดรับ', 'rec') + line('เงินสดจ่าย', 'dis') + line('เงินสดสุทธิ (ก่อนจัดการเงิน)', 'pre', 0, 1) + line('เงินกู้', 'loan') + line('จ่ายคืนเงินต้น', 'repay', 1) + line('จ่ายดอกเบี้ย', 'intr', 1) + line('เงินสดปลายงวด', 'end', 0, 1) + line('เงินกู้คงค้าง', 'out') + '</table>';
-      var tl = rows.reduce(function (a, r) { return a + r.loan; }, 0), tr = rows.reduce(function (a, r) { return a + r.repay; }, 0), last = rows[2];
-      vd.className = 'verdict ' + (tl === 0 ? 'ok' : last.out > 0 ? 'w' : 'ok');
-      vd.textContent = (tl === 0 ? 'ไม่ต้องกู้เลยใน 3 เดือน' : 'กู้รวม ' + fmt(tl) + ' คืนรวม ' + fmt(tr) + ' สิ้น ธ.ค. เหลือหนี้ ' + fmt(last.out)) + ' · เงินสดปลายงวด ธ.ค. = ' + fmt(last.end);
-    }
-    load('abc');
-  })();
-  G.drill($('g-drill-loan'), { gen: function () {
-    var unit = Math.random() < 0.5 ? 5 : 10, minc = rnd(2, 6) * 5, beg = rnd(1, 10) * 5, rec = rnd(6, 20) * 10, pre = rnd(-60, minc - 3), dis = beg + rec - pre;
-    var loan = Math.ceil((minc - pre) / unit) * unit;
-    return { q: 'เงินสดต้นงวด <b>' + beg + '</b>  เงินสดรับ <b>' + rec + '</b>  เงินสดจ่าย <b>' + dis + '</b>  เงินสดขั้นต่ำ <b>' + minc + '</b>  กู้เป็นหน่วย <b>' + unit + '</b> (พิมพ์ค่าลบด้วย −)',
-      fields: [{ label: 'เงินสดก่อนจัดการเงิน', ans: pre, tol: 0.5, show: pre }, { label: 'เงินกู้', ans: loan, tol: 0.5, show: loan }, { label: 'เงินสดปลายงวด', ans: pre + loan, tol: 0.5, show: pre + loan }],
-      why: 'ก่อนจัดการ = ' + beg + ' + ' + rec + ' − ' + dis + ' = ' + pre + '  ขาด ' + (minc - pre) + ' ปัดขึ้นเป็นหน่วย ' + unit + ' ได้กู้ ' + loan + '  ปลายงวด = ' + (pre + loan) };
-  } });
-  G.drill($('g-drill-repay'), { gen: function () {
-    var out = rnd(4, 20) * 5, m = rnd(1, 4), intr = out * 0.12 / 12 * m, minc = rnd(2, 6) * 5, pre = Math.round(minc + intr + rnd(6, 90)), beg = rnd(1, 10) * 5, rec = rnd(10, 25) * 10, dis = beg + rec - pre;
-    var rp = Math.min(out, Math.floor((pre - minc - intr) / 5) * 5), it = Math.round(intr * 100) / 100;
-    return { q: 'เงินสดต้นงวด <b>' + beg + '</b>  รับ <b>' + rec + '</b>  จ่าย <b>' + dis + '</b>  ขั้นต่ำ <b>' + minc + '</b>  มีเงินกู้ค้าง <b>' + out + '</b> ดอกเบี้ย 12% ต่อปี ค้างมา <b>' + m + '</b> เดือน  คืนเป็นหน่วย 5',
-      fields: [{ label: 'เงินสดก่อนจัดการเงิน', ans: pre, tol: 0.5, show: pre }, { label: 'ดอกเบี้ยที่ต้องจ่าย', ans: it, tol: 0.05, show: it }, { label: 'คืนเงินต้นได้สูงสุด', ans: rp, tol: 0.5, show: rp }, { label: 'เงินสดปลายงวด', ans: pre - rp - it, tol: 0.06, show: Math.round((pre - rp - it) * 100) / 100 }],
-      why: 'ดอกเบี้ย = ' + out + ' × 12% × ' + m + ' ÷ 12 = ' + it + '  คืนได้ ≤ ' + pre + ' − ' + minc + ' − ' + it + ' = ' + Math.round((pre - minc - it) * 100) / 100 + ' ปัดลงหน่วย 5 (ไม่เกินเงินกู้ค้าง) = ' + rp };
-  } });
-  G.quiz($('g-cbq'), { questions: [
-    { q: 'เงินสดก่อนจัดการเงิน = −51 ขั้นต่ำ 25 หน่วยกู้ 5 กู้เท่าใด', o: ['75', '76', '80', '85'], a: 2, why: 'ขาด 76 ปัดขึ้นเป็นหน่วย 5 = 80' },
-    { q: 'ข้อใดไม่ใช่ประโยชน์ของงบประมาณเงินสด', o: ['รู้ล่วงหน้าว่าเมื่อใดต้องกู้', 'วางแผนเวลาคืนเงินกู้', 'รายงานเงินสดที่เกิดขึ้นจริงในอดีต', 'ประเมินความต้องการเงินทุนระยะสั้น'], a: 2, why: 'การรายงานอดีตเป็นหน้าที่งบกระแสเงินสด' },
-    { q: 'ขายเชื่อมากขึ้น (เก็บเงินช้าลง) โดยยอดขายเท่าเดิม เงินสดรับในเดือนนั้นจะ', o: ['เพิ่ม', 'ลด', 'เท่าเดิม'], a: 1, why: 'เงินสดรับเลื่อนไปเดือนถัดไป' },
-    { q: 'เงินกู้ 80 ดอกเบี้ย 12% ต่อปี ค้าง 2 เดือน ดอกเบี้ยเท่าใด', o: ['0.8', '1.6', '9.6', '16'], a: 1, why: '80 × 12% × 2 ÷ 12 = 1.6' },
-    { q: 'เงินสดก่อนจัดการเงิน 64 ขั้นต่ำ 25 ดอกเบี้ย 1.6 คืนเงินต้นได้สูงสุด (หน่วย 5)', o: ['40', '35', '39', '30'], a: 1, why: '64 − 25 − 1.6 = 37.4 ปัดลง = 35' },
-    { q: 'เหตุใดจึงตรึงเงินสดขั้นต่ำไว้', o: ['เผื่อความคลาดเคลื่อนของการพยากรณ์', 'เพื่อลดภาษี', 'เพื่อเพิ่มกำไร'], a: 0, why: 'ป้องกันเงินขาดมือเมื่อเกิดเหตุไม่คาดคิด' }
-  ] });
-
-  /* ---------- Opening poll ---------- */
-  G.tally($('g-poll'), { options: ['ยอดขายที่คุ้มทุน (ไม่ขาดทุน)', 'เงินสดที่ต้องมีหมุนเวียน', 'ราคาขายที่ลูกค้ายอมรับ', 'ยังไม่แน่ใจ ขอเรียนก่อน'] });
-
-  /* ---------- Part 2: CVP ---------- */
+  var pick = function (a) { return a[rnd(0, a.length - 1)]; };
+  var d1 = function (v) { return (Math.round(v * 10) / 10).toFixed(1); };
+  var d2 = function (v) { return (Math.round(v * 100) / 100).toFixed(2); };
   var nf = function (v) { return G.fmt(Math.round(v), 0); };
-  G.sort($('g-cost'), {
-    buckets: [{ id: 'f', label: 'คงที่ (F)' }, { id: 'v', label: 'ผันแปร (V)' }, { id: 's', label: 'กึ่งผันแปร (S)' }],
-    items: [
-      { t: 'ค่าเสื่อมราคา', b: 'f', why: 'ไม่เปลี่ยนตามปริมาณผลิต' }, { t: 'ค่าวัตถุดิบ', b: 'v', why: 'เพิ่มตามจำนวนที่ผลิต' }, { t: 'ค่าแรงในการผลิต', b: 'v', why: 'จ่ายตามปริมาณงาน' },
-      { t: 'ค่าบำรุงรักษาเครื่องจักร อุปกรณ์', b: 's', why: 'มีทั้งส่วนคงที่และส่วนที่ขึ้นกับการใช้งาน' }, { t: 'ค่าใช้จ่ายสำนักงานทั่วไป', b: 'f', why: 'ไม่ขึ้นกับปริมาณขาย' }, { t: 'ค่าเช่า', b: 'f', why: 'จ่ายเท่าเดิมทุกเดือน' },
-      { t: 'ค่านายหน้าพนักงานขาย', b: 's', why: 'มีทั้งส่วนคงที่และส่วนตามยอดขาย' }, { t: 'เงินเดือนผู้บริหาร', b: 'f', why: 'จ่ายคงที่' }, { t: 'เงินเดือนเจ้าหน้าที่ทั่วไป', b: 'f', why: 'จ่ายคงที่' }
-    ]
+  function S(el, buckets, items) { G.sort($(el), { buckets: buckets, items: items }); }
+  var tal = ['ไม่เกิน 2,000 แก้ว', '2,000–3,000 แก้ว', 'เกิน 3,000 แก้ว', 'เกิน 5,000 แก้ว'];
+  G.tally($('g-poll'), { options: tal }); G.tally($('g-poll2'), { options: tal });
+  S('g-cost', [{ id: 'f', label: 'คงที่ (F)' }, { id: 'v', label: 'ผันแปร (V)' }, { id: 's', label: 'กึ่งผันแปร (S)' }], [
+    { t: 'ค่าเสื่อมราคา', b: 'f', why: 'ไม่เปลี่ยนตาม Q' }, { t: 'ค่าวัตถุดิบ', b: 'v', why: 'เปลี่ยนตามชิ้นที่ผลิต' }, { t: 'ค่าแรงผลิตรายชิ้น', b: 'v', why: 'ตามจำนวนชิ้น' },
+    { t: 'ค่าบำรุงรักษาเครื่องจักร', b: 's', why: 'มีส่วนคงที่และส่วนผันแปร' }, { t: 'ค่าน้ำค่าไฟสำนักงาน', b: 'f', why: 'ใช้เกือบเท่าเดิม' }, { t: 'ค่าเช่า', b: 'f', why: 'จ่ายเท่าเดิมต่อเดือน' },
+    { t: 'ค่านายหน้าพนักงานขาย', b: 's', why: 'อัตราไม่คงที่' }, { t: 'เงินเดือนผู้บริหาร', b: 'f', why: 'คงที่' }, { t: 'เงินเดือนเจ้าหน้าที่ทั่วไป', b: 'f', why: 'คงที่' }]);
+  G.match($('g-curve'), { pairs: [['เส้นราบขนานแกนนอน', 'ต้นทุนคงที่'], ['เส้นตรงลากจากจุดกำเนิด', 'ต้นทุนผันแปร'], ['เส้นขึ้นแบบไม่สม่ำเสมอ', 'ต้นทุนกึ่งผันแปร'], ['เส้นรายได้รวมตัดเส้นต้นทุนรวม', 'จุดคุ้มทุน']] });
+  S('g-assume', [{ id: 'y', label: 'เป็นข้อสมมติ' }, { id: 'n', label: 'ไม่ใช่ข้อสมมติ' }], [
+    { t: 'ราคาขายต่อหน่วยคงที่', b: 'y', why: 'P คงที่' }, { t: 'ต้นทุนผันแปรต่อหน่วยคงที่', b: 'y', why: 'VC คงที่' }, { t: 'ต้นทุนคงที่คงที่ตลอดช่วง', b: 'y', why: 'FC คงที่' },
+    { t: 'ปริมาณผลิตเท่ากับปริมาณขาย', b: 'y', why: 'ไม่มีสินค้าคงเหลือเปลี่ยน' }, { t: 'ราคาลดลงเมื่อขายมากขึ้น', b: 'n', why: 'ขัดกับ P คงที่' }, { t: 'ต้นทุนคงที่เพิ่มเป็นขั้นเมื่อขยายโรงงาน', b: 'n', why: 'ขัดกับ FC คงที่' }]);
+  function be(fc, p, v) { return fc / (p - v); }
+  G.range(['be-p', 'be-v', 'be-f', 'be-q'], function (p, v, f, q) {
+    $('be-po').textContent = d2(p); $('be-vo').textContent = d2(v); $('be-fo').textContent = nf(f); $('be-qo').textContent = nf(q);
+    var cm = p - v, vd = $('be-vd');
+    $('be-cm').textContent = d2(cm);
+    if (cm <= 0) { $('be-n').textContent = '-'; $('be-s').textContent = '-'; $('be-pr').textContent = nf(cm * q - f); vd.className = 'verdict bad'; vd.textContent = 'ราคาไม่สูงกว่าต้นทุนผันแปร ไม่มีวันคุ้มทุน'; return; }
+    var n = Math.ceil(be(f, p, v)), pr = cm * q - f;
+    $('be-n').textContent = nf(n); $('be-s').textContent = nf(n * p); $('be-pr').textContent = nf(pr);
+    vd.className = 'verdict ' + (pr >= 0 ? 'ok' : 'bad'); vd.textContent = 'Q = ' + nf(f) + ' ÷ ' + d2(cm) + ' = ' + nf(n) + ' · ที่ขาย ' + nf(q) + ' ถุง ' + (pr >= 0 ? 'มีกำไร ' : 'ขาดทุน ') + nf(Math.abs(pr)) + ' บาท';
   });
-  G.sort($('g-sens'), {
-    buckets: [{ id: 'u', label: 'จุดคุ้มทุนเพิ่มขึ้น' }, { id: 'd', label: 'จุดคุ้มทุนลดลง' }],
-    items: [
-      { t: 'ต้นทุนคงที่เพิ่มขึ้น', b: 'u', why: 'ต้องขายมากขึ้นเพื่อคุ้ม FC ที่สูงขึ้น' }, { t: 'ราคาขายเพิ่มขึ้น', b: 'd', why: 'ส่วนเกินต่อหน่วยมากขึ้น' }, { t: 'ต้นทุนผันแปรต่อหน่วยเพิ่มขึ้น', b: 'u', why: 'ส่วนเกินต่อหน่วยน้อยลง' },
-      { t: 'ต้นทุนคงที่ลดลง', b: 'd', why: 'FC น้อยลง คุ้มเร็วขึ้น' }, { t: 'ราคาขายลดลง', b: 'u', why: 'ส่วนเกินต่อหน่วยน้อยลง' }, { t: 'ต้นทุนผันแปรต่อหน่วยลดลง', b: 'd', why: 'ส่วนเกินต่อหน่วยมากขึ้น' }
-    ]
-  });
-  /* CVP lab */
-  G.range(['bl-p', 'bl-v', 'bl-f', 'bl-q'], function (p, v, f, q) {
-    $('bl-po').textContent = p.toFixed(2); $('bl-vo').textContent = v.toFixed(2); $('bl-fo').textContent = nf(f); $('bl-qo').textContent = nf(q);
-    var cm = p - v, vd = $('bl-vd'), ch = $('bl-chart');
-    if (cm <= 0) { ['bl-bq', 'bl-bb', 'bl-pf', 'bl-mos'].forEach(function (i) { $(i).textContent = '-'; }); vd.className = 'verdict bad'; vd.textContent = 'ราคาขายต้องมากกว่าต้นทุนผันแปรต่อหน่วย มิฉะนั้นยิ่งขายยิ่งขาดทุน'; ch.innerHTML = ''; return; }
-    var bq = f / cm, pf = cm * q - f, mos = (q - bq) / q;
-    $('bl-bq').textContent = nf(bq); $('bl-bb').textContent = nf(bq * p); $('bl-pf').textContent = (pf < 0 ? '(' + nf(-pf) + ')' : nf(pf)); $('bl-mos').textContent = mos > 0 ? (mos * 100).toFixed(1) + '%' : 'ต่ำกว่าจุดคุ้มทุน';
-    vd.className = 'verdict ' + (pf >= 0 ? 'ok' : 'bad');
-    vd.textContent = pf >= 0 ? 'ยอดขายงบประมาณสูงกว่าจุดคุ้มทุน ' + nf(q - bq) + ' หน่วย กำไร ' + nf(pf) + ' บาท  ยอดขายลดลงได้ ' + (mos * 100).toFixed(1) + '% ก่อนขาดทุน' : 'ยอดขายงบประมาณต่ำกว่าจุดคุ้มทุน ' + nf(bq - q) + ' หน่วย ขาดทุน ' + nf(-pf) + ' บาท';
-    var W = 600, H = 220, xm = Math.max(q, bq) * 1.3, ym = Math.max(p * xm, f + v * xm) * 1.05, X = function (a) { return 50 + a / xm * (W - 70); }, Y = function (a) { return H - 10 - a / ym * (H - 30); };
-    ch.innerHTML = '<svg class="chart" viewBox="0 0 ' + W + ' ' + (H + 20) + '" role="img" aria-label="กราฟจุดคุ้มทุน">' +
-      '<line x1="50" y1="' + (H - 10) + '" x2="' + (W - 20) + '" y2="' + (H - 10) + '" stroke="#9fb2ac"/><line x1="50" y1="10" x2="50" y2="' + (H - 10) + '" stroke="#9fb2ac"/>' +
-      '<line x1="' + X(0) + '" y1="' + Y(f) + '" x2="' + X(xm) + '" y2="' + Y(f) + '" stroke="#8A9A95" stroke-dasharray="5 4"/>' +
-      '<line x1="' + X(0) + '" y1="' + Y(0) + '" x2="' + X(xm) + '" y2="' + Y(p * xm) + '" stroke="#1B7F6B" stroke-width="3"/>' +
-      '<line x1="' + X(0) + '" y1="' + Y(f) + '" x2="' + X(xm) + '" y2="' + Y(f + v * xm) + '" stroke="#B4412E" stroke-width="3"/>' +
-      '<line x1="' + X(q) + '" y1="12" x2="' + X(q) + '" y2="' + (H - 10) + '" stroke="#7B4AA0" stroke-dasharray="3 3"/><circle cx="' + X(bq) + '" cy="' + Y(bq * p) + '" r="6" fill="#7B4AA0"/>' +
-      '<text x="' + (X(bq) + 8) + '" y="' + (Y(bq * p) + 16) + '" font-size="13" fill="#0F5C4D">คุ้มทุน ' + nf(bq) + '</text><text x="' + (X(q) + 4) + '" y="24" font-size="12" fill="#7B4AA0">ยอดขายงบประมาณ</text>' +
-      '<text x="' + (W - 120) + '" y="' + (H + 14) + '" font-size="12" fill="#58706A">ปริมาณขาย (หน่วย)</text><text x="54" y="22" font-size="12" fill="#1B7F6B">รายรับ</text><text x="54" y="' + (Y(f) - 6) + '" font-size="12" fill="#B4412E">ต้นทุนรวม / ต้นทุนคงที่ (ประ)</text></svg>';
-  });
-  /* drills */
-  G.drill($('g-drill-bep'), { gen: function () {
-    var P = rnd(10, 50), V = rnd(3, P - 4), cm = P - V, k = rnd(20, 200) * 10, FC = cm * k;
-    return { q: 'ราคาขาย <b>' + P + '</b> บาท ต้นทุนผันแปร <b>' + V + '</b> บาทต่อหน่วย ต้นทุนคงที่ <b>' + nf(FC) + '</b> บาท', fields: [{ label: 'จุดคุ้มทุน (หน่วย)', ans: k, tol: 1 }, { label: 'จุดคุ้มทุน (บาท)', ans: k * P, tol: 5 }], why: 'ส่วนเกิน ' + cm + ' บาท  ' + nf(FC) + ' ÷ ' + cm + ' = ' + nf(k) + ' หน่วย  × ' + P + ' = ' + nf(k * P) + ' บาท' };
+  G.drill($('g-drill-be'), { gen: function () {
+    var p = pick([10, 20, 40, 100]), v = p * pick([0.4, 0.5, 0.6]), fc = pick([50000, 120000, 200000, 360000]), q = fc / (p - v);
+    return { q: 'FC <b>' + nf(fc) + '</b> บาท · P <b>' + d2(p) + '</b> · VC <b>' + d2(v) + '</b> บาทต่อหน่วย', fields: [{ label: 'Q ที่จุดคุ้มทุน', ans: q, tol: 1, unit: 'หน่วย', show: nf(q) }, { label: 'ยอดขายที่จุดคุ้มทุน', ans: q * p, tol: 5, unit: 'บาท', show: nf(q * p) }], why: 'Q = ' + nf(fc) + ' ÷ ' + d2(p - v) + ' = ' + nf(q) + ' · ยอดขาย = Q × P' };
   } });
   G.drill($('g-drill-tp'), { gen: function () {
-    var P = rnd(10, 50), V = rnd(3, P - 4), cm = P - V, k = rnd(20, 100) * 10, m = rnd(5, 60) * 10, FC = cm * k, T = cm * m;
-    return { q: 'ราคาขาย <b>' + P + '</b> บาท ต้นทุนผันแปร <b>' + V + '</b> บาท ต้นทุนคงที่ <b>' + nf(FC) + '</b> บาท ต้องการกำไร <b>' + nf(T) + '</b> บาท', fields: [{ label: 'ปริมาณที่ต้องขาย (หน่วย)', ans: k + m, tol: 1 }], why: '(' + nf(FC) + ' + ' + nf(T) + ') ÷ ' + cm + ' = ' + nf(k + m) + ' หน่วย' };
+    var p = pick([10, 20, 40]), v = p * pick([0.4, 0.5, 0.6]), fc = pick([60000, 120000, 240000]), pf = pick([30000, 60000, 120000]), x = pick([0.05, 0.1, 0.15]);
+    var q1 = (fc + pf) / (p - v), q2 = fc / (p - v - x * p);
+    return { q: 'FC <b>' + nf(fc) + '</b> · P <b>' + d2(p) + '</b> · VC <b>' + d2(v) + '</b> · กำไรเป้าหมาย (ก) <b>' + nf(pf) + '</b> บาท (ข) <b>' + Math.round(x * 100) + '%</b> ของยอดขาย', fields: [{ label: 'Q กรณี (ก)', ans: q1, tol: 1, unit: 'หน่วย', show: nf(q1) }, { label: 'Q กรณี (ข)', ans: q2, tol: 1, unit: 'หน่วย', show: nf(q2) }], why: '(ก) (FC + Profit) ÷ (P − VC) = ' + nf(q1) + ' · (ข) FC ÷ (P − VC − xP) = ' + nf(q2) };
   } });
-  G.drill($('g-drill-mos'), { gen: function () {
-    var k = rnd(10, 60) * 60, c = [[1.25, 20], [2, 50], [4 / 3, 25], [5 / 3, 40], [2.5, 60]][rnd(0, 4)], Q = Math.round(k * c[0]);
-    return { q: 'ยอดขายตามงบประมาณ <b>' + nf(Q) + '</b> หน่วย ยอดขายที่จุดคุ้มทุน <b>' + nf(k) + '</b> หน่วย', fields: [{ label: 'ส่วนเกินที่ปลอดภัย', ans: c[1], tol: 0.2, unit: '%' }], why: '(' + nf(Q) + ' − ' + nf(k) + ') ÷ ' + nf(Q) + ' = ' + c[1] + '%' };
-  } });
-  /* sales mix lab */
-  G.range(['mx-a'], function (a) {
-    a = a / 100; $('mx-ao').textContent = Math.round(a * 100) + ' : ' + Math.round((1 - a) * 100);
-    var cm = a * 0.4 + (1 - a) * 0.7, bq = 7600 / cm;
-    $('mx-cm').textContent = (cm * 100).toFixed(1) + '%'; $('mx-bq').textContent = nf(bq); $('mx-ba').textContent = nf(bq * a); $('mx-bb').textContent = nf(bq * (1 - a));
-    var v = $('mx-vd'); v.className = 'verdict ok'; v.textContent = 'ขายสินค้า B (อัตราส่วนเกิน 70%) สัดส่วนมากขึ้น จุดคุ้มทุนรวมลดลง ที่สัดส่วน ' + Math.round(a * 100) + ':' + Math.round((1 - a) * 100) + ' คุ้มทุนที่ยอดขาย ' + nf(bq);
+  S('g-whatif', [{ id: 'd', label: 'จุดคุ้มทุนลดลง' }, { id: 'u', label: 'จุดคุ้มทุนเพิ่มขึ้น' }], [
+    { t: 'ขึ้นราคาขายต่อหน่วย', b: 'd', why: 'CM เพิ่ม' }, { t: 'ลดราคาขายต่อหน่วย', b: 'u', why: 'CM ลด' }, { t: 'ลดต้นทุนผันแปรต่อหน่วย', b: 'd', why: 'CM เพิ่ม' },
+    { t: 'ค่าเช่าเพิ่มขึ้น', b: 'u', why: 'FC เพิ่ม' }, { t: 'ลดต้นทุนคงที่', b: 'd', why: 'FC ลด' }, { t: 'ค่าวัตถุดิบต่อหน่วยแพงขึ้น', b: 'u', why: 'VC เพิ่ม' }]);
+  G.match($('g-lim4'), { pairs: [['สมมติราคาคงที่', 'จริงอาจลดราคาเมื่อขายมาก'], ['สมมติต้นทุนคงที่คงที่', 'จริงอาจเพิ่มเป็นขั้นเมื่อขยายกำลังผลิต'], ['สมมติ VC ต่อหน่วยคงที่', 'จริงอาจถูกลงเมื่อซื้อวัตถุดิบจำนวนมาก'], ['สมมติผลิตเท่ากับขาย', 'จริงอาจมีสินค้าคงเหลือเปลี่ยนแปลง']] });
+  G.range(['cs-p', 'cs-v', 'cs-r', 'cs-q'], function (p, v, r, q) {
+    $('cs-po').textContent = d2(p); $('cs-vo').textContent = d2(v); $('cs-ro').textContent = nf(r); $('cs-qo').textContent = nf(q);
+    var fc = r + 20000 + 40000 + 2500 + 4166.67, fcc = r + 60000, cm = p - v, vd = $('cs-vd');
+    if (cm <= 0) { ['cs-be', 'cs-bc', 'cs-mos'].forEach(function (i) { $(i).textContent = '-'; }); $('cs-pr').textContent = nf(cm * q - fc); vd.className = 'verdict bad'; vd.textContent = 'ราคาไม่สูงกว่าต้นทุนผันแปร'; return; }
+    var b = fc / cm, bc = fcc / cm, mos = (q - b) / q * 100, pr = cm * q - fc;
+    $('cs-be').textContent = nf(b); $('cs-bc').textContent = nf(bc); $('cs-mos').textContent = d1(mos) + '%'; $('cs-pr').textContent = nf(pr);
+    vd.className = 'verdict ' + (pr >= 0 ? 'ok' : 'bad'); vd.textContent = 'FC รวม ' + nf(fc) + ' บาท ÷ CM ' + d2(cm) + ' = ' + nf(b) + ' แก้ว (ประมาณ ' + nf(b / 30) + ' แก้วต่อวัน)';
   });
-  G.quiz($('g-cvpq'), { questions: [
-    { q: 'FC 90,000 P 20 VC 12 จุดคุ้มทุนกี่หน่วย', o: ['7,500', '11,250', '4,500', '15,000'], a: 1, why: '90,000 ÷ (20 − 12) = 11,250' },
-    { q: 'อัตราส่วนเกินของสินค้าที่ P 20 VC 12 คือเท่าใด', o: ['40%', '60%', '8%', '12%'], a: 0, why: '(20 − 12) ÷ 20 = 40%' },
-    { q: 'ราคาขายเพิ่มขึ้น ตัวแปรอื่นเท่าเดิม จุดคุ้มทุนจะ', o: ['เพิ่ม', 'ลด', 'เท่าเดิม'], a: 1, why: 'ส่วนเกินต่อหน่วยเพิ่ม จึงคุ้มทุนเร็วขึ้น' },
-    { q: 'ข้อใดไม่ใช่ข้อสมมติของ BEP เส้นตรง', o: ['ราคาขายต่อหน่วยคงที่', 'VC ต่อหน่วยคงที่', 'ผลิตมากกว่าขายได้เสมอ', 'FC รวมคงที่'], a: 2, why: 'ข้อสมมติคือผลิตเท่ากับขาย' },
-    { q: 'ยอดขายงบประมาณ 15,000 BEP 11,250 MOS เท่าใด', o: ['25%', '33%', '75%', '20%'], a: 0, why: '(15,000 − 11,250) ÷ 15,000 = 25%' },
-    { q: 'BEP เงินสดต่ำกว่า BEP ทางบัญชี เพราะอะไร', o: ['ราคาขายสูงกว่า', 'ต้นทุนคงที่บางส่วนไม่ใช้เงินสด เช่น ค่าเสื่อม', 'VC น้อยกว่า', 'ภาษีน้อยกว่า'], a: 1, why: 'ค่าเสื่อมไม่ทำให้เงินสดไหลออก' }
-  ] });
+  var smP = [1, 1.25], smV = [0.6, 0.375], smF = 7600;
+  G.range(['sm-w'], function (w) {
+    $('sm-wo').textContent = w + ' : ' + (100 - w);
+    var a = w / 100, b = 1 - a, pm = a * smP[0] + b * smP[1], vm = a * smV[0] + b * smV[1], q = smF / (pm - vm);
+    $('sm-p').textContent = d2(pm); $('sm-v').textContent = d2(vm); $('sm-q').textContent = nf(q); $('sm-a').textContent = nf(a * q) + ' / ' + nf(b * q);
+    var vd = $('sm-vd'); vd.className = 'verdict ok'; vd.textContent = 'สัดส่วน A สูง (CM ต่อหน่วยต่ำ 0.40) จุดคุ้มทุนรวมสูงขึ้น สัดส่วน B สูง (CM 0.875) จุดคุ้มทุนต่ำลง';
+  });
+  G.drill($('g-drill-mos'), { gen: function () {
+    var p = pick([20, 50, 100]), v = p * pick([0.4, 0.5, 0.6]), fc = pick([60000, 120000, 240000]), q = pick([8000, 10000, 12000, 20000]), b = fc / (p - v), m = (q - b) / q * 100;
+    return { q: 'FC <b>' + nf(fc) + '</b> · P <b>' + p + '</b> · VC <b>' + d2(v) + '</b> · ยอดขายคาด <b>' + nf(q) + '</b> หน่วย', fields: [{ label: 'จุดคุ้มทุน', ans: b, tol: 1, unit: 'หน่วย', show: nf(b) }, { label: 'MoS', ans: m, tol: 0.1, unit: '%', show: d1(m) }], why: 'BE = ' + nf(fc) + ' ÷ ' + d2(p - v) + ' = ' + nf(b) + ' · MoS = (' + nf(q) + ' − ' + nf(b) + ') ÷ ' + nf(q) + ' × 100 = ' + d1(m) + '%' };
+  } });
+  G.match($('g-use'), { pairs: [['เปิดผลิตภัณฑ์ใหม่', 'ดูว่าต้องขายเท่าไรจึงคุ้มก่อนลงทุน'], ['ขยายกำลังผลิต', 'ประเมินว่าปริมาณขายเพียงพอหรือไม่'], ['ลงทุนเครื่องจักรเพิ่ม FC แต่ลด VC', 'เทียบโครงสร้างต้นทุนคงที่และผันแปร']] });
+  G.quiz($('g-q4a'), { questions: [
+    { q: 'FC 160,000 P 8 VC 4.80 จุดคุ้มทุนคือ', o: ['50,000 ถุง', '20,000 ถุง', '33,333 ถุง', '100,000 ถุง'], a: 0, why: '160,000 ÷ 3.20' },
+    { q: 'ค่าแรงผลิตรายชิ้นเป็นต้นทุน', o: ['ผันแปร', 'คงที่', 'กึ่งคงที่เท่านั้น', 'ไม่ใช่ต้นทุน'], a: 0, why: 'ตามจำนวนชิ้น' },
+    { q: 'ต้องการกำไร 160,000 (FC 160,000 CM 3.20) ต้องขาย', o: ['100,000 ถุง', '50,000 ถุง', '66,667 ถุง', '150,000 ถุง'], a: 0, why: '(160,000 + 160,000) ÷ 3.20' },
+    { q: 'อัตรากำไรส่วนเกิน (CM ratio) คือ', o: ['(P − VC) ÷ P', 'FC ÷ P', 'VC ÷ P', 'P ÷ VC'], a: 0, why: 'สัดส่วนที่เหลือหลังหัก VC' },
+    { q: 'จุดคุ้มทุนเงินสดต่ำกว่าจุดคุ้มทุนบัญชีเพราะ', o: ['ไม่นับค่าเสื่อมราคา', 'ราคาแพงกว่า', 'VC ต่ำกว่า', 'ภาษีน้อยกว่า'], a: 0, why: 'ค่าเสื่อมราคาไม่ใช่เงินสด' },
+    { q: 'ขึ้นราคาโดย VC เท่าเดิม จุดคุ้มทุนจะ', o: ['ลดลง', 'เพิ่มขึ้น', 'เท่าเดิม', 'เป็นศูนย์'], a: 0, why: 'CM เพิ่ม' },
+    { q: 'MoS สูงหมายถึง', o: ['ยอดขายลดได้มากก่อนขาดทุน', 'ขาดทุนสูง', 'ต้นทุนคงที่สูง', 'ราคาต่ำ'], a: 0, why: 'ปลอดภัยกว่า' },
+    { q: 'ยอดขายคาด 1,000 จุดคุ้มทุน 800 MoS =', o: ['20%', '80%', '25%', '200 หน่วย'], a: 0, why: '(1,000 − 800) ÷ 1,000' }] });
+  G.match($('g-plan'), { pairs: [['กำหนดทิศทางระยะยาว', 'แผนระยะยาว (Strategic)'], ['แผนรายปีและรายเดือน', 'แผนระยะสั้น (Operating)'], ['งบประมาณเงินสด', 'แผนระยะสั้น'], ['วิสัยทัศน์และเป้าหมายหลายปี', 'แผนระยะยาว']] });
+  G.order($('g-cbord'), { items: ['พยากรณ์ยอดขาย', 'เงินสดรับ (Cash receipts)', 'เงินสดจ่าย (Cash disbursements)', 'เงินสดสุทธิ (Net cash flow)', 'การจัดการทางการเงิน (กู้/คืนเงินกู้)', 'เงินสดปลายงวด'] });
+  S('g-fc', [{ id: 'e', label: 'ปัจจัยภายนอก' }, { id: 'i', label: 'ปัจจัยภายใน' }], [
+    { t: 'GDP', b: 'e', why: 'เศรษฐกิจ' }, { t: 'ความมั่นใจผู้บริโภค', b: 'e', why: 'ภายนอกกิจการ' }, { t: 'รายได้ประชาชน', b: 'e', why: 'ภายนอก' },
+    { t: 'ข้อมูลช่องทางขายของบริษัท', b: 'i', why: 'ภายใน' }, { t: 'ความคิดเห็นพนักงานขาย', b: 'i', why: 'ภายใน' }, { t: 'แผนส่งเสริมการขาย', b: 'i', why: 'กิจการกำหนดเอง' }]);
+  S('g-cashout', [{ id: 'y', label: 'นับเป็นเงินสดจ่าย' }, { id: 'n', label: 'ไม่นับ' }], [
+    { t: 'ซื้อสินค้าเงินสด', b: 'y', why: 'จ่ายจริง' }, { t: 'จ่ายเจ้าหนี้การค้า', b: 'y', why: 'จ่ายจริง' }, { t: 'ค่าเช่า', b: 'y', why: 'จ่ายจริง' }, { t: 'ภาษีจ่าย', b: 'y', why: 'จ่ายจริง' },
+    { t: 'ค่าเสื่อมราคา', b: 'n', why: 'ไม่ใช่เงินสด' }, { t: 'จ่ายเงินปันผล', b: 'y', why: 'จ่ายจริง' }, { t: 'ลงทุนสินทรัพย์ถาวร', b: 'y', why: 'จ่ายจริง' }, { t: 'ยอดขายเชื่อที่ยังไม่เก็บเงิน', b: 'n', why: 'เป็นเงินสดรับ ไม่ใช่จ่าย' }]);
+  /* cash budget lab: Oct as base, Nov varied */
+  G.range(['cb-s', 'cb-m', 'cb-i'], function (s, m, inv) {
+    $('cb-so').textContent = nf(s); $('cb-mo').textContent = nf(m); $('cb-io').textContent = nf(inv);
+    var rc = 0.2 * s + 0.5 * 400 + 0.3 * 200, b = 0.7 * s, bb = [280, 140], ds = 0.1 * b + 0.7 * bb[0] + 0.2 * bb[1] + 5 + 8 + 0.1 * s + inv, pre = 47 + rc - ds;
+    var need = pre < m ? Math.ceil((m - pre) / 5) * 5 : 0;
+    $('cb-r').textContent = d1(rc); $('cb-d').textContent = d1(ds); $('cb-n').textContent = d1(pre); $('cb-b').textContent = nf(need);
+    var v = $('cb-vd'); v.className = 'verdict ' + (need ? 'bad' : 'ok');
+    v.textContent = need ? 'เงินสดก่อนจัดการ ' + d1(pre) + ' ต่ำกว่าขั้นต่ำ ' + m + ' ต้องกู้ ' + nf(need) + ' ล้านบาท' : 'เงินสดก่อนจัดการ ' + d1(pre) + ' ไม่ต่ำกว่าขั้นต่ำ ไม่ต้องกู้';
+  });
+  G.drill($('g-drill-cb'), { gen: function () {
+    var s0 = pick([100, 200, 300]), s1 = pick([200, 300, 400]), s2 = pick([100, 200, 300, 400]), rc = 0.2 * s2 + 0.5 * s1 + 0.3 * s0, ds = pick([150, 200, 250, 300]), bg = pick([20, 40, 50]), mn = pick([20, 25, 30]), pre = bg + rc - ds, need = pre < mn ? Math.ceil((mn - pre) / 5) * 5 : 0;
+    return { q: 'ยอดขาย 2 เดือนก่อน <b>' + s0 + '</b> · เดือนก่อน <b>' + s1 + '</b> · เดือนนี้ <b>' + s2 + '</b> (เก็บ 20/50/30%) · เงินสดจ่าย <b>' + ds + '</b> · เงินสดต้นงวด <b>' + bg + '</b> · ขั้นต่ำ <b>' + mn + '</b> (กู้หน่วย 5)', fields: [{ label: 'เงินสดรับ', ans: rc, tol: 0.06, unit: 'ล้านบาท', show: d1(rc) }, { label: 'เงินสดก่อนจัดการ', ans: pre, tol: 0.06, unit: 'ล้านบาท', show: d1(pre) }, { label: 'เงินกู้', ans: need, tol: 0.5, unit: 'ล้านบาท', show: nf(need) }], why: 'รับ = 0.2×' + s2 + ' + 0.5×' + s1 + ' + 0.3×' + s0 + ' = ' + d1(rc) + ' · ก่อนจัดการ = ' + bg + ' + ' + d1(rc) + ' − ' + ds + ' = ' + d1(pre) + ' · กู้ = ปัดขึ้นเป็นหน่วย 5 ให้ถึง ' + mn };
+  } });
+  G.quiz($('g-q4b'), { questions: [
+    { q: 'ค่าเสื่อมราคาในงบประมาณเงินสด', o: ['ไม่นับเป็นเงินสดจ่าย', 'นับเป็นเงินสดจ่าย', 'นับเป็นเงินสดรับ', 'หักจากยอดขาย'], a: 0, why: 'ไม่ใช่เงินสด' },
+    { q: 'ยอดขาย 400 เก็บสด 20% เงินสดรับจากการขายสดเดือนนี้', o: ['80', '200', '120', '400'], a: 0, why: '0.2 × 400' },
+    { q: 'เงินสดก่อนจัดการ −51 ขั้นต่ำ 25 กู้หน่วย 5 ต้องกู้', o: ['80', '76', '75', '25'], a: 0, why: 'ต้องอย่างน้อย 76 ปัดขึ้นเป็น 80' },
+    { q: 'กู้ 80 อัตรา 12% ต่อปี 2 เดือน ดอกเบี้ยคือ', o: ['1.6', '9.6', '0.8', '16'], a: 0, why: '80 × 0.12 × 2/12' },
+    { q: 'เงินสดปลายงวดสูงกว่าขั้นต่ำมาก ควร', o: ['ลงทุนระยะสั้นหรือคืนเงินกู้', 'กู้เพิ่ม', 'ไม่ทำอะไรเสมอ', 'เพิ่มเงินปันผลเสมอ'], a: 0, why: 'ใช้เงินส่วนเกินให้เกิดประโยชน์' },
+    { q: 'เงินสดสุทธิ (NCF) คือ', o: ['เงินสดรับ − เงินสดจ่าย', 'กำไรสุทธิ', 'ยอดขาย − ต้นทุน', 'เงินสดต้นงวด'], a: 0, why: 'นิยามของ NCF' }] });
 })();

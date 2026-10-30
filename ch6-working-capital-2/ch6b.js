@@ -41,7 +41,7 @@
   });
   G.drill($('g-drill-mo'), { gen: function () {
     var L = rnd(5, 20) * 10000, F = rnd(2, 10) * 100, v = rnd(10, 40) * 1000, i = pick([0.001, 0.002, 0.004]), Z = zz(F, v, i);
-    return { q: 'L = <b>' + nf(L) + '</b> F = <b>' + F + '</b> σ² = <b>' + nf(v) + '</b> i = <b>' + (i * 100).toFixed(1) + '%</b> ต่อวัน', fields: [{ label: 'Z', ans: Z, tol: 1, show: nf(Z) }, { label: 'U', ans: L + 3 * Z, tol: 3, show: nf(L + 3 * Z) }], why: 'Z = [3 × ' + F + ' × ' + nf(v) + ' ÷ (4 × ' + i + ')]^(1/3) = ' + nf(Z) + '  U = L + 3Z = ' + nf(L + 3 * Z) };
+    return { q: 'L = <b>' + nf(L) + '</b> F = <b>' + F + '</b> σ<sup>2</sup> = <b>' + nf(v) + '</b> i = <b>' + (i * 100).toFixed(1) + '%</b> ต่อวัน', fields: [{ label: 'Z', ans: Z, tol: 1, show: nf(Z) }, { label: 'U', ans: L + 3 * Z, tol: 3, show: nf(L + 3 * Z) }], why: 'Z = [3 × ' + F + ' × ' + nf(v) + ' ÷ (4 × ' + i + ')]<sup>1/3</sup> = ' + nf(Z) + '  U = L + 3Z = ' + nf(L + 3 * Z) };
   } });
   G.match($('g-sec'), { pairs: [
     ['รัฐบาลออกเพื่อกู้ระยะสั้น เสี่ยงต่ำมาก', 'ตั๋วเงินคลัง'],
@@ -116,3 +116,7 @@
     { q: 'Lock-box ลด float 2 วัน รับเช็ควันละ 500,000 ปลดเงินเท่าใด', o: ['1,000,000', '500,000', '250,000', '2,000,000'], a: 0, why: '2 × 500,000' }
   ] });
 })();
+/*XTRA-START*/
+(function(){var G=Games,$=function(i){return document.getElementById(i)};var rnd=function(a,b){return a+Math.floor(Math.random()*(b-a+1))};var pick=function(a){return a[rnd(0,a.length-1)]};var d1=function(v){return (Math.round(v*10)/10).toFixed(1)};var d2=function(v){return (Math.round(v*100)/100).toFixed(2)};var nf=function(v){return G.fmt(Math.round(v),0)};
+})();
+/*XTRA-END*/
