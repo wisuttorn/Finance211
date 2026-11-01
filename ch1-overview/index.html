@@ -152,8 +152,8 @@
           <div class="bar"><span>PV Project 2</span><div class="tr"><i id="b2" style="background:var(--teal)"></i></div><span class="v" id="v2"></span></div>
           <div class="verdict ok" id="vd10"></div></div>
       </div>
-      <p style="margin-top:.9rem">ที่อัตราคิดลด 10% คำนวณเอง: PV Project 1 =
-        <input class="fill" data-answer="5.33" data-tol="0.02" aria-label="PV Project 1"> &nbsp; PV Project 2 = <input class="fill" data-answer="4.97" data-tol="0.02" aria-label="PV Project 2"> <span class="small">(ทศนิยม 2 ตำแหน่ง แล้วกด Enter)</span></p>
+      <div id="fb-pv1"><p style="margin-top:.9rem">ที่อัตราคิดลด 10% คำนวณเอง: PV Project 1 =
+        <input class="fill" data-answer="5.33" data-tol="0.02" aria-label="PV Project 1"> &nbsp; PV Project 2 = <input class="fill" data-answer="4.97" data-tol="0.02" aria-label="PV Project 2"> <span class="small">(ทศนิยม 2 ตำแหน่ง)</span></p><button class="btn pri" data-check="#fb-pv1" style="margin-top:.6rem">ตรวจคำตอบ</button></div><div class="callout after" data-after="#fb-pv1"><div class="fxrev"><b>สูตรที่ใช้:</b><div>PV = CF<sub>t</sub> ÷ (1 + r)<sup>t</sup></div></div><b>เฉลย</b> PV Project 1 = 5.00 ÷ 1.10 + 0.50 ÷ 1.10<sup>2</sup> + 0.50 ÷ 1.10<sup>3</sup> = 4.55 + 0.41 + 0.38 = 5.33 · PV Project 2 = 2.00 ÷ 1.10 + 2.00 ÷ 1.10<sup>2</sup> + 2.00 ÷ 1.10<sup>3</sup> = 1.82 + 1.65 + 1.50 = 4.97<br>เงินรวมเท่ากันที่ 6.00 แต่ Project 1 ได้เงินก้อนใหญ่เร็วกว่า จึงมีมูลค่าปัจจุบันสูงกว่า</div>
     </div>
   </div>
 </section>
@@ -230,8 +230,8 @@
     <div class="scrollx"><table class="tb" style="max-width:40rem"><tr><th>บริษัท</th><th class="n">EPS (บาท)</th><th class="n">โอกาสที่จะได้รับกำไร</th></tr>
       <tr><td>ABC plc</td><td class="n">5.00</td><td class="n">50%</td></tr><tr><td>XYZ plc</td><td class="n">4.00</td><td class="n">100%</td></tr></table></div>
     <p style="margin-top:1rem">คำนวณ EPS ที่คาดหวัง (Expected EPS) = EPS × โอกาสที่จะได้รับ</p>
-    <p>ABC plc = <input class="fill" data-answer="2.5" data-tol="0.01" aria-label="ABC"> บาท &nbsp;&nbsp; XYZ plc = <input class="fill" data-answer="4" data-tol="0.01" aria-label="XYZ"> บาท</p>
-    <div class="callout p">ABC มี EPS สูงกว่า แต่เมื่อคิดความน่าจะเป็นแล้ว XYZ ให้ EPS ที่คาดหวังสูงกว่า และ<b>แน่นอนกว่า</b></div>
+    <div id="fb-eps"><p>ABC plc = <input class="fill" data-answer="2.5" data-tol="0.01" aria-label="ABC"> บาท &nbsp;&nbsp; XYZ plc = <input class="fill" data-answer="4" data-tol="0.01" aria-label="XYZ"> บาท</p><button class="btn pri" data-check="#fb-eps" style="margin-top:.4rem">ตรวจคำตอบ</button></div>
+    <div class="callout p after" data-after="#fb-eps"><div class="fxrev"><b>สูตรที่ใช้:</b><div>EPS ที่คาดหวัง = EPS × โอกาสที่จะได้รับ</div></div><b>เฉลย</b> ABC = 5.00 × 0.50 = 2.50 บาท · XYZ = 4.00 × 1.00 = 4.00 บาท<br>ABC มี EPS สูงกว่า แต่เมื่อคิดความน่าจะเป็นแล้ว XYZ ให้ EPS ที่คาดหวังสูงกว่า และ<b>แน่นอนกว่า</b></div>
   </div>
 </section>
 
@@ -296,7 +296,7 @@
         <div class="card p"><small>อัตรากำไรส่วนทุน (Capital Gain Yield)</small><div class="big" style="color:var(--purple)" id="cg"></div></div>
         <div class="card g"><small>ผลตอบแทนรวม</small><div class="big" id="tr"></div></div>
       </div>
-      <p style="margin-top:.8rem">ซื้อที่ 50 ปันผล 2 ขายที่ 56 → ผลตอบแทนรวม = <input class="fill" data-answer="16" data-tol="0.1" aria-label="return"> % &nbsp; ถือ 1,000 หุ้น ความมั่งคั่งเพิ่ม = <input class="fill" data-answer="8000" data-tol="1" aria-label="gain"> บาท</p>
+      <div id="fb-ret"><p style="margin-top:.8rem">ซื้อที่ 50 ปันผล 2 ขายที่ 56 → ผลตอบแทนรวม = <input class="fill" data-answer="16" data-tol="0.1" aria-label="return"> % &nbsp; ถือ 1,000 หุ้น ความมั่งคั่งเพิ่ม = <input class="fill" data-answer="8000" data-tol="1" aria-label="gain"> บาท</p><button class="btn pri" data-check="#fb-ret" style="margin-top:.4rem">ตรวจคำตอบ</button></div><div class="callout after" data-after="#fb-ret"><div class="fxrev"><b>สูตรที่ใช้:</b><div>ผลตอบแทนรวม = (D + (P<sub>1</sub> − P<sub>0</sub>)) ÷ P<sub>0</sub></div><div>ความมั่งคั่งที่เพิ่ม = จำนวนหุ้น × (D + (P<sub>1</sub> − P<sub>0</sub>))</div></div><b>เฉลย</b> ผลตอบแทนรวม = (2 + (56 − 50)) ÷ 50 = 8 ÷ 50 = 16% · ความมั่งคั่งเพิ่ม = 1,000 × (2 + 6) = 8,000 บาท<br>แยกเป็น Dividend Yield 2 ÷ 50 = 4% และ Capital Gain Yield 6 ÷ 50 = 12%</div>
     </div>
   </div>
 </section>

@@ -41,18 +41,18 @@
   G.sort($('g-tc'), {
     buckets: [{ id: 't', label: 'Treasurer' }, { id: 'c', label: 'Controller' }],
     items: [
-      { t: 'ผู้จัดการเงินสด (Cash Manager)', b: 't' }, { t: 'ผู้จัดการสินเชื่อ (Credit Manager)', b: 't' }, { t: 'ผู้จัดการกองทุนบำเหน็จบำนาญ (Pension Fund Manager)', b: 't' },
-      { t: 'ผู้จัดการการระดมทุน (Fund Raising Manager)', b: 't' }, { t: 'ผู้จัดการงบลงทุน (Capital Expenditure Manager)', b: 't' },
-      { t: 'ผู้จัดการภาษี (Tax Manager)', b: 'c' }, { t: 'ผู้จัดการบัญชีบริษัท (Corporate Accounting Manager)', b: 'c' },
-      { t: 'ผู้จัดการบัญชีต้นทุน (Cost Accounting Manager)', b: 'c' }, { t: 'ผู้จัดการบัญชีการเงิน (Financial Accounting Manager)', b: 'c' }
+      { t: 'ผู้จัดการเงินสด (Cash Manager)', b: 't', why: 'ดูแลเงินสดและสภาพคล่องของกิจการ เป็นงานด้านการหาและใช้เงิน' }, { t: 'ผู้จัดการสินเชื่อ (Credit Manager)', b: 't', why: 'กำหนดเงื่อนไขการให้เครดิตและติดตามการเก็บหนี้ ซึ่งกระทบเงินสดของกิจการ' }, { t: 'ผู้จัดการกองทุนบำเหน็จบำนาญ (Pension Fund Manager)', b: 't', why: 'บริหารเงินลงทุนของกองทุน ซึ่งเป็นงานลงทุนของ Treasurer' },
+      { t: 'ผู้จัดการการระดมทุน (Fund Raising Manager)', b: 't', why: 'จัดหาเงินทุนจากตลาดการเงิน จึงเป็นหน้าที่ของ Treasurer' }, { t: 'ผู้จัดการงบลงทุน (Capital Expenditure Manager)', b: 't', why: 'ประเมินและจัดสรรเงินลงทุนในโครงการ เป็นการตัดสินใจลงทุน' },
+      { t: 'ผู้จัดการภาษี (Tax Manager)', b: 'c', why: 'เกี่ยวกับการคำนวณและรายงานภาษี เป็นงานบัญชีและควบคุม' }, { t: 'ผู้จัดการบัญชีบริษัท (Corporate Accounting Manager)', b: 'c', why: 'จัดทำบัญชีและรายงานของกิจการ จึงเป็นงานของ Controller' },
+      { t: 'ผู้จัดการบัญชีต้นทุน (Cost Accounting Manager)', b: 'c', why: 'วิเคราะห์ต้นทุนการผลิต เป็นงานบัญชีและควบคุม' }, { t: 'ผู้จัดการบัญชีการเงิน (Financial Accounting Manager)', b: 'c', why: 'จัดทำงบการเงินตามมาตรฐานบัญชี เป็นงานของ Controller' }
     ]
   });
   G.sort($('g-mkt'), {
     buckets: [{ id: 'm', label: 'ตลาดเงิน (อายุไม่เกิน 1 ปี)' }, { id: 'c', label: 'ตลาดทุน (อายุเกิน 1 ปี)' }],
     items: [
-      { t: 'ตั๋วเงินคลัง (Treasury Bill) 6 เดือน', b: 'm' }, { t: 'บัตรเงินฝาก (Certificate of Deposit) 3 เดือน', b: 'm' }, { t: 'ตราสารพาณิชย์ (Commercial Paper) 90 วัน', b: 'm' },
-      { t: 'หุ้นสามัญ (Common Stock)', b: 'c', why: 'ไม่มีกำหนดอายุ' }, { t: 'หุ้นกู้ (Debenture) อายุ 5 ปี', b: 'c' }, { t: 'พันธบัตรรัฐบาล อายุ 10 ปี', b: 'c' },
-      { t: 'ตั๋วสัญญาใช้เงิน อายุ 60 วัน', b: 'm' }, { t: 'หุ้นบุริมสิทธิ (Preferred Stock)', b: 'c', why: 'ไม่มีกำหนดอายุ' }
+      { t: 'ตั๋วเงินคลัง (Treasury Bill) 6 เดือน', b: 'm', why: 'อายุ 6 เดือนไม่เกิน 1 ปี' }, { t: 'บัตรเงินฝาก (Certificate of Deposit) 3 เดือน', b: 'm', why: 'อายุ 3 เดือนไม่เกิน 1 ปี' }, { t: 'ตราสารพาณิชย์ (Commercial Paper) 90 วัน', b: 'm', why: 'อายุ 90 วันไม่เกิน 1 ปี' },
+      { t: 'หุ้นสามัญ (Common Stock)', b: 'c', why: 'ไม่มีกำหนดอายุ' }, { t: 'หุ้นกู้ (Debenture) อายุ 5 ปี', b: 'c', why: 'อายุ 5 ปีเกิน 1 ปี' }, { t: 'พันธบัตรรัฐบาล อายุ 10 ปี', b: 'c', why: 'อายุ 10 ปีเกิน 1 ปี' },
+      { t: 'ตั๋วสัญญาใช้เงิน อายุ 60 วัน', b: 'm', why: 'อายุ 60 วันไม่เกิน 1 ปี' }, { t: 'หุ้นบุริมสิทธิ (Preferred Stock)', b: 'c', why: 'ไม่มีกำหนดอายุ' }
     ]
   });
   G.sort($('g-ps'), {

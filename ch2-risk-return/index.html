@@ -37,13 +37,13 @@
     <h2>เมื่อจบบทนี้ ผู้เรียนจะ…</h2>
     <div class="cols c2" style="margin-top:1rem">
       <div class="card g"><h3>1 คำนวณผลตอบแทน (Return)</h3><p>คำนวณผลตอบแทนและอัตราผลตอบแทนจากหุ้น หุ้นกู้ และโครงการ</p></div>
-      <div class="card t"><h3>2 วัดความเสี่ยง (Risk)</h3><p>ใช้พิสัย ส่วนเบี่ยงเบนมาตรฐาน และสัมประสิทธิ์ความแปรปรวน</p></div>
+      <div class="card t"><h3>2 วัดความเสี่ยง (Risk)</h3><p>ใช้พิสัย ส่วนเบี่ยงเบนมาตรฐาน และสัมประสิทธิ์ความแปรผัน</p></div>
       <div class="card p"><h3>3 ตัดสินใจลงทุน</h3><p>เปรียบเทียบทางเลือกด้วยผลตอบแทนที่คาดหวังและความเสี่ยง</p></div>
       <div class="card l"><h3>4 ประเภทของความเสี่ยง</h3><p>แยกความเสี่ยงที่เป็นระบบกับไม่เป็นระบบ และเข้าใจการกระจายการลงทุน</p></div>
     </div>
   </div>
 </section>
-<section class="slide glossary" data-title="คำย่อที่ใช้ในบทนี้ (Abbreviations)"><div class="inner"><span class="tag">Abbreviations</span><h2>คำย่อที่ใช้ในบทนี้ (Abbreviations)</h2><p class="small">ภาษาไทย (English) · ถ้าสไลด์ใดใช้คำย่อ จะมีคำอธิบายที่ท้ายสไลด์นั้นด้วย</p><div class="scrollx"><table class="tb"><tr><th>คำย่อ</th><th>ความหมาย: ภาษาไทย (English)</th></tr><tr><td><b>CV</b></td><td>ค่าสัมประสิทธิ์ความแปรผัน (Coefficient of Variation)</td></tr><tr><td><b>SD</b></td><td>ส่วนเบี่ยงเบนมาตรฐาน (Standard Deviation)</td></tr><tr><td><b>EV</b></td><td>ค่าคาดหวัง (Expected Value)</td></tr></table></div></div></section>
+<section class="slide glossary" data-title="คำย่อที่ใช้ในบทนี้ (Abbreviations)"><div class="inner"><span class="tag">Abbreviations</span><h2>คำย่อที่ใช้ในบทนี้ (Abbreviations)</h2><p class="small">ภาษาไทย (English) · ถ้าสไลด์ใดใช้คำย่อ จะมีคำอธิบายที่ท้ายสไลด์นั้นด้วย</p><div class="scrollx"><table class="tb"><tr><th>คำย่อ</th><th>ความหมาย: ภาษาไทย (English)</th></tr><tr><td><b>CV</b></td><td>สัมประสิทธิ์ความแปรผัน (Coefficient of Variation)</td></tr><tr><td><b>SD</b></td><td>ส่วนเบี่ยงเบนมาตรฐาน (Standard Deviation)</td></tr><tr><td><b>EV</b></td><td>ค่าคาดหวัง (Expected Value)</td></tr></table></div></div></section>
 <section class="slide" data-title="โหวต: ประสบการณ์การลงทุน" data-know="nice">
   <div class="inner">
     <h2>ที่ผ่านมา เคยลงทุนในอะไรบ้าง</h2>
@@ -143,12 +143,12 @@
   </div>
 </section>
 <section class="slide" data-title="ข้อมูลในอดีต (ตัวอย่าง n ปี)" data-know="must"><div class="inner"><span class="tag">Formula</span><h2>สูตร: ข้อมูลในอดีต (ตัวอย่าง n ปี)</h2><div class="fx">R̄ = Σ R<sub>t</sub> ÷ n</div><div class="fx">σ = √[ Σ (R<sub>t</sub> − R̄)<sup>2</sup> ÷ (n − 1) ]</div><div class="fx">พิสัย = R<sub>สูงสุด</sub> − R<sub>ต่ำสุด</sub></div><table class="sym"><caption>โดยที่</caption><tr><td>R<sub>t</sub></td><td>ผลตอบแทนปีที่ t</td></tr><tr><td>n</td><td>จำนวนปีของข้อมูล</td></tr><tr><td>n − 1</td><td>ตัวหารของข้อมูลตัวอย่าง</td></tr><tr><td>พิสัย (Range)</td><td>ผลต่างผลตอบแทนสูงสุดกับต่ำสุด</td></tr></table><div class="callout">ข้อมูลในอดีตหาค่าเฉลี่ยโดยถ่วงน้ำหนักเท่ากันทุกปี</div></div></section>
-<section class="slide" data-title="สัมประสิทธิ์ความแปรปรวน (CV)" data-know="must"><div class="inner"><span class="tag">Formula</span><h2>สูตร: สัมประสิทธิ์ความแปรปรวน (CV)</h2><div class="fx">CV = σ ÷ R̄</div><table class="sym"><caption>โดยที่</caption><tr><td>CV</td><td>ความเสี่ยงต่อหนึ่งหน่วยผลตอบแทน (Coefficient of variation)</td></tr><tr><td>σ</td><td>ส่วนเบี่ยงเบนมาตรฐาน</td></tr><tr><td>R̄</td><td>ผลตอบแทนที่คาดหวัง</td></tr></table><div class="callout">ใช้เปรียบเทียบสินทรัพย์ที่ผลตอบแทนเฉลี่ยต่างกัน ค่ายิ่งต่ำยิ่งดี</div></div></section>
+<section class="slide" data-title="สัมประสิทธิ์ความแปรผัน (CV)" data-know="must"><div class="inner"><span class="tag">Formula</span><h2>สูตร: สัมประสิทธิ์ความแปรผัน (CV)</h2><div class="fx">CV = σ ÷ R̄</div><table class="sym"><caption>โดยที่</caption><tr><td>CV</td><td>ความเสี่ยงต่อหนึ่งหน่วยผลตอบแทน (Coefficient of variation)</td></tr><tr><td>σ</td><td>ส่วนเบี่ยงเบนมาตรฐาน</td></tr><tr><td>R̄</td><td>ผลตอบแทนที่คาดหวัง</td></tr></table><div class="callout">ใช้เปรียบเทียบสินทรัพย์ที่ผลตอบแทนเฉลี่ยต่างกัน ค่ายิ่งต่ำยิ่งดี</div></div></section>
 <section class="slide" data-title="คำนวณ: ผลตอบแทนและความเสี่ยงในอดีต" data-know="must">
   <div class="inner">
     <h2>ผลตอบแทนและความเสี่ยงจากข้อมูลในอดีต</h2>
     <p class="small">ข้อมูลตัวอย่างตลาดสหรัฐอเมริกา (Ibbotson Associates, 2002) ใช้ประกอบการเรียน</p>
-    <div class="game" id="fb-hist"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หาค่าสัมประสิทธิ์ความแปรผัน (Coefficient of Variation: CV) = ส่วนเบี่ยงเบนมาตรฐาน (Standard Deviation: SD) ÷ ผลตอบแทนเฉลี่ย (ทศนิยม 2 ตำแหน่ง)</span></div>
+    <div class="game" id="fb-hist"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หาสัมประสิทธิ์ความแปรผัน (Coefficient of Variation: CV) = ส่วนเบี่ยงเบนมาตรฐาน (Standard Deviation: SD) ÷ ผลตอบแทนเฉลี่ย (ทศนิยม 2 ตำแหน่ง)</span></div>
       <div class="scrollx"><table class="tb"><tr><th>ประเภทการลงทุน</th><th class="n">ผลตอบแทนเฉลี่ย (%)</th><th class="n">SD (%)</th><th class="n">CV</th></tr><tr><td>หุ้นสามัญบริษัทขนาดเล็ก</td><td class="n">17.3</td><td class="n">33.2</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.92" data-tol="0.02" aria-label="CV หุ้นสามัญบริษัทขนาดเล็ก" data-show="1.92"></td></tr><tr><td>หุ้นสามัญบริษัทขนาดใหญ่</td><td class="n">12.7</td><td class="n">20.2</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.59" data-tol="0.02" aria-label="CV หุ้นสามัญบริษัทขนาดใหญ่" data-show="1.59"></td></tr><tr><td>หุ้นกู้ระยะยาวของบริษัท</td><td class="n">6.1</td><td class="n">8.6</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.41" data-tol="0.02" aria-label="CV หุ้นกู้ระยะยาวของบริษัท" data-show="1.41"></td></tr><tr><td>หุ้นกู้ระยะยาวของรัฐบาล</td><td class="n">5.7</td><td class="n">9.4</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.65" data-tol="0.02" aria-label="CV หุ้นกู้ระยะยาวของรัฐบาล" data-show="1.65"></td></tr><tr><td>ตั๋วเงินคลัง</td><td class="n">3.9</td><td class="n">3.2</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.82" data-tol="0.02" aria-label="CV ตั๋วเงินคลัง" data-show="0.82"></td></tr></table></div>
       <button class="btn pri" data-check="#fb-hist" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
     <div class="callout after" data-after="#fb-hist" style="margin-top:.8rem"><div class="fxrev"><b>สูตรที่ใช้:</b><div>R̄ = Σ R<sub>t</sub> ÷ n</div><div>σ = √[ Σ (R<sub>t</sub> − R̄)<sup>2</sup> ÷ (n − 1) ]</div><div>พิสัย = R<sub>สูงสุด</sub> − R<sub>ต่ำสุด</sub></div><div>CV = σ ÷ R̄</div></div>ผลตอบแทนเฉลี่ยยิ่งสูง ความเสี่ยงก็ยิ่งสูง ตั๋วเงินคลังเสี่ยงต่ำที่สุด หุ้นขนาดเล็กเสี่ยงสูงที่สุด</div>
@@ -291,7 +291,7 @@
     <p>ขั้นแรก หาผลตอบแทนที่คาดหวัง (R̄) ของแต่ละโครงการ</p>
     <div class="game" id="fb-pj1"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">กรอก R̄ (%) ที่แถวสุดท้ายของแต่ละโครงการ</span></div>
     <div class="scrollx"><table class="tb"><tr><th>โครงการ</th><th class="n">ผลตอบแทน (%)</th><th class="n">ความน่าจะเป็น</th><th class="n">R̄ (%)</th></tr><tr><td>Project 1</td><td class="n">16</td><td class="n">1.00</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="16" data-tol="0.01" aria-label="R̄ Project 1"></td></tr><tr><td>Project 2</td><td class="n">20</td><td class="n">1.00</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="20" data-tol="0.01" aria-label="R̄ Project 2"></td></tr><tr><td>Project 3</td><td class="n">-16</td><td class="n">0.25</td><td class="n"></td></tr><tr><td></td><td class="n">36</td><td class="n">0.50</td><td class="n"></td></tr><tr><td></td><td class="n">48</td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="26.0" data-tol="0.01" aria-label="R̄ Project 3"></td></tr><tr><td>Project 4</td><td class="n">-8</td><td class="n">0.25</td><td class="n"></td></tr><tr><td></td><td class="n">16</td><td class="n">0.50</td><td class="n"></td></tr><tr><td></td><td class="n">24</td><td class="n">0.25</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="12.0" data-tol="0.01" aria-label="R̄ Project 4"></td></tr><tr><td>Project 5</td><td class="n">-40</td><td class="n">0.10</td><td class="n"></td></tr><tr><td></td><td class="n">0</td><td class="n">0.60</td><td class="n"></td></tr><tr><td></td><td class="n">100</td><td class="n">0.30</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="26.0" data-tol="0.01" aria-label="R̄ Project 5"></td></tr></table></div>
-    <button class="btn pri" data-check="#fb-pj1" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
+    <button class="btn pri" data-check="#fb-pj1" style="margin-top:.6rem">ตรวจคำตอบ</button></div><div class="callout after" data-after="#fb-pj1"><div class="fxrev"><b>สูตรที่ใช้:</b><div>R̄ = Σ (R<sub>j</sub> × P<sub>j</sub>)</div><div>R<sub>j</sub> = ผลตอบแทนในสถานการณ์ j · P<sub>j</sub> = ความน่าจะเป็น</div></div><b>เฉลย</b> Project 1 = 16 · Project 2 = 20 (ผลตอบแทนแน่นอน ความน่าจะเป็น 1.00)<br>Project 3 = (−16 × 0.25) + (36 × 0.50) + (48 × 0.25) = −4 + 18 + 12 = 26<br>Project 4 = (−8 × 0.25) + (16 × 0.50) + (24 × 0.25) = −2 + 8 + 6 = 12<br>Project 5 = (−40 × 0.10) + (0 × 0.60) + (100 × 0.30) = −4 + 0 + 30 = 26</div>
   </div>
 </section>
 <section class="slide" data-title="คำนวณ: Risk Averse plc (2)" data-know="must">
@@ -322,22 +322,22 @@
     <div class="game"><div class="gh"><span class="badge">ควิซ</span><span class="gt">เลือกเส้นที่ชอบกว่า</span></div><div id="g-q2"></div></div>
   </div>
 </section>
-<section class="slide" data-title="สัมประสิทธิ์ความแปรปรวน (CV) (ทบทวน)" data-know="must"><div class="inner"><span class="tag">Formula</span><h2>สูตร: สัมประสิทธิ์ความแปรปรวน (CV) (ทบทวน)</h2><div class="fx">CV = σ ÷ R̄</div><table class="sym"><caption>โดยที่</caption><tr><td>CV</td><td>ความเสี่ยงต่อหนึ่งหน่วยผลตอบแทน (Coefficient of variation)</td></tr><tr><td>σ</td><td>ส่วนเบี่ยงเบนมาตรฐาน</td></tr><tr><td>R̄</td><td>ผลตอบแทนที่คาดหวัง</td></tr></table><div class="callout">ใช้เปรียบเทียบสินทรัพย์ที่ผลตอบแทนเฉลี่ยต่างกัน ค่ายิ่งต่ำยิ่งดี</div></div></section>
-<section class="slide" data-title="คำนวณ: สัมประสิทธิ์ความแปรปรวน (CV)" data-know="must">
+<section class="slide" data-title="สัมประสิทธิ์ความแปรผัน (CV) (ทบทวน)" data-know="must"><div class="inner"><span class="tag">Formula</span><h2>สูตร: สัมประสิทธิ์ความแปรผัน (CV) (ทบทวน)</h2><div class="fx">CV = σ ÷ R̄</div><table class="sym"><caption>โดยที่</caption><tr><td>CV</td><td>ความเสี่ยงต่อหนึ่งหน่วยผลตอบแทน (Coefficient of variation)</td></tr><tr><td>σ</td><td>ส่วนเบี่ยงเบนมาตรฐาน</td></tr><tr><td>R̄</td><td>ผลตอบแทนที่คาดหวัง</td></tr></table><div class="callout">ใช้เปรียบเทียบสินทรัพย์ที่ผลตอบแทนเฉลี่ยต่างกัน ค่ายิ่งต่ำยิ่งดี</div></div></section>
+<section class="slide" data-title="คำนวณ: สัมประสิทธิ์ความแปรผัน (CV)" data-know="must">
   <div class="inner">
     <span class="tag">Coefficient of Variation</span>
-    <h2>สัมประสิทธิ์ความแปรปรวน CV = σ ÷ R̄</h2>
+    <h2>สัมประสิทธิ์ความแปรผัน (Coefficient of Variation: CV) = σ ÷ R̄</h2>
     <div class="callout">เป็นความเสี่ยงต่อผลตอบแทนหนึ่งหน่วย ค่ายิ่งต่ำยิ่งดี ใช้เปรียบเทียบเมื่อผลตอบแทนที่คาดหวังต่างกัน</div>
     <div class="game" id="fb-cv"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">โครงการ A: R̄ = 20%, σ = 30%   โครงการ B: R̄ = 25%, σ = 35%</span></div>
       <p>CV ของ A = <input class="fill sm" inputmode="decimal" data-answer="1.5" data-tol="0.005" aria-label="CV A"> &nbsp;&nbsp; CV ของ B = <input class="fill sm" inputmode="decimal" data-answer="1.4" data-tol="0.005" aria-label="CV B"> &nbsp;&nbsp; <span class="small">B เสี่ยงน้อยกว่าต่อหนึ่งหน่วยผลตอบแทน แม้ σ สูงกว่า</span></p>
-      <button class="btn pri" data-check="#fb-cv">ตรวจคำตอบ</button></div>
+      <button class="btn pri" data-check="#fb-cv">ตรวจคำตอบ</button></div><div class="callout after" data-after="#fb-cv"><div class="fxrev"><b>สูตรที่ใช้:</b><div>CV = σ ÷ R̄</div><div>σ = ส่วนเบี่ยงเบนมาตรฐาน (Standard Deviation) · R̄ = ผลตอบแทนที่คาดหวัง</div></div><b>เฉลย</b> CV ของ A = 30 ÷ 20 = 1.50 · CV ของ B = 35 ÷ 25 = 1.40<br>B มี CV ต่ำกว่า จึงเสี่ยงน้อยกว่าต่อผลตอบแทนหนึ่งหน่วย แม้ σ ของ B จะสูงกว่า</div>
     <div class="game" style="margin-top:.8rem"><div class="gh"><span class="badge">โจทย์สุ่ม</span><span class="gt">เปรียบเทียบสองโครงการด้วย CV</span></div><div id="g-drill2"></div></div>
   </div>
 </section>
 <section class="slide" data-title="คำนวณ: CV ของโครงการ Risk Averse plc" data-know="must">
   <div class="inner">
     <h2>CV ช่วยตัดสินใจเมื่อผลตอบแทนเท่ากันหรือต่างกัน</h2>
-    <div class="game" id="fb-cv2"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หาค่าสัมประสิทธิ์ความแปรผัน (Coefficient of Variation: CV) (ทศนิยม 2 ตำแหน่ง)</span></div>
+    <div class="game" id="fb-cv2"><div class="gh"><span class="badge">คำนวณ</span><span class="gt">หาสัมประสิทธิ์ความแปรผัน (Coefficient of Variation: CV) (ทศนิยม 2 ตำแหน่ง)</span></div>
     <div class="scrollx"><table class="tb"><tr><th>โครงการ</th><th class="n">R̄ (%)</th><th class="n">σ (%)</th><th class="n">CV</th></tr><tr><td>Project 3</td><td class="n">26</td><td class="n">24.7</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="0.95" data-tol="0.02" aria-label="CV Project 3"></td></tr><tr><td>Project 4</td><td class="n">12</td><td class="n">12.0</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.0" data-tol="0.02" aria-label="CV Project 4"></td></tr><tr><td>Project 5</td><td class="n">26</td><td class="n">49.8</td><td class="n"><input class="fill sm" inputmode="decimal" data-answer="1.92" data-tol="0.02" aria-label="CV Project 5"></td></tr></table></div>
     <button class="btn pri" data-check="#fb-cv2" style="margin-top:.6rem">ตรวจคำตอบ</button></div>
     <div class="callout after" data-after="#fb-cv2" style="margin-top:.8rem">Project 3 กับ Project 5 ให้ R̄ = 26% เท่ากัน แต่ CV ของ Project 5 สูงกว่าเกือบสองเท่า จึงเสี่ยงกว่าอย่างชัดเจน (Project 1 และ 2 มี CV = 0)</div>
@@ -414,7 +414,7 @@
       <div class="card g"><h3>ผลตอบแทน</h3><p>อัตราผลตอบแทน = [เงินปันผล + (ราคาขาย − ราคาซื้อ)] ÷ ราคาซื้อ</p></div>
       <div class="card p"><h3>ผลตอบแทนที่คาดหวัง</h3><p>R̄ = Σ (R<sub>i</sub> × P<sub>i</sub>)</p></div>
       <div class="card t"><h3>ส่วนเบี่ยงเบนมาตรฐาน</h3><p>σ = √ Σ [(R<sub>i</sub> − R̄)<sup>2</sup> × P<sub>i</sub>]</p></div>
-      <div class="card l"><h3>สัมประสิทธิ์ความแปรปรวน</h3><p>CV = σ ÷ R̄ (ต่ำ = เสี่ยงต่อหน่วยผลตอบแทนน้อย)</p></div>
+      <div class="card l"><h3>สัมประสิทธิ์ความแปรผัน</h3><p>CV = σ ÷ R̄ (ต่ำ = เสี่ยงต่อหน่วยผลตอบแทนน้อย)</p></div>
       <div class="card w"><h3>เลือกโครงการ</h3><p>ตัดโครงการที่ผลตอบแทนต่ำกว่าแต่เสี่ยงมากกว่าออก แล้วเลือกตามทัศนคติต่อความเสี่ยง</p></div>
       <div class="card"><h3>ความเสี่ยง 2 ชนิด</h3><p>ที่เป็นระบบ: กระจายไม่ได้ ใช้ Hedge · ที่ไม่เป็นระบบ: กระจายการลงทุนได้</p></div>
     </div>
