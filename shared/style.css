@@ -275,3 +275,20 @@ table.sym td:first-child{white-space:nowrap;font-weight:600;color:var(--purple);
   .fsz button[title="ขนาดตัวอักษรปกติ"]{display:none}
   .fsz .kf{font-size:.66rem}
 }
+
+.fsz .hubl{flex:none;border:1.5px solid var(--green);color:var(--green-d);background:#fff;border-radius:.5rem;height:2rem;line-height:calc(2rem - 3px);padding:0 .8rem;font-weight:700;font-size:.85rem;text-decoration:none;white-space:nowrap;margin-right:.3rem}
+.fsz .hubl:hover{background:var(--lime-l)}
+#knowTag.know{position:static;pointer-events:none;font-size:.72rem;padding:.12rem .6rem;white-space:nowrap}
+#knowTag.none{display:none}
+.fxrev{margin:.2rem 0 .6rem;padding:.5rem .8rem;background:#fff;border:1.5px dashed var(--purple);border-radius:.6rem}
+.fxrev b{color:var(--purple)}
+.fxrev div{margin:.15rem 0;font-weight:600}
+.feedback .fxrev,.fxd{display:block;margin-top:.5rem;padding:.4rem .7rem;border:1.5px dashed var(--purple);border-radius:.5rem;background:#fff;color:var(--ink)}
+@media(max-width:640px){
+  header.top{flex-wrap:wrap}
+  header.top .mid{display:block;order:3;flex:1 1 100%;font-size:.72rem;white-space:normal;text-align:center;line-height:1.2}
+  .fsz .hubl{height:1.8rem;line-height:calc(1.8rem - 3px);padding:0 .5rem;font-size:.7rem;margin-right:.1rem}
+}
+.abbr{margin-top:1.2rem;padding:.55rem .9rem;border-top:1.5px dashed var(--line);font-size:.82rem;color:var(--muted);line-height:1.6}
+.abbr span{font-weight:700;color:var(--purple)}
+.abbr b{color:var(--ink)}

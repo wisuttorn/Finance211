@@ -13,12 +13,8 @@
       b.addEventListener('keydown', function (e) { e.stopPropagation(); });
       box.appendChild(b);
     });
-    if (document.querySelector('.slide[data-know]')) {
-      var kb = document.createElement('button'); kb.type = 'button'; kb.className = 'kf'; kb.textContent = 'Must Know เท่านั้น'; kb.setAttribute('aria-pressed', 'false'); kb.title = 'ข้ามหัวข้อ Nice to Know เมื่อกดถัดไป/ย้อนกลับ';
-      kb.addEventListener('click', function (e) { e.stopPropagation(); var on = kb.getAttribute('aria-pressed') !== 'true'; kb.setAttribute('aria-pressed', on ? 'true' : 'false'); window.__mustOnly(on); kb.blur(); });
-      kb.addEventListener('keydown', function (e) { e.stopPropagation(); });
-      box.insertBefore(kb, box.firstChild);
-    }
+    var hub = document.createElement('a'); hub.className = 'hubl'; hub.href = '../index.html'; hub.textContent = 'รวมทุกบท'; hub.title = 'กลับไปหน้ารวมทุกบท';
+    box.insertBefore(hub, box.firstChild);
     var imgs = hd.querySelectorAll('img'); hd.insertBefore(box, imgs[imgs.length - 1]); apply();
   })();
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
@@ -42,6 +38,7 @@
     $('next').disabled = i === slides.length - 1;
     if (!noHash) { try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {} }
     Array.prototype.forEach.call(list.children, function (b, k) { b.classList.toggle('cur', k === i); });
+    var kt = $('knowTag'); if (kt) { var kk = s.getAttribute('data-know'); kt.className = 'know ' + (kk || 'none'); kt.textContent = kk ? KL[kk] : ''; }
     s.dispatchEvent(new CustomEvent('slideshow', { bubbles: true }));
   }
   var mustOnly = false;
@@ -53,10 +50,11 @@
   function next() { step(1); }
   function prev() { step(-1); }
   // Must Know / Nice to Know badges
+  (function () { var ctr = document.getElementById('counter'); if (ctr && !document.getElementById('knowTag')) { var t = document.createElement('span'); t.id = 'knowTag'; t.className = 'know none'; ctr.parentNode.insertBefore(t, ctr.nextSibling); } })();
   var KL = { must: 'Must Know', nice: 'Nice to Know' };
   slides.forEach(function (s) {
     var k = s.getAttribute('data-know'); if (!k) return;
-    var b = document.createElement('span'); b.className = 'know ' + k; b.textContent = KL[k]; s.insertBefore(b, s.firstChild);
+    
   });
   (function () {
     var o = slides.filter(function (s) { return /Chapter Objective/.test(s.getAttribute('data-title') || ''); })[0];
@@ -64,7 +62,7 @@
     if (!o || !nm) return;
     var inner = o.querySelector('.inner'); if (!inner) return;
     var p = document.createElement('p'); p.className = 'klegend';
-    p.innerHTML = 'สัญลักษณ์ที่มุมขวาบนของแต่ละหัวข้อ: <span class="know must">Must Know</span> เนื้อหาหลักที่ต้องเข้าใจและทำได้ (' + nm + ' หัวข้อ) · <span class="know nice">Nice to Know</span> ความรู้เสริม กรณีตัวอย่าง และห้องทดลองเพื่อต่อยอด (' + nn + ' หัวข้อ) · ปุ่ม "Must Know เท่านั้น" ที่แถบบนจะข้ามหัวข้อเสริม';
+    p.innerHTML = 'ป้ายที่แถบด้านล่างของแต่ละหัวข้อ: <span class="know must">Must Know</span> เนื้อหาหลักที่ต้องเข้าใจและทำได้ (' + nm + ' หัวข้อ) · <span class="know nice">Nice to Know</span> ความรู้เสริม กรณีตัวอย่าง และห้องทดลองเพื่อต่อยอด (' + nn + ' หัวข้อ) · ป้ายบอกประเภทอยู่ที่แถบด้านล่างของแต่ละหน้า';
     inner.appendChild(p);
   })();
 

@@ -217,6 +217,7 @@
   /* ---------- Random drill: generates a new numeric problem each time ----------
      cfg.gen() -> { q: html, fields:[{label, ans, tol, unit}], why: html } */
   G.drill = function (el, cfg) {
+    function frm() { var f = el.getAttribute('data-formula'); return f ? '<span class="fxd">' + f + '</span>' : ''; }
     var score = 0, total = 0, cur = null;
     function nextQ() {
       cur = cfg.gen(); el.innerHTML = '';
@@ -233,11 +234,11 @@
         if (done) return; var good = 0;
         ins.forEach(function (i, k) { var v = parseNum(i.value), ok = !isNaN(v) && Math.abs(v - cur.fields[k].ans) <= (cur.fields[k].tol || 0.01); i.className = 'fill ' + (ok ? 'ok' : 'bad'); if (ok) good++; });
         done = good === ins.length;
-        if (done) { total++; score++; fb.className = 'feedback ok'; fb.innerHTML = 'ถูกต้อง! ' + (cur.why || ''); top.querySelector('.score').textContent = 'ถูก ' + score + ' / ' + total + ' โจทย์'; }
+        if (done) { total++; score++; fb.className = 'feedback ok'; fb.innerHTML = 'ถูกต้อง! ' + (cur.why || '') + frm(); top.querySelector('.score').textContent = 'ถูก ' + score + ' / ' + total + ' โจทย์'; }
         else { fb.className = 'feedback bad'; fb.textContent = 'ถูก ' + good + ' / ' + ins.length + ' ช่อง ลองคำนวณใหม่ หรือกด "ดูเฉลย"'; show.classList.remove('hide'); }
       };
       var show = h('button', 'btn ghost hide', 'ดูเฉลย');
-      show.onclick = function () { if (!done) { total++; done = true; } ins.forEach(function (i, k) { i.value = cur.fields[k].show || cur.fields[k].ans; i.className = 'fill rev'; }); fb.className = 'feedback bad'; fb.innerHTML = 'เฉลย: ' + (cur.why || ''); top.querySelector('.score').textContent = 'ถูก ' + score + ' / ' + total + ' โจทย์'; };
+      show.onclick = function () { if (!done) { total++; done = true; } ins.forEach(function (i, k) { i.value = cur.fields[k].show || cur.fields[k].ans; i.className = 'fill rev'; }); fb.className = 'feedback bad'; fb.innerHTML = 'เฉลย: ' + (cur.why || '') + frm(); top.querySelector('.score').textContent = 'ถูก ' + score + ' / ' + total + ' โจทย์'; };
       nx.onclick = function () { if (!done && !cfg.free) total++; nextQ(); };
       [top, q, box, h('div', 'flow-ctl'), fb].forEach(function (x) { el.appendChild(x); });
       var ctl = el.querySelector('.flow-ctl'); ctl.appendChild(btn); ctl.appendChild(show); ctl.appendChild(nx);
